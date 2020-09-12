@@ -1,5 +1,10 @@
 {
-  "dependencies": {
-    "morgan": "^1.10.0"
+  "scripts": {
+    "start-client": "yarn --cwd client start",
+    "start-server": "yarn --cwd server start",
+    "start": "concurrently \"yarn start-server\" \"yarn start-client\""
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
   }
 }
