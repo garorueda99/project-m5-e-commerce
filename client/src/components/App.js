@@ -6,10 +6,14 @@ import Home from './home-page/Home';
 import Cart from './cart-page/Cart';
 import Item from './item-page/Item';
 import Error from './error-page/Error';
+<<<<<<< HEAD
 import SignIn from './signin-page/SignIn';
 import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
 
+=======
+import Header from './Header';
+>>>>>>> 4aa9f97... express.js backend routes
 // Styles
 import GlobalStyles from './GlobalStyles';
 
