@@ -1,25 +1,26 @@
 // Libraries
 import React from 'react';
 import { GiPegasus } from 'react-icons/gi';
+import { NavLink } from 'react-router-dom';
 // Styles
 import styled from 'styled-components';
 
 const Header = () => {
   return (
     <Wrapper>
-      <Logo href="#">
+      <Logo to="/">
         <GiPegasus style={{ height: '30px', width: '30px' }} />
         <Title>Pegasus Wearables</Title>
       </Logo>
       <nav>
-        <NavBar>
+        <NavigationList>
           <li>
-            <NavLink href="#">Sign In</NavLink>
+            <NavigationLink to="/">Sign In</NavigationLink>
           </li>
           <li>
-            <NavLink href="#">Cart</NavLink>
+            <NavigationLink to="/cart">Cart</NavigationLink>
           </li>
-        </NavBar>
+        </NavigationList>
       </nav>
     </Wrapper>
   );
@@ -35,11 +36,14 @@ const Wrapper = styled.header`
   color: #fff;
 `;
 
-const Logo = styled.a`
+const Logo = styled(NavLink)`
   display: flex;
   align-items: center;
   color: #fff;
   text-decoration: none;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const Title = styled.span`
@@ -47,14 +51,14 @@ const Title = styled.span`
   padding-left: 6px;
 `;
 
-const NavBar = styled.ul`
+const NavigationList = styled.ul`
   display: flex;
   list-style: none;
   text-align: right;
   text-decoration: none;
 `;
 
-const NavLink = styled.a`
+const NavigationLink = styled(NavLink)`
   margin: 0 2em;
   color: #fff;
   text-decoration: none;

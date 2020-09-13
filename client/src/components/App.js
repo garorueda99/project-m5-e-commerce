@@ -20,28 +20,25 @@ function App() {
   }, []);
 
   return (
-    <div>
-      {bacon ? (
-        bacon
-      ) : (
-        <Router>
-          <Header />
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/item/:itemId">
-            <Item />
-          </Route>
-          <Route path="/cart">
-            <Cart />
-          </Route>
-          <Route path="/error">
-            <Error />
-          </Route>
-          <GlobalStyles />
-        </Router>
-      )}
-    </div>
+    <>
+      <Router>
+        <Header />
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/item/:itemId">
+          <Item />
+        </Route>
+        <Route path="/cart">
+          <Cart />
+        </Route>
+        <Route path="/error">
+          <Error />
+        </Route>
+        <div>{bacon ? bacon : `...LET's START?...`}</div>
+        <GlobalStyles />
+      </Router>
+    </>
   );
 }
 
