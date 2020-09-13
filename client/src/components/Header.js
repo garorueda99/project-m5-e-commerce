@@ -15,7 +15,7 @@ const Header = () => {
       <nav>
         <NavigationList>
           <li>
-            <NavigationLink to="/">Sign In</NavigationLink>
+            <NavigationLink to="/signin">Sign In</NavigationLink>
           </li>
           <li>
             <NavigationLink to="/cart">Cart</NavigationLink>

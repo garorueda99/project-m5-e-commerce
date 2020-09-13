@@ -6,7 +6,10 @@ import Home from './home-page/Home';
 import Cart from './cart-page/Cart';
 import Item from './item-page/Item';
 import Error from './error-page/Error';
+import SignIn from './signin-page/SignIn';
+import Confirmation from './confirmation-page/Confirmation';
 import Header from './Header';
+
 // Styles
 import GlobalStyles from './GlobalStyles';
 
@@ -31,6 +34,12 @@ function App() {
         </Route>
         <Route path="/cart">
           <Cart />
+        </Route>
+        <Route path="/confirmation">
+          <Confirmation />
+        </Route>
+        <Route path="/signin">
+          <SignIn />
         </Route>
         <Route path="/error">
           <Error />
