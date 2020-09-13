@@ -7,7 +7,7 @@ import Cart from './cart-page/Cart';
 import Item from './item-page/Item';
 import Error from './error-page/Error';
 import SignIn from './signin-page/SignIn';
-import Confirmation from './confirmation-page/Confirmation';
+import OrderConfirmation from './oder-confirmation-page/OrderConfirmation';
 import Header from './Header';
 
 // Styles
@@ -35,8 +35,8 @@ function App() {
         <Route path="/cart">
           <Cart />
         </Route>
-        <Route path="/confirmation">
-          <Confirmation />
+        <Route path="/order-confirmation">
+          <OrderConfirmation />
         </Route>
         <Route path="/signin">
           <SignIn />
