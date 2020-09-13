@@ -1,7 +1,7 @@
-"use strict";
-const path = require("path");
-const express = require("express");
-const morgan = require("morgan");
+'use strict';
+const path = require('path');
+const express = require('express');
+const morgan = require('morgan'); // log requests
 const app = new express();
 const PORT = 4000;
 
@@ -11,31 +11,33 @@ const PORT = 4000;
 //app.use(bodyParser.json()); https://medium.com/@mmajdanski/express-body-parser-and-why-may-not-need-it-335803cd048c
 
 app
+  //Middleware functions
   .use(express.json())
-  .use(morgan("dev"))
-
-  //Check what is this for added by Andres Rueda
+  .use(morgan('dev'))
   .use(function (req, res, next) {
     res.header(
-      "Access-Control-Allow-Methods",
-      "OPTIONS, HEAD, GET, PUT, POST, DELETE"
+      'Access-Control-Allow-Methods',
+      //A comma-separated list of HTTP methods that are allowed
+      'OPTIONS, HEAD, GET, PUT, POST, DELETE'
     );
     res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
+      'Access-Control-Allow-Headers',
+      //A comma-separated list of the custom headers that are allowed to be sent
+      //https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers
+      'Origin, X-Requested-With, Content-Type, Accept'
     );
     next();
   })
   //STATIC FOLDER = assets
-  .use("/assets", express.static(path.join(__dirname, "assets")))
+  .use('/assets', express.static(path.join(__dirname, 'assets')))
   .use(express.urlencoded({ extended: false }))
-
   //https://expressjs.com/en/starter/static-files.html
-  .use("/", express.static(__dirname + "/"))
-
+  .use('/', express.static(__dirname + '/'))
   // REST endpoints HERE
+
   //END POINTS GOES IN ROUTES FOLDER. if doubts ask Andres Rueda
-  .use(require("./routes/bacon"));
+  .use(require('./routes/profile'))
+  .use(require('./routes/items'));
 
 app.listen(PORT, (error) => {
   if (error) {
