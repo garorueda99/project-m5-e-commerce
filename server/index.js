@@ -37,7 +37,8 @@ app
 
   //END POINTS GOES IN ROUTES FOLDER. if doubts ask Andres Rueda
   .use(require('./routes/profile'))
-  .use(require('./routes/items'));
+  .use(require('./routes/items'))
+  .use(require('./routes/seller'));
 
 app.listen(PORT, (error) => {
   if (error) {
