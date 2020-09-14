@@ -3,14 +3,12 @@
 # E-commerce API docs
 
 The E-commerce API is a REST API for an E-commerce App. It offers a limited subset of the kinds of things you can do on a regular E-commerce App.
-
 At this time, there is no user authentication. Instead, a hardcoded user is always logged in, `garo99`. You cannot log out, or switch users.
 
 # Setup and ports
 
-Run `yarn install` to install dependencies, you must be at C:\project-m5-e-commerce\server>
-
-by runnig yarn start from the root it will run at the same time the client and the server side
+Run `yarn install` to install dependencies, you must be at C:\project-m5-e-commerce\server>.
+By running yarn start from the root it will run at the same time the client and the server side.
 
 The server runs on port _4000_, so you can access the server at `http://localhost:4000/`. As a test, you can go to `http://localhost:4000/api/me/profile`. You should see a JSON object shown in the browser:
 
@@ -28,14 +26,14 @@ The server runs on port _4000_, so you can access the server at `http://localhos
 
 # Endpoints
 
-Endpoints are grouped in 3 categories:
+Endpoints are grouped into 4 categories:
 
 - **buyer** - relating to users/buyers
 - **seller** - Relating to sellers/companies
 - **item** - single item
-- **products** - groups of items
+- **products** - group of filtered items
 
-## buyer Endpoints
+## Buyer Endpoints
 
 These endpoints control user-specific things: getting buyer info
 
@@ -57,13 +55,13 @@ Should come in this structure:
 }
 ```
 
-## seller Endpoints
+## Seller Endpoints
 
 These endpoints control seller-specific things: getting seller info
 
 ### GET /api/seller/:sellerId
 
-Get the profile for an specific seller.
+Get the profile for a specific seller.
 
 Should come in this structure:
 
@@ -76,7 +74,7 @@ Should come in this structure:
 }
 ```
 
-## item Endpoints
+## Item Endpoints
 
 ### GET /api/item/:itemId
 
@@ -125,7 +123,7 @@ A group of items selected by:
 - **"price_range":** [0, 105.99, <exact/near>] ==> the product is widthin the range (min, max)
 - **"body_location":** "Wrist" ==> all product for the same body location [<location1, location2,..., locationN>]
 - **"category":** ["Fitness"] ==> all product for the same category [<category1>,<category2>,..., <categoryN>]
-- **"qty":** [10, <random>] ==> all product for the same category [<qty to return>]
+- **"qty":** [10, <random>] ==> # of results of filterd products that the front wants to receive [<qty to return>]
 
 **Important**: You'll need to specify the filters with a JSON body:
 
