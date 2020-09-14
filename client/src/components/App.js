@@ -14,14 +14,15 @@ import Header from './Header';
 import GlobalStyles from './GlobalStyles';
 
 function App() {
-  const [bacon, setBacon] = useState(null);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    fetch('/bacon')
+    fetch('/api/me/profile')
       .then((res) => res.json())
-      .then((data) => setBacon(data));
+      .then((data) => setProfile(data));
   }, []);
 
+  console.log(profile);
   return (
     <>
       <Router>
@@ -44,7 +45,6 @@ function App() {
         <Route path="/error">
           <Error />
         </Route>
-        <div>{bacon ? bacon : `...LET's START?...`}</div>
         <GlobalStyles />
       </Router>
     </>
