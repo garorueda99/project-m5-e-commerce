@@ -41,4 +41,21 @@ export default createGlobalStyle`
     font-family: Montserrat, sans-serif;
   }
 
+  body {
+    height: 100vh;
+  }
+
+/* Header */
+  @media ( max-width: 500px ) {
+    .top-nav-link { margin-left: 10px; }
+  }
+  @media ( min-width: 501px ) {
+    span.top-nav-icon { display: none }
+    span.top-nav-text { display: inline-block }
+  }
+  @media ( max-width: 500px ) {
+    span.top-nav-icon { display: inline-block }
+    span.top-nav-text { display: none }
+  }
+
 `;
