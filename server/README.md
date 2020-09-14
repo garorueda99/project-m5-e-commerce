@@ -89,7 +89,7 @@ Example:
     "body_location": "Wrist",
     "category": "Fitness",
     "_id": 6549,
-    "imageSrc": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/.............more
+    "imageSrc": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/.............more",
     "numInStock": 0,
     "companyId": 17748
   },
@@ -154,6 +154,7 @@ All Products endpoints return data in the following structure:
     "imageSrc": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/VKqIgIiICIiAiIgIiICIiD//Z........more",
     "numInStock": 2,
     "companyId": 17748
-  },.....
-  ]
+  },
+  "..."
+]
 ```
