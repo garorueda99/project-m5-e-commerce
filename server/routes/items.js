@@ -3,6 +3,11 @@
 const router = require('express').Router();
 const { items } = require('./routes.helpers');
 
+router.get('/api/items', (req, res) => {
+  const newItemsList = items.slice(0, 30);
+  res.status(200).json(newItemsList);
+});
+
 router.get('/api/item/:itemId', (req, res) => {
   const item = items.find((item) => (item['_id'] = req.params.itemId));
   res.status(200).json(item);

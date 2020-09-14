@@ -117,6 +117,8 @@ You'll get an error if you try to sell more than the quantity available
 
 ## Filtered Endpoints
 
+### GET /api/items
+
 A group of items selected by:
 
 - **"keyword":** "Ekho" ==> the word is included in the name
