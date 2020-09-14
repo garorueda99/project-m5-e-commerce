@@ -7,7 +7,7 @@ import Cart from './cart-page/Cart';
 import Item from './item-page/Item';
 import Error from './error-page/Error';
 import SignIn from './signin-page/SignIn';
-import OrderConfirmation from './oder-confirmation-page/OrderConfirmation';
+import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
 
 // Styles
