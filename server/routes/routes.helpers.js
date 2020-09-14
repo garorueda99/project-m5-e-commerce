@@ -1,4 +1,5 @@
 const items = require('../data/items.json');
+const sellers = require('../data/companies.json');
 
 // HARDCODED CURRENT USER.
 const CURRENT_USER_ID = {
@@ -13,4 +14,6 @@ const CURRENT_USER_ID = {
 
 module.exports = {
   CURRENT_USER_ID,
+  items,
+  sellers,
 };

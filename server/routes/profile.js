@@ -7,7 +7,7 @@ const { CURRENT_USER_ID } = require('./routes.helpers.js');
 
 router.get('/api/me/profile', (req, res) => {
   const profile = CURRENT_USER_ID;
-  res.json(profile);
+  res.status(200).json(profile);
 });
 
 module.exports = router;
