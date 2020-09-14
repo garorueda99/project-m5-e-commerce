@@ -1,5 +1,7 @@
 // Libraries
 import React from 'react';
+import { BiUser } from 'react-icons/bi';
+import { CgShoppingCart } from 'react-icons/cg';
 import { GiPegasus } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
 // Styles
@@ -15,10 +17,24 @@ const Header = () => {
       <nav>
         <NavigationList>
           <li>
-            <NavigationLink to="/signin">Sign In</NavigationLink>
+            <NavigationLink className="top-nav-link" to="/cart">
+              <span className="top-nav-text">Cart</span>
+              <span className="top-nav-icon">
+                <CgShoppingCart
+                  style={{ height: '18px', width: '18px', marginTop: '4px' }}
+                />
+              </span>
+            </NavigationLink>
           </li>
           <li>
-            <NavigationLink to="/cart">Cart</NavigationLink>
+            <NavigationLink className="top-nav-link" to="/signin">
+              <span className="top-nav-text">Sign In</span>
+              <span className="top-nav-icon">
+                <BiUser
+                  style={{ height: '18px', width: '18px', marginTop: '4px' }}
+                />
+              </span>
+            </NavigationLink>
           </li>
         </NavigationList>
       </nav>
@@ -27,13 +43,16 @@ const Header = () => {
 };
 
 const Wrapper = styled.header`
-  flex: 0 0 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 24px;
+  height: 60px;
+  padding: 24px;
   background-color: #575555;
   color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 const Logo = styled(NavLink)`
@@ -41,6 +60,7 @@ const Logo = styled(NavLink)`
   align-items: center;
   color: #fff;
   text-decoration: none;
+
   &:hover {
     opacity: 0.5;
   }
@@ -59,7 +79,7 @@ const NavigationList = styled.ul`
 `;
 
 const NavigationLink = styled(NavLink)`
-  margin: 0 2em;
+  margin-left: 20px;
   color: #fff;
   text-decoration: none;
   transition: opacity 0.2s ease-in-out;
