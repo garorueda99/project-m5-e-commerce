@@ -6,7 +6,6 @@ import { GiPegasus } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
 // Styles
 import styled from 'styled-components';
-import Footer from './Footer';
 
 const Header = () => {
   return (
