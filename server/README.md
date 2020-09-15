@@ -3,12 +3,13 @@
 # E-commerce API docs
 
 The E-commerce API is a REST API for an E-commerce App. It offers a limited subset of the kinds of things you can do on a regular E-commerce App.
-At this time, there is no user authentication. Instead, a hardcoded user is always logged in, `garo99`. You cannot log out, or switch users.
+At this time, there is no user authentication. Instead, a hardcoded user is always logged in as `garo99`. You cannot log out, or switch users for now.
 
 # Setup and ports
 
-Run `yarn install` to install dependencies, you must be at C:\project-m5-e-commerce\server>.
-By running yarn start from the root it will run at the same time the client and the server side.
+Run `yarn install` to install dependencies, you must be at .\project-m5-e-commerce\server>. From there you can also execute `yarn start` and will start the backend up
+
+By running `yarn start` from the root .\project-m5-e-commerce> it will run at the same time the client and the server sides.
 
 The server runs on port _4000_, so you can access the server at `http://localhost:4000/`. As a test, you can go to `http://localhost:4000/api/me/profile`. You should see a JSON object shown in the browser:
 
@@ -26,16 +27,15 @@ The server runs on port _4000_, so you can access the server at `http://localhos
 
 # Endpoints
 
-Endpoints are grouped into 4 categories:
+Endpoints are grouped into 3 categories:
 
 - **buyer** - relating to users/buyers
 - **seller** - Relating to sellers/companies
-- **item** - single item
-- **products** - group of filtered items
+- **items** - single item / group of filtered items / info about available categories
 
 ## Buyer Endpoints
 
-These endpoints control user-specific things: getting buyer info
+This endpoint control user-specific things: getting buyer info
 
 ### GET /api/me/profile
 
@@ -95,14 +95,14 @@ Example:
   },
 ```
 
-### PUT /api/item/:itemId
+### PUT /api/item/reduce
 
-To reduce the inventory once a sale has been posted
+Reduces the inventory once a sale has been posted
 
 **Important**: You'll need to specify the quantity to reduce from the inventory with a JSON body:
 
 ```json
-{ "purchasedAmount": 3 }
+{ "6547": 3, "6625": 2 }
 ```
 
 If everything goes well, you'll get a response that looks like this:
@@ -119,18 +119,29 @@ You'll get an error if you try to sell more than the quantity available
 
 ### GET /api/items
 
+- if body not present will sent firts 30,
+- if body will send result according to the filter parameters
+
 A group of items selected by:
 
-- **"keyword":** "Ekho" ==> the word is included in the name
-- **"price_range":** [0, 105.99, <exact/near>] ==> the product is widthin the range (min, max)
-- **"body_location":** "Wrist" ==> all product for the same body location [<location1, location2,..., locationN>]
-- **"category":** ["Fitness"] ==> all product for the same category [<category1>,<category2>,..., <categoryN>]
-- **"qty":** [10, <random>] ==> # of results of filterd products that the front wants to receive [<qty to return>]
+- **"keyword":** "Ekho" ==> the word is included in the name. Doesn't not requiere a exact match of capital letters.
+- **"price_range":** [0, 105.99] ==> the product is widthin the range (min, max). If the array has more than 2 elements, the elements after the secondone won't be taken into account.
+- **"body_location":** "Wrist" ==> all product for the same body location [<location1, location2,..., locationN>].Doesn't not requiere a exact match of capital letters.
+- **"category":** ["Fitness"] ==> all product for the same category [<category1>,. <category2>,..., <categoryN>]Doesn't not requiere a exact match of capital letters.
+- **"query_result_maxqty":** [10, <random>] ==> # of results of filterd products that the front wants to receive [<qty to return>]
+- **"available":** true/false ==> the product is available in the inventory.
+  True = more than 0 on hand
+  False = no available
+  - **"companyId":** Products of the same company
 
 **Important**: You'll need to specify the filters with a JSON body:
 
 ```json
-{ "keyword": "Ekho", "price_range": "[0, 105.99, exact]", "qty": "10" }
+{
+  "keyword": "Ekho",
+  "price_range": "[0, 105.99, exact]",
+  "query_result_maxqty": "10"
+}
 ```
 
 All Products endpoints return data in the following structure:
