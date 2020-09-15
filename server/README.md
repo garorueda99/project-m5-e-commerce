@@ -119,18 +119,29 @@ You'll get an error if you try to sell more than the quantity available
 
 ### GET /api/items
 
+- if body not present will sent firts 30,
+- if body will send result according to the filter parameters
+
 A group of items selected by:
 
-- **"keyword":** "Ekho" ==> the word is included in the name
-- **"price_range":** [0, 105.99, <exact/near>] ==> the product is widthin the range (min, max)
-- **"body_location":** "Wrist" ==> all product for the same body location [<location1, location2,..., locationN>]
-- **"category":** ["Fitness"] ==> all product for the same category [<category1>,<category2>,..., <categoryN>]
-- **"qty":** [10, <random>] ==> # of results of filterd products that the front wants to receive [<qty to return>]
+- **"keyword":** "Ekho" ==> the word is included in the name. Doesn't not requiere a exact match of capital letters.
+- **"price_range":** [0, 105.99] ==> the product is widthin the range (min, max). If the array has more than 2 elements, the elements after the secondone won't be taken into account.
+- **"body_location":** "Wrist" ==> all product for the same body location [<location1, location2,..., locationN>].Doesn't not requiere a exact match of capital letters.
+- **"category":** ["Fitness"] ==> all product for the same category [<category1>,. <category2>,..., <categoryN>]Doesn't not requiere a exact match of capital letters.
+- **"query_result_maxqty":** [10, <random>] ==> # of results of filterd products that the front wants to receive [<qty to return>]
+- **"available":** true/false ==> the product is available in the inventory.
+  True = more than 0 on hand
+  False = no available
+  - **"companyId":** Products of the same company
 
 **Important**: You'll need to specify the filters with a JSON body:
 
 ```json
-{ "keyword": "Ekho", "price_range": "[0, 105.99, exact]", "qty": "10" }
+{
+  "keyword": "Ekho",
+  "price_range": "[0, 105.99, exact]",
+  "query_result_maxqty": "10"
+}
 ```
 
 All Products endpoints return data in the following structure:
