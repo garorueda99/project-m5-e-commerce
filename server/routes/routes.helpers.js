@@ -1,5 +1,26 @@
 const items = require('../data/items.json');
 const sellers = require('../data/companies.json');
+const CATEGORIES = [
+  'Fitness',
+  'Medical',
+  'Lifestyle',
+  'Entertainment',
+  'Industrial',
+  'Pets and Animals',
+  'Gaming',
+];
+
+const BODY_LOCATIONS = [
+  'Wrist',
+  'Arms',
+  'Head',
+  'Waist',
+  'Chest',
+  'Hands',
+  'Neck',
+  'Feet',
+  'Torso',
+];
 
 // HARDCODED CURRENT USER.
 const CURRENT_USER_ID = {
@@ -11,6 +32,30 @@ const CURRENT_USER_ID = {
     email: 'garo99@gmail.com',
   },
 };
+
+/////INDEXATION FUNCTION DB MAINTENANCE /////
+
+//GET CATEGORY INDEX
+function ListOfCategories() {
+  const LIST_OF_CATEGORIES = [];
+  items.map((element) =>
+    LIST_OF_CATEGORIES.includes(element.category)
+      ? ''
+      : LIST_OF_CATEGORIES.push(element.category)
+  );
+  console.log(LIST_OF_CATEGORIES);
+}
+
+//GET BODY LOCATION INDEX
+function ListOfBodyLocations() {
+  const LIST_OF_BODY = [];
+  items.map((element) =>
+    LIST_OF_BODY.includes(element.body_location)
+      ? ''
+      : LIST_OF_BODY.push(element.body_location)
+  );
+  console.log(LIST_OF_BODY);
+}
 
 const FILTER_KEYS = [
   'keyword',
@@ -123,4 +168,6 @@ module.exports = {
   sellers,
   FILTER_KEYS,
   filterItems,
+  CATEGORIES,
+  BODY_LOCATIONS,
 };
