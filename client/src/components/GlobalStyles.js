@@ -25,6 +25,7 @@ export default createGlobalStyle`
     padding: 0;
     border: 0;
     vertical-align: baseline;
+    font-family: Arial, Helvetica, sans-serif;
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
@@ -43,19 +44,19 @@ export default createGlobalStyle`
 
   body {
     height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
   }
 
 /* Header */
-  @media ( max-width: 500px ) {
-    .top-nav-link { margin-left: 10px; }
-  }
-  @media ( min-width: 501px ) {
-    span.top-nav-icon { display: none }
-    span.top-nav-text { display: inline-block }
-  }
-  @media ( max-width: 500px ) {
-    span.top-nav-icon { display: inline-block }
-    span.top-nav-text { display: none }
-  }
-
+@media ( min-width: 501px ) {
+  span.sm-header-title { display: none }
+  span.sm-top-nav-icon { display: none }
+  span.md-top-nav-text { display: inline-block }
+}
+@media ( max-width: 500px ) {
+  span.md-header-title { display: none }
+  span.md-top-nav-text { display: none }
+  span.sm-top-nav-icon { display: inline-block }
+}
 `;

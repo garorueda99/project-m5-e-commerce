@@ -6,20 +6,24 @@ import { GiPegasus } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
 // Styles
 import styled from 'styled-components';
+import Footer from './Footer';
 
 const Header = () => {
   return (
     <Wrapper>
       <Logo to="/">
         <GiPegasus style={{ height: '30px', width: '30px' }} />
-        <Title>Pegasus Wearables</Title>
+        <Title>
+          <span className="sm-header-title">Pegasus</span>
+          <span className="md-header-title">Pegasus Wearables</span>
+        </Title>
       </Logo>
       <nav>
         <NavigationList>
           <li>
-            <NavigationLink className="top-nav-link" to="/cart">
-              <span className="top-nav-text">Cart</span>
-              <span className="top-nav-icon">
+            <NavigationLink to="/cart">
+              <span className="md-top-nav-text">Cart</span>
+              <span className="sm-top-nav-icon">
                 <CgShoppingCart
                   style={{ height: '18px', width: '18px', marginTop: '4px' }}
                 />
@@ -27,9 +31,9 @@ const Header = () => {
             </NavigationLink>
           </li>
           <li>
-            <NavigationLink className="top-nav-link" to="/signin">
-              <span className="top-nav-text">Sign In</span>
-              <span className="top-nav-icon">
+            <NavigationLink to="/signin">
+              <span className="md-top-nav-text">Sign In</span>
+              <span className="sm-top-nav-icon">
                 <BiUser
                   style={{ height: '18px', width: '18px', marginTop: '4px' }}
                 />
@@ -46,12 +50,13 @@ const Wrapper = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   height: 60px;
   padding: 24px;
   background-color: #575555;
   color: #fff;
-  position: sticky;
-  top: 0;
+  position: fixed;
+  left: 0;
   z-index: 10;
 `;
 

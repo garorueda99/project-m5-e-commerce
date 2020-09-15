@@ -1,0 +1,23 @@
+// Libraries
+import React from 'react';
+// Styles
+import styled from 'styled-components';
+
+const Footer = () => {
+  return (
+    <Wrapper>
+      <p style={{ fontSize: '12px' }}>
+        © 2020 Pegasus Wearables Inc. All rights reserved
+      </p>
+    </Wrapper>
+  );
+};
+
+const Wrapper = styled.footer`
+  height: 60px;
+  padding: 24px;
+  background-color: #575555;
+  color: #fff;
+`;
+
+export default Footer;
