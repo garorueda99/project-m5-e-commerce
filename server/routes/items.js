@@ -1,7 +1,13 @@
 //Endpoints related to items
 
 const router = require('express').Router();
-const { items, FILTER_KEYS, filterItems } = require('./routes.helpers');
+const {
+  items,
+  FILTER_KEYS,
+  filterItems,
+  CATEGORIES,
+  BODY_LOCATIONS,
+} = require('./routes.helpers');
 
 router.get('/api/items', (req, res) => {
   const body = req.body;
@@ -62,6 +68,14 @@ router.put('/api/items/reduce', (req, res) => {
     item.numInStock = item.numInStock - reducer[element];
   }
   return res.json({ success: true });
+});
+
+router.get('/api/items/categories', (req, res) => {
+  res.status(200).json(CATEGORIES);
+});
+
+router.get('/api/items/body_locations', (req, res) => {
+  res.status(200).json(BODY_LOCATIONS);
 });
 
 module.exports = router;

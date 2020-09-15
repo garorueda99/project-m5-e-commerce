@@ -31,7 +31,7 @@ Endpoints are grouped into 3 categories:
 
 - **buyer** - relating to users/buyers
 - **seller** - Relating to sellers/companies
-- **items** - single item / group of filtered items / info about available categories
+- **items** - single item / group of filtered items / info about available categories or body locations
 
 ## Buyer Endpoints
 
@@ -170,4 +170,42 @@ All Products endpoints return data in the following structure:
   },
   "..."
 ]
+```
+
+### GET /api/items/categories
+
+It provides an array with a list of all the categories
+
+```json
+{
+  "categories": [
+    "Fitness",
+    "Medical",
+    "Lifestyle",
+    "Entertainment",
+    "Industrial",
+    "Pets and Animals",
+    "Gaming"
+  ]
+}
+```
+
+### GET /api/items/body_locations
+
+It provides an array with a list of all the body locations
+
+```json
+{
+  "body_locations": [
+    "Wrist",
+    "Arms",
+    "Head",
+    "Waist",
+    "Chest",
+    "Hands",
+    "Neck",
+    "Feet",
+    "Torso"
+  ]
+}
 ```
