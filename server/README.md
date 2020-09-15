@@ -3,12 +3,13 @@
 # E-commerce API docs
 
 The E-commerce API is a REST API for an E-commerce App. It offers a limited subset of the kinds of things you can do on a regular E-commerce App.
-At this time, there is no user authentication. Instead, a hardcoded user is always logged in, `garo99`. You cannot log out, or switch users.
+At this time, there is no user authentication. Instead, a hardcoded user is always logged in as `garo99`. You cannot log out, or switch users for now.
 
 # Setup and ports
 
-Run `yarn install` to install dependencies, you must be at C:\project-m5-e-commerce\server>.
-By running yarn start from the root it will run at the same time the client and the server side.
+Run `yarn install` to install dependencies, you must be at .\project-m5-e-commerce\server>. From there you can also execute `yarn start` and will start the backend up
+
+By running `yarn start` from the root .\project-m5-e-commerce> it will run at the same time the client and the server sides.
 
 The server runs on port _4000_, so you can access the server at `http://localhost:4000/`. As a test, you can go to `http://localhost:4000/api/me/profile`. You should see a JSON object shown in the browser:
 
@@ -26,16 +27,15 @@ The server runs on port _4000_, so you can access the server at `http://localhos
 
 # Endpoints
 
-Endpoints are grouped into 4 categories:
+Endpoints are grouped into 3 categories:
 
 - **buyer** - relating to users/buyers
 - **seller** - Relating to sellers/companies
-- **item** - single item
-- **products** - group of filtered items
+- **items** - single item / group of filtered items / info about available categories
 
 ## Buyer Endpoints
 
-These endpoints control user-specific things: getting buyer info
+This endpoint control user-specific things: getting buyer info
 
 ### GET /api/me/profile
 
@@ -95,14 +95,14 @@ Example:
   },
 ```
 
-### PUT /api/item/:itemId
+### PUT /api/item/reduce
 
-To reduce the inventory once a sale has been posted
+Reduces the inventory once a sale has been posted
 
 **Important**: You'll need to specify the quantity to reduce from the inventory with a JSON body:
 
 ```json
-{ "purchasedAmount": 3 }
+{ "6547": 3, "6625": 2 }
 ```
 
 If everything goes well, you'll get a response that looks like this:

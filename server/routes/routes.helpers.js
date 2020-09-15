@@ -26,7 +26,6 @@ function filterItems(res, filters) {
   let newFilteredItems = [...items];
 
   for (let filter of Object.keys(filters)) {
-    console.log(filter);
     switch (filter) {
       case 'price_range':
         newFilteredItems = filterByPrice(newFilteredItems, ...filters[filter]);
