@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import Item from './Item';
 
 const Homepage = () => {
-
   // using state and props to pass data
-  // 
+  //
 
   const [itemList, setItemList] = React.useState('');
 
@@ -20,7 +19,7 @@ const Homepage = () => {
       })
       .catch((err) => {
         console.error(err);
-      })
+      });
   }, []);
 
   // map through list of items and return individual items
@@ -29,16 +28,10 @@ const Homepage = () => {
   return (
     <Wrapper>
       <ContentWrapper>
-        <ColumnList>
-          category 1
-          category 2
-          category 3
-          category 4
-      </ColumnList>
+        <ColumnList>category 1 category 2 category 3 category 4</ColumnList>
         <ItemGrid>
-          {itemList && itemList.map((item) => (
-            <Item key={item._id} data={item} />
-          ))}
+          {itemList &&
+            itemList.map((item) => <Item key={item._id} data={item} />)}
         </ItemGrid>
       </ContentWrapper>
     </Wrapper>
@@ -51,22 +44,20 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 70%;
-`
+`;
 
 const ContentWrapper = styled.div`
   display: flex;
   margin-top: 30px;
-`
+`;
 
-const ColumnList = styled.div`
-
-`
+const ColumnList = styled.div``;
 
 const ItemGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 20px;
   row-gap: 20px;
-`
+`;
 
 export default Homepage;
