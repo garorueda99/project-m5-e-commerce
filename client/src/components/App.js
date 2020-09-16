@@ -9,6 +9,7 @@ import Error from './error-page/Error';
 import SignIn from './signin-page/SignIn';
 import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
+import Footer from './Footer';
 // Styles
 import GlobalStyles from './GlobalStyles';
 import styled from 'styled-components';
@@ -50,6 +51,7 @@ function App() {
               </Route>
             </Switch>
           </Main>
+          <Footer />
         </Wrapper>
         <GlobalStyles />
       </Router>
@@ -60,11 +62,13 @@ function App() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 `;
 
 const Main = styled.div`
-  padding: 10px 24px 0;
-  height: 86vh;
+  flex: 1 0 auto;
+  padding: 70px 24px 30px 24px;
+  flex-grow: 1;
 `;
 
 export default App;
