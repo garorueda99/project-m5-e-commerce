@@ -62,15 +62,17 @@ const FILTER_KEYS = [
   'price_range',
   'body_location',
   'category',
-  'query_result_qty',
+  'query_result_maxqty',
+  'initial_index',
   'available',
   'companyId',
 ];
 
 function filterItems(res, filters) {
   let newFilteredItems = [...items];
-
+  console.log('HERE', filters);
   for (let filter of Object.keys(filters)) {
+    console.log(filter);
     switch (filter) {
       case 'price_range':
         newFilteredItems = filterByPrice(newFilteredItems, ...filters[filter]);
@@ -103,6 +105,13 @@ function filterItems(res, filters) {
         newFilteredItems = filterByCategory(
           newFilteredItems,
           filters['category']
+        );
+        break;
+      case 'query_result_maxqty':
+        newFilteredItems = quantityReview(
+          newFilteredItems,
+          filters['initial_index'],
+          filters['query_result_maxqty']
         );
         break;
       default:
@@ -159,6 +168,16 @@ function filterByCategory(items, category) {
   const newList = items.filter(
     (element) => element.category.toLowerCase() === category.toLowerCase()
   );
+  return newList;
+}
+
+function quantityReview(items, initialIndex = 0, maxQueryResult) {
+  console.log('=====>', maxQueryResult);
+  const newList = {
+    nextIndex: maxQueryResult,
+    totalfound: items.length,
+    result: items.slice(initialIndex, maxQueryResult),
+  };
   return newList;
 }
 

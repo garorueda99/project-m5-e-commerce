@@ -39,6 +39,11 @@ router.get('/api/item/:itemId', (req, res) => {
   res.status(200).json(item);
 });
 
+router.get('/api/items/totalRegisters', (req, res) => {
+  const totalRegisters = items.length;
+  res.status(200).json(totalRegisters);
+});
+
 router.put('/api/items/reduce', (req, res) => {
   const reducer = req.body;
   for (let element of Object.keys(reducer)) {
