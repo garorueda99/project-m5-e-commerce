@@ -1,19 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 export default function Item() {
+  // retreive the item Id from URL params
+  const { itemId } = useParams();
+
+  const [item, setItem] = React.useState('');
+  //create useState to show company name in item card
+  const [company, setCompany] = React.useState('');
+
+  // calling backend API to get specif item for the card
+  React.useEffect(() => {
+    fetch(`/api/item/${itemId}`)
+      .then((res) => res.json())
+      .then((json) => {
+        setItem(json);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  let companyIdOfItem = item.companyId;
+
+  // calling backend API to GET specific company name
+  React.useEffect(() => {
+    fetch(`/api/seller/${companyIdOfItem}`)
+      .then((res) => res.json())
+      .then((json) => {
+        setCompany(json);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
   return (
     <Wrapper>
       <ItemWrapper>
-        <ItemImage
-          src="https://hackernoon.com/hn-images/0*xMaFF2hSXpf_kIfG.jpg"
-          alt="Item image."
-        ></ItemImage>
+        <ItemImage src={item.imageSrc} alt="Item image."></ItemImage>
         <ItemInformationWrapper>
-          <ItemName>Items info</ItemName>
-          <ItemCompanyName>Company name</ItemCompanyName>
-          <ItemPrice>Price</ItemPrice>
-          <ItemInStock>In Stock</ItemInStock>
+          <ItemName>{item.name}</ItemName>
+          <ItemCompanyName>{company.name}</ItemCompanyName>
+          <ItemPrice>{item.price}</ItemPrice>
+          <ItemInStock>{item.numInStock}</ItemInStock>
           <AddToCartButton>Add to cart</AddToCartButton>
         </ItemInformationWrapper>
       </ItemWrapper>
@@ -24,6 +55,7 @@ export default function Item() {
   );
 }
 
+//components for style
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,9 +69,8 @@ const ItemWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 35%;
+  width: 40%;
   margin-top: 5%;
-
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
@@ -60,6 +91,8 @@ const ItemReviewWrapper = styled.div`
   width: 100%;
   margin-top: 10%;
 `;
+
+//stylling item in card
 
 const ItemImage = styled.img`
   width: 50%;
