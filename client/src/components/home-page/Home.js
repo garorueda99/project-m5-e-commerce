@@ -43,15 +43,17 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 100%;
 `;
 
 const ContentWrapper = styled.div`
   display: flex;
   margin-top: 30px;
+  width: 70%;
 `;
 
-const ColumnList = styled.div``;
+const ColumnList = styled.div`
+`;
 
 const ItemGrid = styled.div`
   display: grid;
