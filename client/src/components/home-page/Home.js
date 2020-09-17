@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Item from './Item';
+import CategoryList from './CategoryList';
 
 const Homepage = () => {
   // using state and props to pass data
-  //
+  // this will eventually need to pull the categories from redux
 
   const [itemList, setItemList] = React.useState('');
 
@@ -28,7 +29,9 @@ const Homepage = () => {
   return (
     <Wrapper>
       <ContentWrapper>
-        <ColumnList>category 1 category 2 category 3 category 4</ColumnList>
+        <ColumnList>
+          <CategoryList />
+        </ColumnList>
         <ItemGrid>
           {itemList &&
             itemList.map((item) => <Item key={item._id} data={item} />)}
@@ -43,15 +46,17 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 100%;
 `;
 
 const ContentWrapper = styled.div`
   display: flex;
   margin-top: 30px;
+  width: 70%;
 `;
 
-const ColumnList = styled.div``;
+const ColumnList = styled.div`
+`;
 
 const ItemGrid = styled.div`
   display: grid;
