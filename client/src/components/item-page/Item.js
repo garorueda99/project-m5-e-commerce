@@ -46,7 +46,14 @@ export default function Item() {
           <ItemCompanyName>{company.name}</ItemCompanyName>
           <ItemPrice>{item.price}</ItemPrice>
           <ItemInStock>{item.numInStock}</ItemInStock>
-          <AddToCartButton>Add to cart</AddToCartButton>
+          <AddToCartButton
+            //Onclick on button to redirect to the cart page
+            onClick={() => {
+              window.location.href = '/cart/';
+            }}
+          >
+            Add to cart
+          </AddToCartButton>
         </ItemInformationWrapper>
       </ItemWrapper>
       <ItemReviewWrapper>
