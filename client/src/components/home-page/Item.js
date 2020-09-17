@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Item = (props) => {
   const data = props.data;
-  console.log(data);
   return (
     <Wrapper
       //Onclick on image to redirect to the item page
