@@ -46,7 +46,6 @@ function ListOfCategories() {
       ? ''
       : LIST_OF_CATEGORIES.push(element.category)
   );
-  console.log(LIST_OF_CATEGORIES);
 }
 
 //GET BODY LOCATION INDEX
@@ -57,7 +56,6 @@ function ListOfBodyLocations() {
       ? ''
       : LIST_OF_BODY.push(element.body_location)
   );
-  console.log(LIST_OF_BODY);
 }
 
 const FILTER_KEYS = [
@@ -72,10 +70,9 @@ const FILTER_KEYS = [
 ];
 
 function filterItems(res, filters) {
+  console.log("I'm here", filters);
   let newFilteredItems = [...items];
-  console.log('HERE', filters);
   for (let filter of Object.keys(filters)) {
-    console.log(filter);
     switch (filter) {
       case 'price_range':
         newFilteredItems = filterByPrice(newFilteredItems, ...filters[filter]);
@@ -110,17 +107,15 @@ function filterItems(res, filters) {
           filters['category']
         );
         break;
-      case 'query_result_maxqty':
-        newFilteredItems = quantityReview(
-          newFilteredItems,
-          filters['initial_index'],
-          filters['query_result_maxqty']
-        );
-        break;
       default:
-        return [];
     }
   }
+  console.log();
+  newFilteredItems = quantityReview(
+    newFilteredItems,
+    filters['initial_index'],
+    filters['query_result_maxqty']
+  );
   res.status(200).json(newFilteredItems);
   return;
 }
@@ -174,13 +169,16 @@ function filterByCategory(items, category) {
   return newList;
 }
 
-function quantityReview(items, initialIndex = 0, maxQueryResult) {
-  console.log('=====>', maxQueryResult);
+function quantityReview(items, initialIndex = 0, maxQueryResult = 30) {
+  const totalFound = items.length;
+
   const newList = {
-    nextIndex: maxQueryResult,
-    totalfound: items.length,
+    totalFound,
     result: items.slice(initialIndex, maxQueryResult),
   };
+
+  newList.nextIndex = totalFound > maxQueryResult ? maxQueryResult : null;
+
   return newList;
 }
 
