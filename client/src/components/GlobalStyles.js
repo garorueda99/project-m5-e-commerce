@@ -25,7 +25,6 @@ export default createGlobalStyle`
     padding: 0;
     border: 0;
     vertical-align: baseline;
-    font-family: Arial, Helvetica, sans-serif;
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,

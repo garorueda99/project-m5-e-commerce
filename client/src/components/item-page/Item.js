@@ -42,10 +42,18 @@ export default function Item() {
         <ItemImage src={item.imageSrc} alt="Item image."></ItemImage>
         <ItemInformationWrapper>
           <ItemName>{item.name}</ItemName>
+          <ItemCategory>{item.category}</ItemCategory>
           <ItemCompanyName>{company.name}</ItemCompanyName>
           <ItemPrice>{item.price}</ItemPrice>
           <ItemInStock>{item.numInStock}</ItemInStock>
-          <AddToCartButton>Add to cart</AddToCartButton>
+          <AddToCartButton
+            //Onclick on button to redirect to the cart page
+            onClick={() => {
+              window.location.href = '/cart/';
+            }}
+          >
+            Add to cart
+          </AddToCartButton>
         </ItemInformationWrapper>
       </ItemWrapper>
       <ItemReviewWrapper>
@@ -103,6 +111,11 @@ const ItemImage = styled.img`
 const ItemName = styled.h2`
   flex: 2;
   margin: 5%;
+`;
+
+const ItemCategory = styled.p`
+  flex: 2;
+  margin-left: 5%;
 `;
 
 const ItemCompanyName = styled.p`
