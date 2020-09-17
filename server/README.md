@@ -124,15 +124,25 @@ You'll get an error if you try to sell more than the quantity available
 
 A group of items selected by:
 
-- **"keyword":** "Ekho" ==> the word is included in the name. Doesn't not requiere a exact match of capital letters.
-- **"price_range":** [0, 105.99] ==> the product is widthin the range (min, max). If the array has more than 2 elements, the elements after the secondone won't be taken into account.
+- **"keyword":** "Ekho" ==> the word is included in the name. Doesn't not requiere a exact match of capital letters. Type: string
+
+- **"price_range":** [0, 105.99] ==> the product is widthin the range (min, max). If the array has more than 2 elements, the elements after the secondone won't be taken into account. Type: array of two elements = [type: float, type: float]
+
 - **"body_location":** "Wrist" ==> all product for the same body location [<location1, location2,..., locationN>].Doesn't not requiere a exact match of capital letters.
+  Type: array of many elements as body_locations [Type: string,...., Type: string]
+
 - **"category":** ["Fitness"] ==> all product for the same category [<category1>,. <category2>,..., <categoryN>]Doesn't not requiere a exact match of capital letters.
-- **"query_result_maxqty":** [10, <random>] ==> # of results of filterd products that the front wants to receive [<qty to return>]
+  Type: array of many elements as categories [Type: string,...., Type: string]
+
+- **"query_result_maxqty":** 10, ==> # of results of filterd products that the front wants to receive [<qty to return>] Type: integer
+
 - **"available":** true/false ==> the product is available in the inventory.
-  True = more than 0 on hand
-  False = no available
-  - **"companyId":** Products of the same company
+  True = more than 0 on hand / False = no available. Type: boolean
+
+  - **"companyId":** Products of the same company. Type: integer
+
+- **"initial_index":** This will let the back know where in the array found will start sending the info. E.G. It was found 230 items. but will sent up 30.
+  therefore if you need the next 30, it will requiere that this is set as 31. Type: integer
 
 **Important**: You'll need to specify the filters with a JSON body:
 
@@ -146,30 +156,40 @@ A group of items selected by:
 
 All Products endpoints return data in the following structure:
 
+totalFound: returns the total amount of items found with the query 👆
+Result: returns the number of items found up to 30. If the query 👆 includes _query_result_maxqty_ parameter it will return as many items as defined there, up to 30.
+
+Because the Back-end probably won't pass all items the response will include the  
+"nextIndex" key. that let know the front-end what index should request to show when the user ask for more items or qhen rendering E.G. page 2 of 4 or page 3 of 4, etc
+
 ```json
-[
-  {
-    "name": "Ekho Fit-18 Heart Rate Monitor 12-2042",
-    "price": "$105.99",
-    "body_location": "Wrist",
-    "category": "Fitness",
-    "_id": 6549,
-    "imageSrc": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/ygggL/AMGYKotCZZn5dlb8842LzMyrOtIO4ToAn0AhuG8EEB6ggggCCCCAIIIIAggggCCCCA//2Q==....more",
-    "numInStock": 0,
-    "companyId": 17748
-  },
-  {
-    "name": "Ekho FiT-9 Women's Heart Rate Monitor 12-2041",
-    "price": "$95.12",
-    "body_location": "Wrist",
-    "category": "Medical",
-    "_id": 6550,
-    "imageSrc": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/VKqIgIiICIiAiIgIiICIiD//Z........more",
-    "numInStock": 2,
-    "companyId": 17748
-  },
-  "..."
-]
+{
+  "nextIndex": 6,
+  "totalfound": 269,
+  "result": [
+    {
+      "name": "Ekho Fit-18 Heart Rate Monitor 12-2042",
+      "price": "$105.99",
+      "body_location": "Wrist",
+      "category": "Fitness",
+      "_id": 6549,
+      "imageSrc": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/ygggL/AMGYKotCZZn5dlb8842LzMyrOtIO4ToAn0AhuG8EEB6ggggCCCCAIIIIAggggCCCCA//2Q==....more",
+      "numInStock": 0,
+      "companyId": 17748
+    },
+    {
+      "name": "Ekho FiT-9 Women's Heart Rate Monitor 12-2041",
+      "price": "$95.12",
+      "body_location": "Wrist",
+      "category": "Medical",
+      "_id": 6550,
+      "imageSrc": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/VKqIgIiICIiAiIgIiICIiD//Z........more",
+      "numInStock": 2,
+      "companyId": 17748
+    },
+    "..."
+  ]
+}
 ```
 
 ### GET /api/items/categories
