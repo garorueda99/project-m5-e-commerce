@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Components
 import Home from './home-page/Home';
@@ -10,20 +10,16 @@ import SignIn from './signin-page/SignIn';
 import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
 import Footer from './Footer';
+import { CurrentUserContext } from './CurrentUserContext';
 // Styles
 import GlobalStyles from './GlobalStyles';
 import styled from 'styled-components';
 
 function App() {
-  const [profile, setProfile] = useState(null);
+  const { currentUser } = React.useContext(CurrentUserContext);
 
-  useEffect(() => {
-    fetch('/api/me/profile')
-      .then((res) => res.json())
-      .then((data) => setProfile(data));
-  }, []);
+  console.log('User data ', currentUser);
 
-  console.log(profile);
   return (
     <>
       <Router>
