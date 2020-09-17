@@ -139,7 +139,7 @@ A group of items selected by:
 - **"available":** true/false ==> the product is available in the inventory.
   True = more than 0 on hand / False = no available. Type: boolean
 
-  - **"companyId":** Products of the same company. Type: integer
+- **"companyId":** Products of the same company. Type: integer
 
 - **"initial_index":** This will let the back know where in the array found will start sending the info. E.G. It was found 230 items. but will sent up 30.
   therefore if you need the next 30, it will requiere that this is set as 31. Type: integer
