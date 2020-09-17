@@ -26,10 +26,13 @@ const BODY_LOCATIONS = [
 const CURRENT_USER_ID = {
   profile: {
     id: 'garo99',
-    displayName: 'Andrea, Aml',
-    avatarSrc: '/assets/user1.jpg',
-    location: 'Whitehall, London',
+    firstName: 'Andrea',
+    lastName: 'Aml',
+    address: '123 Main Street',
+    province: 'Quebec',
+    country: 'Canada',
     email: 'garo99@gmail.com',
+    avatarSrc: '/assets/user1.jpg',
   },
 };
 
