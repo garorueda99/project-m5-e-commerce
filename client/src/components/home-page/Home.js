@@ -37,6 +37,7 @@ const Homepage = () => {
             itemList.map((item) => <Item key={item._id} data={item} />)}
         </ItemGrid>
       </ContentWrapper>
+      <PageIndex />
     </Wrapper>
   );
 };
@@ -51,7 +52,7 @@ const Wrapper = styled.div`
 
 const ContentWrapper = styled.div`
   display: flex;
-  margin-top: 30px;
+  margin: 30px 0;
   width: 70%;
 `;
 

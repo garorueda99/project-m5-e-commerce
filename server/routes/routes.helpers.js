@@ -70,7 +70,6 @@ const FILTER_KEYS = [
 ];
 
 function filterItems(res, filters) {
-  console.log("I'm here", filters);
   let newFilteredItems = [...items];
   for (let filter of Object.keys(filters)) {
     switch (filter) {
@@ -111,7 +110,7 @@ function filterItems(res, filters) {
     }
   }
   console.log();
-  newFilteredItems = quantityReview(
+  newFilteredItems = reviewQtyOfItemsInResponse(
     newFilteredItems,
     filters['initial_index'],
     filters['query_result_maxqty']
@@ -169,9 +168,13 @@ function filterByCategory(items, category) {
   return newList;
 }
 
-function quantityReview(items, initialIndex = 0, maxQueryResult = 30) {
+function reviewQtyOfItemsInResponse(
+  items,
+  initialIndex = 0,
+  maxQueryResult = 30
+) {
   const totalFound = items.length;
-
+  console.log('ME', initialIndex);
   const newList = {
     totalFound,
     result: items.slice(initialIndex, maxQueryResult),

@@ -117,7 +117,9 @@ You'll get an error if you try to sell more than the quantity available
 
 ## Filtered Endpoints
 
-### GET /api/items
+## OPTION 1
+
+### GET <POST> /api/items
 
 - if body not present will sent firts 30,
 - if body will send result according to the filter parameters

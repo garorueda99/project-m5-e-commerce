@@ -10,6 +10,7 @@ const {
 } = require('./routes.helpers');
 
 router.post('/api/items', (req, res) => {
+  console.log('==>>', req);
   const body = req.body;
   if (JSON.stringify(body) === '{}') {
     res.status(200).json({
