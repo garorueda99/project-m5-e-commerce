@@ -194,7 +194,11 @@ Because the Back-end probably won't pass all items the response will include the
 }
 ```
 
-### GET /api/items/categories
+## OPTION 2
+
+### GET /api/items/:params
+
+params = long string with the filters
 
 It provides an array with a list of all the categories
 
