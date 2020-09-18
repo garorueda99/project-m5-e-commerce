@@ -9,6 +9,10 @@ export const receiveItemsInfo = (payload) => ({
   ...payload,
 });
 
+export const nextPageItems = () => ({
+  type: 'CHANGE_TO_NEXT_PAGE_ITEMS',
+});
+
 //RELATED WITH MODAL
 export const triggerModal = (title, message) => ({
   type: 'TRIGGER_MODAL',
@@ -23,10 +27,10 @@ export const closeModal = () => ({
 // Cart related stuff
 export const addToCart = (itemId) => ({
   type: 'ADD_ITEM_TO_CART',
-  itemId
-})
+  itemId,
+});
 
 export const removeFromCart = (itemId) => ({
   type: 'DELETE_ITEM_FROM_CART',
-  itemId
-})
+  itemId,
+});

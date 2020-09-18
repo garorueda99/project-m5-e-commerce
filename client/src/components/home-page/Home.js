@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -15,24 +15,27 @@ import { requestItems, receiveItemsInfo } from '../../actions';
 import { fetchItems } from '../helpers/fetch-functions';
 
 const Homepage = () => {
-
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);
   const itemList = useSelector((state) => state.items.result);
-
+  const [page, setPage] = useState(1);
+  let index =
+    page === 1 ? '' : `&&initial_index=${(page - 1) * items.pageSize}`;
   // pull list of items
 
   React.useEffect(() => {
     dispatch(requestItems());
-    fetchItems(items.filters).then((res) => dispatch(receiveItemsInfo(res)));
-  }, []);
+    fetchItems(items.filters + index).then((res) =>
+      dispatch(receiveItemsInfo(res))
+    );
+  }, [page]);
 
   // map through list of items and return individual items
   // pass through individual array item from itemList
 
   return (
     <Wrapper>
-      <PageIndex />
+      <PageIndex page={page} setPage={setPage} />
       <ContentWrapper>
         <ColumnList>
           <CategoryList />
@@ -42,7 +45,6 @@ const Homepage = () => {
             itemList.map((item) => <Item key={item._id} data={item} />)}
         </ItemGrid>
       </ContentWrapper>
-      <PageIndex />
     </Wrapper>
   );
 };

@@ -3,25 +3,21 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { BsCaretRight } from 'react-icons/bs';
-import { fetchItems } from '../helpers/fetch-functions';
-import { requestItems, receiveItemsInfo } from '../../actions';
+import { nextPageItems } from '../../actions';
 
-export default function PageIndex() {
+export default function PageIndex({ page, setPage }) {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);
-  const lastPage = Math.round(
-    items.totalFound / items.filters.query_result_maxqty
-  );
+  const lastPage = Math.round(items.totalFound / items.pageSize);
   return (
     <Wrapper>
-      Page 1 of {lastPage}
+      Page {page} of {lastPage}
       <Button
         onClick={() => {
-          dispatch(requestItems());
-          fetchItems({
-            ...items.filters,
-            initial_index: items.nextIndex,
-          }).then((res) => dispatch(receiveItemsInfo(res)));
+          if (page < lastPage) {
+            setPage((n) => n + 1);
+          }
+          dispatch(nextPageItems());
         }}
       >
         <BsCaretRight color={'gray'} />

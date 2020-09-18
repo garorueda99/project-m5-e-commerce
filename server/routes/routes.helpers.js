@@ -60,7 +60,8 @@ function ListOfBodyLocations() {
 
 const FILTER_KEYS = [
   'keyword',
-  'price_range',
+  'min',
+  'max',
   'body_location',
   'category',
   'query_result_maxqty',
@@ -69,64 +70,67 @@ const FILTER_KEYS = [
   'companyId',
 ];
 
-function filterItems(res, filters) {
+function filterItems(res, obj) {
+  clearObj(obj);
   let newFilteredItems = [...items];
-  for (let filter of Object.keys(filters)) {
+  for (let filter of Object.keys(obj)) {
     switch (filter) {
-      case 'price_range':
-        newFilteredItems = filterByPrice(newFilteredItems, ...filters[filter]);
+      case 'min':
+        newFilteredItems = filterByMinPrice(newFilteredItems, obj[filter]);
+        break;
+      case 'max':
+        newFilteredItems = filterByMaxPrice(newFilteredItems, obj[filter]);
         break;
       case 'body_location':
-        newFilteredItems = filterByBodyLocation(
-          newFilteredItems,
-          ...filters[filter]
-        );
+        newFilteredItems = filterByBodyLocation(newFilteredItems, obj[filter]);
         break;
       case 'keyword':
-        newFilteredItems = filterByKeyword(
-          newFilteredItems,
-          filters['keyword']
-        );
+        newFilteredItems = filterByKeyword(newFilteredItems, obj[filter]);
         break;
       case 'available':
-        newFilteredItems = filterByAvailability(
-          newFilteredItems,
-          filters['available']
-        );
+        newFilteredItems = filterByAvailability(newFilteredItems, obj[filter]);
         break;
       case 'companyId':
-        newFilteredItems = filterByCompanyId(
-          newFilteredItems,
-          filters['companyId']
-        );
+        newFilteredItems = filterByCompanyId(newFilteredItems, obj[filter]);
         break;
       case 'category':
-        newFilteredItems = filterByCategory(
-          newFilteredItems,
-          filters['category']
-        );
+        newFilteredItems = filterByCategory(newFilteredItems, obj[filter]);
         break;
       default:
     }
   }
-  console.log();
+
   newFilteredItems = reviewQtyOfItemsInResponse(
     newFilteredItems,
-    filters['initial_index'],
-    filters['query_result_maxqty']
+    obj['initial_index'],
+    obj['query_result_maxqty']
   );
   res.status(200).json(newFilteredItems);
   return;
 }
 
-function filterByPrice(items, min, max) {
-  if (max < min) {
-    return [];
+function filterByMinPrice(items, min) {
+  let minfloat = parseFloat(min);
+  if (minfloat < 0) {
+    minfloat = 0;
   }
+
+  // /[^0-9\.-]+/g regex to validate is is a Number
   const newList = items.filter(
-    (element) =>
-      Number(element.price.replace(/[^0-9\.-]+/g, '')) <= max &&
-      Number(element.price.replace(/[^0-9\.-]+/g, '')) >= min
+    (element) => Number(element.price.replace(/[^0-9\.-]+/g, '')) >= minfloat
+  );
+  return newList;
+}
+
+function filterByMaxPrice(items, max) {
+  let maxfloat = parseFloat(max);
+  if (maxfloat < 0) {
+    maxfloat = 0;
+  }
+
+  // /[^0-9\.-]+/g regex to validate is is a Number
+  const newList = items.filter(
+    (element) => Number(element.price.replace(/[^0-9\.-]+/g, '')) <= maxfloat
   );
   return newList;
 }
@@ -140,6 +144,13 @@ function filterByBodyLocation(items, bodyLocation) {
   return newList;
 }
 
+//Removes this characters from the values |&;$%@"'<>()+,
+function clearObj(obj) {
+  for (const [key, value] of Object.entries(obj)) {
+    obj[key] = obj[key].replace(/[|&;$%@"'<>()+,]/g, '');
+  }
+}
+
 function filterByKeyword(items, keyword) {
   const newList = items.filter((element) =>
     element.name.toLowerCase().includes(keyword.toLowerCase())
@@ -149,14 +160,17 @@ function filterByKeyword(items, keyword) {
 
 function filterByAvailability(items, flag) {
   const newList = items.filter((element) =>
-    flag ? element.numInStock > 0 : element.numInStock <= 0
+    flag.toLowerCase() === 'true'
+      ? element.numInStock > 0
+      : element.numInStock <= 0
   );
 
   return newList;
 }
 
 function filterByCompanyId(items, companyId) {
-  const newList = items.filter((element) => element.companyId === companyId);
+  const intCompanyId = parseInt(companyId);
+  const newList = items.filter((element) => element.companyId === intCompanyId);
 
   return newList;
 }
@@ -174,13 +188,12 @@ function reviewQtyOfItemsInResponse(
   maxQueryResult = 30
 ) {
   const totalFound = items.length;
-  console.log('ME', initialIndex);
+  const initialPoint = parseInt(initialIndex);
+  const endPoint = initialPoint + parseInt(maxQueryResult);
   const newList = {
     totalFound,
-    result: items.slice(initialIndex, maxQueryResult),
+    result: items.slice(initialPoint, endPoint),
   };
-
-  newList.nextIndex = totalFound > maxQueryResult ? maxQueryResult : null;
 
   return newList;
 }
