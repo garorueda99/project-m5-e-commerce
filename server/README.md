@@ -158,7 +158,11 @@ A group of items selected by:
 
 ## OPTION 2
 
-### GET /api/items/:params
+### GET /api/items
+
+```
+http://localhost:4000/api/items/?keyword="watch"&min=3&max=100.5
+```
 
 Using route query parameters. if doubts check this article
 
