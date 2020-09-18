@@ -117,7 +117,9 @@ You'll get an error if you try to sell more than the quantity available
 
 ## Filtered Endpoints
 
-### GET /api/items
+## OPTION 1 - DEPRECATED
+
+### GET <POST> /api/items
 
 - if body not present will sent firts 30,
 - if body will send result according to the filter parameters
@@ -153,6 +155,39 @@ A group of items selected by:
   "query_result_maxqty": "10"
 }
 ```
+
+## OPTION 2
+
+### GET /api/items
+
+```
+http://localhost:4000/api/items/?keyword="watch"&min=3&max=100.5
+```
+
+Using route query parameters. if doubts check this article
+
+https://stackabuse.com/get-query-strings-and-parameters-in-express-js/
+
+Will process the following keys:
+
+- **keyword=**"long string" ==> each keyword separated by an space. for now the search won't be strict.
+
+- **min=** number ==> min. price accepted.
+  send float numbers width two decimal positions
+
+- **max=** number ==> max. price accepted.
+  send float numbers width two decimal positions
+
+- **body_location=** "long string" ==> All products that matches the body location(s). Each word on the string will be used as a location. Doesn't not requiere a exact match of capital letters.
+- **category=** "long string" ==> All products that matches the category/categories. Each word on the string will be used as a category. not requiere a exact match of capital letters.
+- **query_result_maxqty=** 10, ==> # of results of filterd products that the front wants to receive [<qty to return>] Type: integer
+
+- **available=** true/false ==> the product is available in the inventory.
+  True = more than 0 on hand / False = no available. Type: boolean
+
+- **companyId=** Products of the same company. Type: integer
+
+- **initial_index=** This will let the back know where in the array found, it will start sending the info. E.G. by default when there aren't any filters, it means all products. However, for security and efficiency purposes, the BE will only return the first 30. The FE can ask for fewer results using query_result_maxqty but not more. Therefore if the user wants to check all items it will be required to send as many requests (fetch) as items/query_result_maxqty or items/30 and set in each request the initial_index. E.G, first request, the FE receives the first 30 items of 248, in order to receive the next tranche, 31 to 60, the initial index_should be 30. Remember that positions in an array start in 0.
 
 All Products endpoints return data in the following structure:
 
@@ -191,8 +226,6 @@ Because the Back-end probably won't pass all items the response will include the
   ]
 }
 ```
-
-### GET /api/items/categories
 
 It provides an array with a list of all the categories
 
