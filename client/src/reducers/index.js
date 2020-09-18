@@ -4,5 +4,6 @@ import { combineReducers } from 'redux';
 import example from './example-reducer';
 import modal from './modal';
 import items from './items';
+import cart from './cart';
 
-export default combineReducers({ example, modal, items });
+export default combineReducers({ example, modal, items, cart });
