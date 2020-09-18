@@ -70,8 +70,12 @@ const FILTER_KEYS = [
   'companyId',
 ];
 
+<<<<<<< HEAD
 function filterItems(res, obj) {
   clearObj(obj);
+=======
+function filterItems(res, filters) {
+>>>>>>> 3c4465f4fe3826ac68989b2b3de57d3b1a19b87e
   let newFilteredItems = [...items];
   for (let filter of Object.keys(obj)) {
     switch (filter) {
@@ -99,7 +103,11 @@ function filterItems(res, obj) {
       default:
     }
   }
+<<<<<<< HEAD
 
+=======
+  console.log();
+>>>>>>> 3c4465f4fe3826ac68989b2b3de57d3b1a19b87e
   newFilteredItems = reviewQtyOfItemsInResponse(
     newFilteredItems,
     obj['initial_index'],
@@ -188,8 +196,12 @@ function reviewQtyOfItemsInResponse(
   maxQueryResult = 30
 ) {
   const totalFound = items.length;
+<<<<<<< HEAD
   const initialPoint = parseInt(initialIndex);
   const endPoint = initialPoint + parseInt(maxQueryResult);
+=======
+  console.log('ME', initialIndex);
+>>>>>>> 3c4465f4fe3826ac68989b2b3de57d3b1a19b87e
   const newList = {
     totalFound,
     result: items.slice(initialPoint, endPoint),

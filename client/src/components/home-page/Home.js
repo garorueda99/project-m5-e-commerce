@@ -45,6 +45,7 @@ const Homepage = () => {
             itemList.map((item) => <Item key={item._id} data={item} />)}
         </ItemGrid>
       </ContentWrapper>
+      <PageIndex />
     </Wrapper>
   );
 };
