@@ -2,14 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+
+// imported components
+
 import Item from './Item';
 import PageIndex from './PageIndex';
 import CategoryList from './CategoryList';
+
+// helpers
+
 import { requestItems, receiveItemsInfo } from '../../actions';
 import { fetchItems } from '../helpers/fetch-functions';
+
 const Homepage = () => {
-  // using state and props to pass data
-  // this will eventually need to pull the categories from redux
 
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);

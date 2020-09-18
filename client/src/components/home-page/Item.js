@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 const Item = (props) => {
+  const dispatch = useDispatch();
+
+  // TODO: add dispatch(addItemToCart) to button onclick
+
   const data = props.data;
   return (
     <Wrapper
-      //Onclick on image to redirect to the item page
+      //Onclick on card to redirect to the item page
       onClick={() => {
         window.location.href = '/item/' + data._id;
       }}
