@@ -117,7 +117,7 @@ You'll get an error if you try to sell more than the quantity available
 
 ## Filtered Endpoints
 
-## OPTION 1
+## OPTION 1 - DEPRECATED
 
 ### GET <POST> /api/items
 
