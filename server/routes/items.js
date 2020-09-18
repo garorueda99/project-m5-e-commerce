@@ -9,51 +9,8 @@ const {
   BODY_LOCATIONS,
 } = require('./routes.helpers');
 
-<<<<<<< HEAD
 router.get('/api/items', (req, res) => {
   const body = { ...req.query };
-=======
-// router.get(
-//   '/api/items/:keywords/:min/:max/:location/:category/:maxQty/:companyId/:index',
-//   (req, res) => {
-//     console.log('HEY ==>', req.params);
-//     res.status(200).json({ status: 'ok' });
-//   }
-// );
-
-router.get('/api/items', (req, res) => {
-  console.log("I'm working");
-  const {
-    keyword,
-    min,
-    max,
-    body_location,
-    category,
-    query_result_maxqty,
-    available,
-    companyId,
-    initial_index,
-  } = req.query;
-
-  console.log(
-    'HEY ==>',
-    keyword,
-    min,
-    max,
-    body_location,
-    category,
-    query_result_maxqty,
-    available,
-    companyId,
-    initial_index
-  );
-
-  res.status(200).json({ status: 'ok' });
-});
-
-router.post('/api/items', (req, res) => {
-  const body = req.body;
->>>>>>> 3c4465f4fe3826ac68989b2b3de57d3b1a19b87e
   if (JSON.stringify(body) === '{}') {
     res.status(200).json({
       nextIndex: 30,
