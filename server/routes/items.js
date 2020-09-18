@@ -9,10 +9,14 @@ const {
   BODY_LOCATIONS,
 } = require('./routes.helpers');
 
-router.get('/api/items', (req, res) => {
+router.post('/api/items', (req, res) => {
   const body = req.body;
   if (JSON.stringify(body) === '{}') {
-    res.status(200).json(items.slice(0, 30));
+    res.status(200).json({
+      nextIndex: 30,
+      totalFound: items.length,
+      result: items.slice(0, 30),
+    });
     return;
   }
   const validKeys = Object.keys(body).filter((element) =>

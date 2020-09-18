@@ -1,26 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Item from './Item';
+import PageIndex from './PageIndex';
 import CategoryList from './CategoryList';
-
+import { requestItems, receiveItemsInfo } from '../../actions';
+import { fetchItems } from '../helpers/fetch-functions';
 const Homepage = () => {
   // using state and props to pass data
   // this will eventually need to pull the categories from redux
 
-  const [itemList, setItemList] = React.useState('');
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.items);
+  const itemList = useSelector((state) => state.items.result);
 
   // pull list of items
 
   React.useEffect(() => {
-    fetch('/api/items/')
-      .then((res) => res.json())
-      .then((json) => {
-        setItemList(json);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    dispatch(requestItems());
+    fetchItems(items.filters).then((res) => dispatch(receiveItemsInfo(res)));
   }, []);
 
   // map through list of items and return individual items
@@ -28,6 +27,7 @@ const Homepage = () => {
 
   return (
     <Wrapper>
+      <PageIndex />
       <ContentWrapper>
         <ColumnList>
           <CategoryList />
@@ -55,8 +55,7 @@ const ContentWrapper = styled.div`
   width: 70%;
 `;
 
-const ColumnList = styled.div`
-`;
+const ColumnList = styled.div``;
 
 const ItemGrid = styled.div`
   display: grid;

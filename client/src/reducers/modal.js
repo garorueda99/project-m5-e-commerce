@@ -1,7 +1,9 @@
 //This handles the error for the modal component
 
 const initialState = {
-  modalType: 'null',
+  status: 'idle',
+  title: null,
+  message: null,
 };
 
 export default function modalReducer(state = initialState, action) {

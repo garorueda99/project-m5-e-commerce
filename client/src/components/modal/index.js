@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -8,8 +7,6 @@ import { closeModal } from '../../actions';
 export default function Modal() {
   const dispatch = useDispatch();
   const modal = useSelector((state) => state.modal);
-  const [close, setClose] = useState(false);
-  console.log('HERE+====>', modal);
 
   return (
     <>

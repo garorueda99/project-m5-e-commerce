@@ -165,7 +165,7 @@ Because the Back-end probably won't pass all items the response will include the
 ```json
 {
   "nextIndex": 6,
-  "totalfound": 269,
+  "totalFound": 269,
   "result": [
     {
       "name": "Ekho Fit-18 Heart Rate Monitor 12-2042",

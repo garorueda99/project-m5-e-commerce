@@ -11,16 +11,15 @@ const Item = (props) => {
       }}
     >
       <ItemWrapper>
+        <h3>{data.name}</h3>
         <ItemContent>
-          <h3>{data.name}</h3>
-          <ImgWrapper src={data.imageSrc} />
+          <ImgWrapper style={{ backgroundImage: `url(${data.imageSrc})` }} />
         </ItemContent>
         <ActionBar>
           <p>{data.price}</p>
           <button>Add to Cart</button>
         </ActionBar>
       </ItemWrapper>
-
     </Wrapper>
   );
 };
@@ -40,14 +39,19 @@ const ItemWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-`
+`;
 
-const ImgWrapper = styled.img`
-  width: 150px;
-`
+const ImgWrapper = styled.div`
+  margin: 0 auto;
+  width: 140px;
+  height: 140px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
 
 const ItemContent = styled.div`
-
+  width: 100%;
 `;
 
 const ActionBar = styled.div`
