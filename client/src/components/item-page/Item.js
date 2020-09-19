@@ -39,16 +39,24 @@ export default function Item() {
   // added quantity to item page
   const itemsSelectionQuantity = [];
 
-  //loop for quantity by item
+  //loop for quantity by item (https://flaviocopes.com/react-how-to-loop/)
   for (let index = 0; index < item.numInStock + 1; index++) {
-    //"out of stock added to quantity"
-    // if (index == 0) {
-    //   itemsSelectionQuantity.push(
-    //     <option value="Out of stock">Out of stock</option>
-    //   );
-    // } else {
-    itemsSelectionQuantity.push(<option value={index}>{index}</option>);
+    itemsSelectionQuantity.push(
+      <option value={index}>Quantity: {index}</option>
+    );
     // }
+  }
+
+  // if {qty on hand 0} show out of stock
+  const isItemInStock = [];
+  // if {qty on hand 0} disable purchanse button
+  let buttonAvailability = true;
+
+  if (item.numInStock == 0) {
+    isItemInStock.push(<p style={{ color: 'red' }}>Out of stock</p>);
+    buttonAvailability = false;
+  } else {
+    isItemInStock.push(<p style={{ color: 'green' }}>In stock</p>);
   }
 
   return (
@@ -60,20 +68,31 @@ export default function Item() {
           <ItemCategory>Category: {item.category}</ItemCategory>
           <ItemCompanyName>Company: {company.name}</ItemCompanyName>
           <ItemPrice>{item.price}</ItemPrice>
-          <ItemInStock>
-            Number of remaining item : {item.numInStock}
-          </ItemInStock>
+          <ItemInStock>{isItemInStock}</ItemInStock>
 
           <ItemQuantitySelect>{itemsSelectionQuantity}</ItemQuantitySelect>
 
-          <AddToCartButton
-            //Onclick on button to redirect to the cart page
-            onClick={() => {
-              window.location.href = '/cart/';
-            }}
-          >
-            Add to cart
-          </AddToCartButton>
+          {buttonAvailability ? (
+            <AddToCartButton
+              //Onclick on button to redirect to the cart page
+              onClick={() => {
+                window.location.href = '/cart/';
+              }}
+            >
+              Add to cart
+            </AddToCartButton>
+          ) : (
+            <AddToCartButton
+              disabled
+              style={{ backgroundColor: 'grey' }}
+              //Onclick on button unvailable because is out of stock
+              onClick={() => {
+                console.log('Delete in Redux');
+              }}
+            >
+              Unavailable
+            </AddToCartButton>
+          )}
         </ItemInformationWrapper>
       </ItemWrapper>
       <ItemReviewWrapper>
@@ -154,7 +173,7 @@ const ItemInStock = styled.p`
 `;
 
 const ItemQuantitySelect = styled.select`
-  width: 15%;
+  width: 30%;
   height: 15%;
   margin-left: 5%;
   flex: 2;
