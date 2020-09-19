@@ -9,10 +9,7 @@ const initialState = [];
 export default function itemsReducer(state = initialState, action) {
   switch (action.type) {
     case 'ADD_ITEM_TO_CART':
-      return [
-        ...state,
-        action.itemId
-      ];
+      return [...state, action.itemId];
     case 'DELETE_ITEM_FROM_CART':
       let itemIdxHolder = state.indexOf(action.itemId);
       if (itemIdxHolder === -1) {
@@ -20,8 +17,8 @@ export default function itemsReducer(state = initialState, action) {
       } else {
         let stateHolder = state;
         stateHolder.splice(itemIdxHolder, 1);
+        return stateHolder;
       }
-      return stateHolder;
     default: {
       return state;
     }

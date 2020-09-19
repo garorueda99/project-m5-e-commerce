@@ -9,8 +9,8 @@ const {
   BODY_LOCATIONS,
 } = require('./routes.helpers');
 
-router.post('/api/items', (req, res) => {
-  const body = req.body;
+router.get('/api/items', (req, res) => {
+  const body = { ...req.query };
   if (JSON.stringify(body) === '{}') {
     res.status(200).json({
       nextIndex: 30,
@@ -19,9 +19,15 @@ router.post('/api/items', (req, res) => {
     });
     return;
   }
-  const validKeys = Object.keys(body).filter((element) =>
-    FILTER_KEYS.includes(element)
-  );
+  const reducer = (accumulator, data) => {
+    if (!accumulator[data]) {
+      accumulator[data] = body[data];
+      return accumulator;
+    }
+  };
+  const validKeys = Object.keys(body)
+    .filter((element) => FILTER_KEYS.includes(element))
+    .reduce(reducer, {});
 
   if (validKeys.length === 0) {
     res.status(406).json({
@@ -29,12 +35,42 @@ router.post('/api/items', (req, res) => {
     });
     return;
   }
-  let filters = {};
-  for (let filter of validKeys) {
-    filters[filter] = body[filter];
-  }
-  return filterItems(res, filters);
+  return filterItems(res, validKeys);
 });
+
+router.get('/api/item/:itemId', (req, res) => {
+  const item = items.find(
+    (item) => item['_id'] === parseInt(req.params.itemId)
+  );
+  res.status(200).json(item);
+});
+
+// router.post('/api/items', (req, res) => {
+//   const body = req.body;
+//   if (JSON.stringify(body) === '{}') {
+//     res.status(200).json({
+//       nextIndex: 30,
+//       totalFound: items.length,
+//       result: items.slice(0, 30),
+//     });
+//     return;
+//   }
+//   const validKeys = Object.keys(body).filter((element) =>
+//     FILTER_KEYS.includes(element)
+//   );
+
+//   if (validKeys.length === 0) {
+//     res.status(406).json({
+//       error: 'key not valid for filter',
+//     });
+//     return;
+//   }
+//   let filters = {};
+//   for (let filter of validKeys) {
+//     filters[filter] = body[filter];
+//   }
+//   return filterItems(res, filters);
+// });
 
 router.get('/api/item/:itemId', (req, res) => {
   const item = items.find(

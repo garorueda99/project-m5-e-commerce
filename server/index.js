@@ -6,38 +6,34 @@ const app = new express();
 const PORT = 4000;
 
 //THIS SEEMS TO BE  NOT LONGER REQUIERED
-const bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json()); https://medium.com/@mmajdanski/express-body-parser-and-why-may-not-need-it-335803cd048c
 
 app
   //Middleware functions
   .use(express.json())
-  .use(bodyParser.urlencoded({ extended: true }))
-  .use(bodyParser.json())
-  // .use(morgan('dev'))
-  // .use(function (req, res, next) {
-  //   res.header(
-  //     'Access-Control-Allow-Methods',
-  //     //A comma-separated list of HTTP methods that are allowed
-  //     'OPTIONS, HEAD, GET, PUT, POST, DELETE'
-  //   );
-  //   res.header(
-  //     'Access-Control-Allow-Headers',
-  //     //A comma-separated list of the custom headers that are allowed to be sent
-  //     //https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers
-  //     'Origin, X-Requested-With, Content-Type, Accept'
-  //   );
-  //   next();
-  // })
+  .use(morgan('dev'))
+  .use(function (req, res, next) {
+    res.header(
+      'Access-Control-Allow-Methods',
+      //A comma-separated list of HTTP methods that are allowed
+      'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+    );
+    res.header(
+      'Access-Control-Allow-Headers',
+      //A comma-separated list of the custom headers that are allowed to be sent
+      //https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+  })
   //STATIC FOLDER = assets
   .use('/assets', express.static(path.join(__dirname, 'assets')))
   .use(express.urlencoded({ extended: false }))
   //https://expressjs.com/en/starter/static-files.html
   .use('/', express.static(__dirname + '/'))
-  // REST endpoints HERE
 
-  //END POINTS GOES IN ROUTES FOLDER. if doubts ask Andres Rueda
+  //ENDPOINTS
   .use(require('./routes/profile'))
   .use(require('./routes/items'))
   .use(require('./routes/seller'));
