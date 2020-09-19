@@ -24,18 +24,19 @@ export default function Item() {
                 {' '}
               </FaTrash>
               <ItemName>Item name</ItemName>
-              <ItemPrice>$</ItemPrice>
+              <ItemPrice>Item price $</ItemPrice>
               <ItemSelected>Quantity selected</ItemSelected>
             </ItemInformationWrapper>
           </ItemWrapper>
-          <DeleteItemSelected
+          <TotalPrice>Total price : </TotalPrice>
+          <PurchaseButton
             //Onclick on button to redirect to the cart page
             onClick={() => {
               window.location.href = '/OrderConfirmation/';
             }}
           >
             Purchase
-          </DeleteItemSelected>
+          </PurchaseButton>
         </CartItemInformationWrapper>
       </CartWrapper>
     </Wrapper>
@@ -80,6 +81,7 @@ const ItemWrapper = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
+  margin-bottom: 5%;
 `;
 
 const ItemInformationWrapper = styled.div`
@@ -112,18 +114,9 @@ const ItemSelected = styled.p`
   margin: 2%;
 `;
 
-const DeleteItemSelected = styled.button`
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 10px 24px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 5%;
-  margin-bottom: 5%;
-  cursor: pointer;
+const TotalPrice = styled.h2`
+  margin: 2%;
+  margin-top: 3%;
 `;
 
 //stylling item in card
@@ -137,7 +130,8 @@ const PurchaseButton = styled.button`
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 5%;
-  margin-top: 50%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 5%;
   cursor: pointer;
 `;
