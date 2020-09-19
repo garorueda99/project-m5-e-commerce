@@ -1,14 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../actions';
 
 export default function Item() {
+  const dispatch = useDispatch();
   // retreive the item Id from URL params
   const { itemId } = useParams();
 
   const [item, setItem] = React.useState('');
   //create useState to show company name in item card
   const [company, setCompany] = React.useState('');
+
+  // Quantity state to send to redux
+  const [itemQuantity, setItemQuantity] = React.useState(1);
 
   // calling backend API to get specif item for the card
   React.useEffect(() => {
@@ -46,7 +52,6 @@ export default function Item() {
       itemsSelectionQuantity.push(
         <option value={index}>Quantity: {index}</option>
       );
-      // }
     }
   }
 
@@ -62,6 +67,11 @@ export default function Item() {
     isItemInStock.push(<p style={{ color: 'green' }}>In stock</p>);
   }
 
+  // event update number of item in dropdown
+  const handleDropdownChange = (e) => {
+    setItemQuantity(e.target.value);
+  };
+
   return (
     <Wrapper>
       <ItemWrapper>
@@ -73,17 +83,24 @@ export default function Item() {
           <ItemPrice>{item.price}</ItemPrice>
           <ItemInStock>{isItemInStock}</ItemInStock>
 
-          {/* remove item selection if item not in stock */}
+          {/* update available item selection quantity */}
           {item.numInStock > 0 && (
-            <ItemQuantitySelect>{itemsSelectionQuantity}</ItemQuantitySelect>
+            <ItemQuantitySelect
+              value={itemQuantity}
+              onChange={handleDropdownChange}
+            >
+              {itemsSelectionQuantity}
+            </ItemQuantitySelect>
           )}
 
           {/* https://reactjs.org/docs/conditional-rendering.html */}
           {buttonAvailability ? (
             <AddToCartButton
-              //Onclick on button to redirect to the cart page
+              // Onclick on button to redirect to the cart page
+              // Add cart using redux dispatch
               onClick={() => {
-                window.location.href = '/cart/';
+                dispatch(addToCart(item._id, itemQuantity));
+                // window.location.href = '/cart/';
               }}
             >
               Add to cart
@@ -92,10 +109,7 @@ export default function Item() {
             <AddToCartButton
               disabled
               style={{ backgroundColor: 'grey' }}
-              //Onclick on button unvailable because is out of stock
-              onClick={() => {
-                console.log('Delete in Redux');
-              }}
+              //unvailable because is out of stock
             >
               Unavailable
             </AddToCartButton>
