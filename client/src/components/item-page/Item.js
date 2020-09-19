@@ -71,7 +71,6 @@ export default function Item() {
           <ItemInStock>{isItemInStock}</ItemInStock>
 
           <ItemQuantitySelect>{itemsSelectionQuantity}</ItemQuantitySelect>
-          {/* https://reactjs.org/docs/conditional-rendering.html */}
           {buttonAvailability ? (
             <AddToCartButton
               //Onclick on button to redirect to the cart page
