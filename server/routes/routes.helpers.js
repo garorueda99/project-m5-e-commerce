@@ -26,10 +26,13 @@ const BODY_LOCATIONS = [
 const CURRENT_USER_ID = {
   profile: {
     id: 'garo99',
-    displayName: 'Andrea, Aml',
-    avatarSrc: '/assets/user1.jpg',
-    location: 'Whitehall, London',
+    firstName: 'Andrea',
+    lastName: 'Aml',
+    address: '123 Main Street',
+    province: 'Quebec',
+    country: 'Canada',
     email: 'garo99@gmail.com',
+    avatarSrc: '/assets/user1.jpg',
   },
 };
 
@@ -43,7 +46,6 @@ function ListOfCategories() {
       ? ''
       : LIST_OF_CATEGORIES.push(element.category)
   );
-  console.log(LIST_OF_CATEGORIES);
 }
 
 //GET BODY LOCATION INDEX
@@ -54,12 +56,12 @@ function ListOfBodyLocations() {
       ? ''
       : LIST_OF_BODY.push(element.body_location)
   );
-  console.log(LIST_OF_BODY);
 }
 
 const FILTER_KEYS = [
   'keyword',
-  'price_range',
+  'min',
+  'max',
   'body_location',
   'category',
   'query_result_maxqty',
@@ -68,68 +70,66 @@ const FILTER_KEYS = [
   'companyId',
 ];
 
-function filterItems(res, filters) {
+function filterItems(res, obj) {
+  clearObj(obj);
   let newFilteredItems = [...items];
-  console.log('HERE', filters);
-  for (let filter of Object.keys(filters)) {
-    console.log(filter);
+  for (let filter of Object.keys(obj)) {
     switch (filter) {
-      case 'price_range':
-        newFilteredItems = filterByPrice(newFilteredItems, ...filters[filter]);
+      case 'min':
+        newFilteredItems = filterByMinPrice(newFilteredItems, obj[filter]);
+        break;
+      case 'max':
+        newFilteredItems = filterByMaxPrice(newFilteredItems, obj[filter]);
         break;
       case 'body_location':
-        newFilteredItems = filterByBodyLocation(
-          newFilteredItems,
-          ...filters[filter]
-        );
+        newFilteredItems = filterByBodyLocation(newFilteredItems, obj[filter]);
         break;
       case 'keyword':
-        newFilteredItems = filterByKeyword(
-          newFilteredItems,
-          filters['keyword']
-        );
+        newFilteredItems = filterByKeyword(newFilteredItems, obj[filter]);
         break;
       case 'available':
-        newFilteredItems = filterByAvailability(
-          newFilteredItems,
-          filters['available']
-        );
+        newFilteredItems = filterByAvailability(newFilteredItems, obj[filter]);
         break;
       case 'companyId':
-        newFilteredItems = filterByCompanyId(
-          newFilteredItems,
-          filters['companyId']
-        );
+        newFilteredItems = filterByCompanyId(newFilteredItems, obj[filter]);
         break;
       case 'category':
-        newFilteredItems = filterByCategory(
-          newFilteredItems,
-          filters['category']
-        );
-        break;
-      case 'query_result_maxqty':
-        newFilteredItems = quantityReview(
-          newFilteredItems,
-          filters['initial_index'],
-          filters['query_result_maxqty']
-        );
+        newFilteredItems = filterByCategory(newFilteredItems, obj[filter]);
         break;
       default:
-        return [];
     }
   }
+  newFilteredItems = reviewQtyOfItemsInResponse(
+    newFilteredItems,
+    obj['initial_index'],
+    obj['query_result_maxqty']
+  );
   res.status(200).json(newFilteredItems);
   return;
 }
 
-function filterByPrice(items, min, max) {
-  if (max < min) {
-    return [];
+function filterByMinPrice(items, min) {
+  let minfloat = parseFloat(min);
+  if (minfloat < 0) {
+    minfloat = 0;
   }
+
+  // /[^0-9\.-]+/g regex to validate is is a Number
   const newList = items.filter(
-    (element) =>
-      Number(element.price.replace(/[^0-9\.-]+/g, '')) <= max &&
-      Number(element.price.replace(/[^0-9\.-]+/g, '')) >= min
+    (element) => Number(element.price.replace(/[^0-9\.-]+/g, '')) >= minfloat
+  );
+  return newList;
+}
+
+function filterByMaxPrice(items, max) {
+  let maxfloat = parseFloat(max);
+  if (maxfloat < 0) {
+    maxfloat = 0;
+  }
+
+  // /[^0-9\.-]+/g regex to validate is is a Number
+  const newList = items.filter(
+    (element) => Number(element.price.replace(/[^0-9\.-]+/g, '')) <= maxfloat
   );
   return newList;
 }
@@ -143,6 +143,13 @@ function filterByBodyLocation(items, bodyLocation) {
   return newList;
 }
 
+//Removes this characters from the values |&;$%@"'<>()+,
+function clearObj(obj) {
+  for (const [key, value] of Object.entries(obj)) {
+    obj[key] = obj[key].replace(/[|&;$%@"'<>()+,]/g, '');
+  }
+}
+
 function filterByKeyword(items, keyword) {
   const newList = items.filter((element) =>
     element.name.toLowerCase().includes(keyword.toLowerCase())
@@ -152,14 +159,17 @@ function filterByKeyword(items, keyword) {
 
 function filterByAvailability(items, flag) {
   const newList = items.filter((element) =>
-    flag ? element.numInStock > 0 : element.numInStock <= 0
+    flag.toLowerCase() === 'true'
+      ? element.numInStock > 0
+      : element.numInStock <= 0
   );
 
   return newList;
 }
 
 function filterByCompanyId(items, companyId) {
-  const newList = items.filter((element) => element.companyId === companyId);
+  const intCompanyId = parseInt(companyId);
+  const newList = items.filter((element) => element.companyId === intCompanyId);
 
   return newList;
 }
@@ -171,13 +181,19 @@ function filterByCategory(items, category) {
   return newList;
 }
 
-function quantityReview(items, initialIndex = 0, maxQueryResult) {
-  console.log('=====>', maxQueryResult);
+function reviewQtyOfItemsInResponse(
+  items,
+  initialIndex = 0,
+  maxQueryResult = 30
+) {
+  const totalFound = items.length;
+  const initialPoint = parseInt(initialIndex);
+  const endPoint = initialPoint + parseInt(maxQueryResult);
   const newList = {
-    nextIndex: maxQueryResult,
-    totalfound: items.length,
-    result: items.slice(initialIndex, maxQueryResult),
+    totalFound,
+    result: items.slice(initialPoint, endPoint),
   };
+
   return newList;
 }
 

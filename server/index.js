@@ -6,7 +6,6 @@ const app = new express();
 const PORT = 4000;
 
 //THIS SEEMS TO BE  NOT LONGER REQUIERED
-// const bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json()); https://medium.com/@mmajdanski/express-body-parser-and-why-may-not-need-it-335803cd048c
 
@@ -33,9 +32,8 @@ app
   .use(express.urlencoded({ extended: false }))
   //https://expressjs.com/en/starter/static-files.html
   .use('/', express.static(__dirname + '/'))
-  // REST endpoints HERE
 
-  //END POINTS GOES IN ROUTES FOLDER. if doubts ask Andres Rueda
+  //ENDPOINTS
   .use(require('./routes/profile'))
   .use(require('./routes/items'))
   .use(require('./routes/seller'));
