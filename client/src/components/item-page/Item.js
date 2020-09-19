@@ -1,14 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateItemQuantity } from '../../actions';
 
 export default function Item() {
+  const dispatch = useDispatch();
   // retreive the item Id from URL params
   const { itemId } = useParams();
 
   const [item, setItem] = React.useState('');
   //create useState to show company name in item card
   const [company, setCompany] = React.useState('');
+
+  // Quantity state to send to redux
+  const [itemQuantity, setItemQuantity] = React.useState(1);
 
   // calling backend API to get specif item for the card
   React.useEffect(() => {
@@ -40,11 +46,13 @@ export default function Item() {
   const itemsSelectionQuantity = [];
 
   //loop for quantity by item (https://flaviocopes.com/react-how-to-loop/)
-  for (let index = 0; index < item.numInStock + 1; index++) {
-    itemsSelectionQuantity.push(
-      <option value={index}>Quantity: {index}</option>
-    );
-    // }
+
+  if (item.numInStock != 0) {
+    for (let index = 1; index < item.numInStock + 1; index++) {
+      itemsSelectionQuantity.push(
+        <option value={index}>Quantity: {index}</option>
+      );
+    }
   }
 
   // if {qty on hand 0} show out of stock
@@ -59,6 +67,11 @@ export default function Item() {
     isItemInStock.push(<p style={{ color: 'green' }}>In stock</p>);
   }
 
+  // event update number of item in dropdown
+  const handleDropdownChange = (e) => {
+    setItemQuantity(e.target.value);
+  };
+
   return (
     <Wrapper>
       <ItemWrapper>
@@ -70,29 +83,37 @@ export default function Item() {
           <ItemPrice>{item.price}</ItemPrice>
           <ItemInStock>{isItemInStock}</ItemInStock>
 
-          <ItemQuantitySelect>{itemsSelectionQuantity}</ItemQuantitySelect>
+          {/* update available item selection quantity */}
+          {item.numInStock > 0 && (
+            <ItemQuantitySelect
+              value={itemQuantity}
+              onChange={handleDropdownChange}
+            >
+              {itemsSelectionQuantity}
+            </ItemQuantitySelect>
+          )}
 
+          {/* https://reactjs.org/docs/conditional-rendering.html */}
           {buttonAvailability ? (
             <AddToCartButton
-              //Onclick on button to redirect to the cart page
+              // Onclick on button to redirect to the cart page
+              // Add cart using redux dispatch
               onClick={() => {
+                dispatch(updateItemQuantity(item._id, itemQuantity));
                 window.location.href = '/cart/';
               }}
             >
               Add to cart
             </AddToCartButton>
           ) : (
-            <AddToCartButton
-              disabled
-              style={{ backgroundColor: 'grey' }}
-              //Onclick on button unvailable because is out of stock
-              onClick={() => {
-                console.log('Delete in Redux');
-              }}
-            >
-              Unavailable
-            </AddToCartButton>
-          )}
+              <AddToCartButton
+                disabled
+                style={{ backgroundColor: 'grey' }}
+              //unvailable because is out of stock
+              >
+                Unavailable
+              </AddToCartButton>
+            )}
         </ItemInformationWrapper>
       </ItemWrapper>
       <ItemReviewWrapper>
