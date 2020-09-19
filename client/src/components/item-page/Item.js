@@ -40,11 +40,14 @@ export default function Item() {
   const itemsSelectionQuantity = [];
 
   //loop for quantity by item (https://flaviocopes.com/react-how-to-loop/)
-  for (let index = 0; index < item.numInStock + 1; index++) {
-    itemsSelectionQuantity.push(
-      <option value={index}>Quantity: {index}</option>
-    );
-    // }
+
+  if (item.numInStock != 0) {
+    for (let index = 1; index < item.numInStock + 1; index++) {
+      itemsSelectionQuantity.push(
+        <option value={index}>Quantity: {index}</option>
+      );
+      // }
+    }
   }
 
   // if {qty on hand 0} show out of stock
@@ -70,7 +73,12 @@ export default function Item() {
           <ItemPrice>{item.price}</ItemPrice>
           <ItemInStock>{isItemInStock}</ItemInStock>
 
-          <ItemQuantitySelect>{itemsSelectionQuantity}</ItemQuantitySelect>
+          {/* remove item selection if item not in stock */}
+          {item.numInStock > 0 && (
+            <ItemQuantitySelect>{itemsSelectionQuantity}</ItemQuantitySelect>
+          )}
+
+          {/* https://reactjs.org/docs/conditional-rendering.html */}
           {buttonAvailability ? (
             <AddToCartButton
               //Onclick on button to redirect to the cart page
