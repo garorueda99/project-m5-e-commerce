@@ -100,7 +100,7 @@ export default function Item() {
               // Add cart using redux dispatch
               onClick={() => {
                 dispatch(addToCart(item._id, itemQuantity));
-                // window.location.href = '/cart/';
+                window.location.href = '/cart/';
               }}
             >
               Add to cart
