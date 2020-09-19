@@ -3,6 +3,7 @@ import React from 'react';
 import Moment from 'react-moment';
 // Components
 import Loader from '../Loader';
+import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
 // Styles
 import styled from 'styled-components';
@@ -31,17 +32,20 @@ const OrderConfirmation = () => {
                 <Moment format="YYYY/MM/DD" />
               </p>
             </Row>
-            <Row id="email">
-              <RowTitle>Email</RowTitle>
-              <p>{currentUser.profile.email}</p>
+            <Row id="total">
+              <RowTitle>Total</RowTitle>
+              {/* static number for now, should be coming from the purchase */}
+              <p>$123.45</p>
             </Row>
             <Row id="fullname">
-              <RowTitle>Name</RowTitle>
-              <p>
-                {`
+              <RowTitle>Customer</RowTitle>
+              <p>{`
               ${currentUser.profile.firstName}
-              ${currentUser.profile.lastName}`}
-              </p>
+              ${currentUser.profile.lastName}`}</p>
+            </Row>
+            <Row id="email">
+              <RowTitle>Order confirmation sent to</RowTitle>
+              <p>{currentUser.profile.email}</p>
             </Row>
             <Row id="shipping-info">
               <RowTitle>Item send to</RowTitle>
@@ -53,7 +57,15 @@ const OrderConfirmation = () => {
             <HorizontalRule />
           </div>
         </InvoiceWrapper>
-        <div>Product details goes here...</div>
+        <ProductTitle>Product</ProductTitle>
+        <LineItemWrapper>
+          {/* Product mapping to be added here - temp static data to showcase */}
+          <LineItem />
+          <LineItem />
+          <LineItem />
+          <LineItem />
+          <LineItem />
+        </LineItemWrapper>
       </Wrapper>
     </>
   );
@@ -91,6 +103,14 @@ const Row = styled.div`
 const RowTitle = styled.h4`
   text-transform: uppercase;
   margin-bottom: 6px;
+`;
+
+const LineItemWrapper = styled.ul`
+  margin-bottom: 50px;
+`;
+
+const ProductTitle = styled.h2`
+  margin-bottom: 20px;
 `;
 
 export default OrderConfirmation;
