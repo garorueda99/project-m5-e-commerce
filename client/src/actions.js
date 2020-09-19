@@ -27,15 +27,6 @@ export const closeModal = () => ({
 // Cart related stuff
 export const addToCart = (itemId) => ({
   type: 'ADD_ITEM_TO_CART',
-<<<<<<< HEAD
-  itemId
-})
-
-export const removeFromCart = (itemId) => ({
-  type: 'DELETE_ITEM_FROM_CART',
-  itemId
-})
-=======
   itemId,
 });
 
@@ -43,4 +34,13 @@ export const removeFromCart = (itemId) => ({
   type: 'DELETE_ITEM_FROM_CART',
   itemId,
 });
->>>>>>> 66f5b61dbd9ca51cac39472fa9adc726dec998fe
+
+export const updateItemQuantity = (itemId, itemQuantity) => ({
+  type: 'UPDATE_CART_QUANTITY',
+  itemId,
+  itemQuantity,
+});
+
+export const clearCart = () => ({
+  type: 'UPDATE_CART_QUANTITY',
+});
