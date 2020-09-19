@@ -36,16 +36,36 @@ export default function Item() {
       });
   }, []);
 
+  // added quantity to item page
+  const itemsSelectionQuantity = [];
+
+  //loop for quantity by item
+  for (let index = 0; index < item.numInStock + 1; index++) {
+    //"out of stock added to quantity"
+    // if (index == 0) {
+    //   itemsSelectionQuantity.push(
+    //     <option value="Out of stock">Out of stock</option>
+    //   );
+    // } else {
+    itemsSelectionQuantity.push(<option value={index}>{index}</option>);
+    // }
+  }
+
   return (
     <Wrapper>
       <ItemWrapper>
         <ItemImage src={item.imageSrc} alt="Item image."></ItemImage>
         <ItemInformationWrapper>
           <ItemName>{item.name}</ItemName>
-          <ItemCategory>{item.category}</ItemCategory>
-          <ItemCompanyName>{company.name}</ItemCompanyName>
+          <ItemCategory>Category: {item.category}</ItemCategory>
+          <ItemCompanyName>Company: {company.name}</ItemCompanyName>
           <ItemPrice>{item.price}</ItemPrice>
-          <ItemInStock>{item.numInStock}</ItemInStock>
+          <ItemInStock>
+            Number of remaining item : {item.numInStock}
+          </ItemInStock>
+
+          <ItemQuantitySelect>{itemsSelectionQuantity}</ItemQuantitySelect>
+
           <AddToCartButton
             //Onclick on button to redirect to the cart page
             onClick={() => {
@@ -131,6 +151,13 @@ const ItemPrice = styled.h3`
 const ItemInStock = styled.p`
   flex: 2;
   margin-left: 5%;
+`;
+
+const ItemQuantitySelect = styled.select`
+  width: 15%;
+  height: 15%;
+  margin-left: 5%;
+  flex: 2;
 `;
 
 const AddToCartButton = styled.button`
