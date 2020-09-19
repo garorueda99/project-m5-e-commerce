@@ -2,27 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
+import { addToCart } from '../../actions'
+
 const Item = (props) => {
   const dispatch = useDispatch();
 
-  // TODO: add dispatch(addItemToCart) to button onclick
+  // done: add dispatch(addItemToCart) to button onclick
 
   const data = props.data;
+
   return (
-    <Wrapper
-      //Onclick on card to redirect to the item page
-      onClick={() => {
-        window.location.href = '/item/' + data._id;
-      }}
-    >
+    <Wrapper>
       <ItemWrapper>
-        <h3>{data.name}</h3>
-        <ItemContent>
+        <ItemContent
+          //Onclick on card to redirect to the item page
+          onClick={() => {
+            window.location.href = '/item/' + data._id;
+          }}>
+          <h3>{data.name}</h3>
           <ImgWrapper style={{ backgroundImage: `url(${data.imageSrc})` }} />
         </ItemContent>
         <ActionBar>
           <p>{data.price}</p>
-          <button>Add to Cart</button>
+          <button onClick={() => dispatch(addToCart(data._id))}>Add to Cart</button>
         </ActionBar>
       </ItemWrapper>
     </Wrapper>
