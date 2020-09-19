@@ -34,3 +34,13 @@ export const removeFromCart = (itemId) => ({
   type: 'DELETE_ITEM_FROM_CART',
   itemId,
 });
+
+export const updateItemQuantity = (itemId, itemQuantity) => ({
+  type: 'UPDATE_CART_QUANTITY',
+  itemId,
+  itemQuantity,
+});
+
+export const clearCart = () => ({
+  type: 'UPDATE_CART_QUANTITY',
+});
