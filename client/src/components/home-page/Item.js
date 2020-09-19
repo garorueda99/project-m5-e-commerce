@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import { addToCart } from '../../actions';
+import { updateItemQuantity } from '../../actions';
+import AddToCart from './AddToCart';
 
 const Item = (props) => {
   const dispatch = useDispatch();
@@ -25,9 +26,7 @@ const Item = (props) => {
         </ItemContent>
         <ActionBar>
           <p>{data.price}</p>
-          <button onClick={() => dispatch(addToCart(data._id, 1))}>
-            Add to Cart
-          </button>
+          <AddToCart data={data} />
         </ActionBar>
       </ItemWrapper>
     </Wrapper>

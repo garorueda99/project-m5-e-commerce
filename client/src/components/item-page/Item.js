@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../actions';
+import { updateItemQuantity } from '../../actions';
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -99,21 +99,21 @@ export default function Item() {
               // Onclick on button to redirect to the cart page
               // Add cart using redux dispatch
               onClick={() => {
-                dispatch(addToCart(item._id, itemQuantity));
+                dispatch(updateItemQuantity(item._id, itemQuantity));
                 window.location.href = '/cart/';
               }}
             >
               Add to cart
             </AddToCartButton>
           ) : (
-            <AddToCartButton
-              disabled
-              style={{ backgroundColor: 'grey' }}
+              <AddToCartButton
+                disabled
+                style={{ backgroundColor: 'grey' }}
               //unvailable because is out of stock
-            >
-              Unavailable
-            </AddToCartButton>
-          )}
+              >
+                Unavailable
+              </AddToCartButton>
+            )}
         </ItemInformationWrapper>
       </ItemWrapper>
       <ItemReviewWrapper>
