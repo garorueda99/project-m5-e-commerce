@@ -18,7 +18,7 @@ export default function Item() {
               <FaTrash
                 style={{ marginLeft: '95%' }} //Onclick on button to delete
                 onClick={() => {
-                  window.location.href = '/OrderConfirmation/';
+                  window.location.href = '/order-confirmation/';
                 }}
               >
                 {' '}
@@ -37,7 +37,7 @@ export default function Item() {
               <FaTrash
                 style={{ marginLeft: '95%' }} //Onclick on button to delete
                 onClick={() => {
-                  window.location.href = '/OrderConfirmation/';
+                  window.location.href = '/order-confirmation/';
                 }}
               >
                 {' '}
@@ -51,7 +51,7 @@ export default function Item() {
           <PurchaseButton
             //Onclick on button to redirect to the cart page
             onClick={() => {
-              window.location.href = '/OrderConfirmation/';
+              window.location.href = '/order-confirmation/';
             }}
           >
             Purchase
