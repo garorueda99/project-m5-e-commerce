@@ -2,7 +2,6 @@
 import React from 'react';
 import Moment from 'react-moment';
 // Components
-import Loader from '../Loader';
 import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
 // Styles
@@ -13,9 +12,7 @@ const orderNumber = Math.random().toString().slice(2, 11);
 const OrderConfirmation = () => {
   const { currentUser } = React.useContext(CurrentUserContext);
 
-  return !currentUser ? (
-    <Loader />
-  ) : (
+  return (
     <>
       <Wrapper>
         <h1>Thank you for your order!</h1>
