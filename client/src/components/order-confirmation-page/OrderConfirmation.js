@@ -18,41 +18,41 @@ const OrderConfirmation = () => {
         <h1>Thank you for your order!</h1>
         <InvoiceWrapper>
           <HorizontalRule />
-          <div className="md-invoice-section" style={{ paddingTop: '20px' }}>
-            <Row id="order-number">
-              <RowTitle>Order Number</RowTitle>
+          <Row className="sm-invoice-section-row">
+            <Column id="order-number" className="md-invoice-section-column">
+              <InvoiceTitle>Order Number</InvoiceTitle>
               <p>{orderNumber}</p>
-            </Row>
-            <Row id="order-date">
-              <RowTitle>Order date</RowTitle>
+            </Column>
+            <Column id="order-date" className="md-invoice-section-column">
+              <InvoiceTitle>Order date</InvoiceTitle>
               <p>
                 <Moment format="YYYY/MM/DD" />
               </p>
-            </Row>
-            <Row id="total">
-              <RowTitle>Total</RowTitle>
+            </Column>
+            <Column id="total" className="md-invoice-section-column">
+              <InvoiceTitle>Total</InvoiceTitle>
               {/* static number for now, should be coming from the purchase */}
               <p>$123.45</p>
-            </Row>
-            <Row id="fullname">
-              <RowTitle>Customer</RowTitle>
+            </Column>
+            <Column id="fullname" className="md-invoice-section-column">
+              <InvoiceTitle>Customer</InvoiceTitle>
               <p>{`
               ${currentUser.profile.firstName}
               ${currentUser.profile.lastName}`}</p>
-            </Row>
-            <Row id="email">
-              <RowTitle>Order confirmation sent to</RowTitle>
+            </Column>
+            <Column id="email" className="md-invoice-section-column">
+              <InvoiceTitle>Order confirmation sent to</InvoiceTitle>
               <p>{currentUser.profile.email}</p>
-            </Row>
-            <Row id="shipping-info">
-              <RowTitle>Item send to</RowTitle>
+            </Column>
+            <Column id="shipping-info" className="md-invoice-section-column">
+              <InvoiceTitle>Item send to</InvoiceTitle>
               <p>{`
               ${currentUser.profile.address},
               ${currentUser.profile.province},
               ${currentUser.profile.country}`}</p>
-            </Row>
-            <HorizontalRule />
-          </div>
+            </Column>
+          </Row>
+          <HorizontalRule />
         </InvoiceWrapper>
         <ProductTitle>Product</ProductTitle>
         <LineItemWrapper>
@@ -92,12 +92,18 @@ const HorizontalRule = styled.hr`
 `;
 
 const Row = styled.div`
-  display: inline-block;
-  min-width: 33%;
-  min-height: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
 `;
 
-const RowTitle = styled.h4`
+const Column = styled.div`
+  flex: 33%;
+  padding: 20px;
+  padding-left: 0;
+`;
+
+const InvoiceTitle = styled.h4`
   text-transform: uppercase;
   margin-bottom: 6px;
 `;

@@ -75,10 +75,10 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.div`
+  flex: 1;
+  width: 97%;
   padding-top: 60px;
   /* flex: 1 0 auto; */
-  width: 97%;
-  /* flex: 1; */
 `;
 
 export default App;
