@@ -42,6 +42,7 @@ const Wrapper = styled.div`
   border-radius: 15px;
   padding: 20px;
   margin-bottom: 15px;
+  margin-right: 25px;
 `;
 
 const ItemWrapper = styled.div`
