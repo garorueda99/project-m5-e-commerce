@@ -70,13 +70,15 @@ function App() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
 `;
 
 const Main = styled.div`
-  flex: 1 0 auto;
-  padding: 70px 24px 30px 24px;
-  flex-grow: 1;
+  padding-top: 60px;
+  /* flex: 1 0 auto; */
+  width: 97%;
+  /* flex: 1; */
 `;
 
 export default App;

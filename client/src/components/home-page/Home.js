@@ -59,17 +59,22 @@ const Wrapper = styled.div`
 
 const ContentWrapper = styled.div`
   display: flex;
-  margin: 30px 0;
-  width: 70%;
+  width: 100%;
 `;
 
-const ColumnList = styled.div``;
+const ColumnList = styled.div`
+  width: 250px;
+`;
 
 const ItemGrid = styled.div`
-  display: grid;
+  flex: 1;
+  /* display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 20px;
-  row-gap: 20px;
+  row-gap: 20px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 `;
 
 export default Homepage;
