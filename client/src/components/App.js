@@ -10,6 +10,7 @@ import SignIn from './signin-page/SignIn';
 import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
 import Footer from './Footer';
+import Loader from './Loader';
 import { CurrentUserContext } from './CurrentUserContext';
 // Styles
 import GlobalStyles from './GlobalStyles';
@@ -20,7 +21,18 @@ function App() {
 
   console.log('User data ', currentUser);
 
-  return (
+  return !currentUser ? (
+    <Router>
+      <Wrapper>
+        <Header />
+        <Main>
+          <Loader />
+        </Main>
+        <Footer />
+      </Wrapper>
+      <GlobalStyles />
+    </Router>
+  ) : (
     <>
       <Router>
         <Wrapper>

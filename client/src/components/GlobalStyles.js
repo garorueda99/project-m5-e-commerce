@@ -47,6 +47,16 @@ export default createGlobalStyle`
     overflow-x: hidden;
   }
 
+  /* Loader */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
 /* Header */
 @media ( min-width: 501px ) {
   span.sm-header-title { display: none }
