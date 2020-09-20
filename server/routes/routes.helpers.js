@@ -36,9 +36,9 @@ const CURRENT_USER_ID = {
   },
 };
 
-/////INDEXATION FUNCTION DB MAINTENANCE /////
+///// INDEXATION FUNCTION DB MAINTENANCE /////
 
-//GET CATEGORY INDEX
+// GET CATEGORY INDEX
 function ListOfCategories() {
   const LIST_OF_CATEGORIES = [];
   items.map((element) =>
@@ -48,7 +48,7 @@ function ListOfCategories() {
   );
 }
 
-//GET BODY LOCATION INDEX
+// GET BODY LOCATION INDEX
 function ListOfBodyLocations() {
   const LIST_OF_BODY = [];
   items.map((element) =>
@@ -135,7 +135,7 @@ function filterByMaxPrice(items, max) {
 }
 
 function filterByBodyLocation(items, bodyLocation) {
-  //Missing to work with complex body_location = 2 or more
+  // Missing to work with complex body_location = 2 or more
   const newList = items.filter(
     (element) =>
       element.body_location.toLowerCase() === bodyLocation.toLowerCase()
@@ -143,7 +143,7 @@ function filterByBodyLocation(items, bodyLocation) {
   return newList;
 }
 
-//Removes this characters from the values |&;$%@"'<>()+,
+// Removes this characters from the values |&;$%@"'<>()+,
 function clearObj(obj) {
   for (const [key, value] of Object.entries(obj)) {
     obj[key] = obj[key].replace(/[|&;$%@"'<>()+,]/g, '');

@@ -194,7 +194,7 @@ All Products endpoints return data in the following structure:
 totalFound: returns the total amount of items found with the query 👆
 Result: returns the number of items found up to 30. If the query 👆 includes _query_result_maxqty_ parameter it will return as many items as defined there, up to 30.
 
-Because the Back-end probably won't pass all items the response will include the  
+Because the Back-end probably won't pass all items the response will include the
 "nextIndex" key. that let know the front-end what index should request to show when the user ask for more items or qhen rendering E.G. page 2 of 4 or page 3 of 4, etc
 
 ```json

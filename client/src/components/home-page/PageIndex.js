@@ -1,9 +1,11 @@
+// Libraries
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { BsCaretRight } from 'react-icons/bs';
 import { BsCaretLeft } from 'react-icons/bs';
+import { BsCaretRight } from 'react-icons/bs';
+// Actions
 import { nextPageItems } from '../../actions';
 
 export default function PageIndex({ page, setPage }) {
