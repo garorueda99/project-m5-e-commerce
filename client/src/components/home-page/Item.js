@@ -41,6 +41,7 @@ const Wrapper = styled.div`
   border: 1px solid lightgrey;
   border-radius: 15px;
   padding: 20px;
+  margin-bottom: 15px;
 `;
 
 const ItemWrapper = styled.div`

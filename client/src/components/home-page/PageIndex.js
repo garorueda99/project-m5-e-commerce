@@ -38,8 +38,14 @@ export default function PageIndex({ page, setPage }) {
 }
 
 const Wrapper = styled.div`
-  width: 90%;
+  display: flex;
+  flex: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   text-align: center;
+  height: 100%;
+  padding: 10px 0;
 `;
 
 const Button = styled.button`
