@@ -1,7 +1,8 @@
+// Libraries
 import React from 'react';
-
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+// Actions
 import { triggerModal } from '../../actions';
 
 export default function Error() {

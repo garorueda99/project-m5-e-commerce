@@ -1,11 +1,10 @@
 // Libraries
 import React from 'react';
 import Moment from 'react-moment';
+import styled from 'styled-components';
 // Components
 import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
-// Styles
-import styled from 'styled-components';
 
 const orderNumber = Math.random().toString().slice(2, 11);
 

@@ -1,5 +1,6 @@
 // Libraries
 import React from 'react';
+import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Components
 import Home from './home-page/Home';
@@ -14,7 +15,6 @@ import Loader from './Loader';
 import { CurrentUserContext } from './CurrentUserContext';
 // Styles
 import GlobalStyles from './GlobalStyles';
-import styled from 'styled-components';
 
 function App() {
   const { currentUser } = React.useContext(CurrentUserContext);
@@ -78,7 +78,6 @@ const Main = styled.div`
   flex: 1;
   width: 97%;
   padding-top: 60px;
-  /* flex: 1 0 auto; */
 `;
 
 export default App;
