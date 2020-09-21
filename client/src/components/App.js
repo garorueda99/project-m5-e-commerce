@@ -10,6 +10,7 @@ import SignIn from './signin-page/SignIn';
 import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
 import Footer from './Footer';
+import Loader from './Loader';
 import { CurrentUserContext } from './CurrentUserContext';
 // Styles
 import GlobalStyles from './GlobalStyles';
@@ -20,7 +21,18 @@ function App() {
 
   console.log('User data ', currentUser);
 
-  return (
+  return !currentUser ? (
+    <Router>
+      <Wrapper>
+        <Header />
+        <Main>
+          <Loader />
+        </Main>
+        <Footer />
+      </Wrapper>
+      <GlobalStyles />
+    </Router>
+  ) : (
     <>
       <Router>
         <Wrapper>
@@ -63,10 +75,10 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.div`
+  flex: 1;
+  width: 97%;
   padding-top: 60px;
   /* flex: 1 0 auto; */
-  width: 97%;
-  /* flex: 1; */
 `;
 
 export default App;

@@ -47,15 +47,49 @@ export default createGlobalStyle`
     overflow-x: hidden;
   }
 
-/* Header */
-@media ( min-width: 501px ) {
-  span.sm-header-title { display: none }
-  span.sm-top-nav-icon { display: none }
-  span.md-top-nav-text { display: inline-block }
-}
-@media ( max-width: 500px ) {
-  span.md-header-title { display: none }
-  span.md-top-nav-text { display: none }
-  span.sm-top-nav-icon { display: inline-block }
-}
+  /* Loader */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Breakpoint: Tablets Up */
+  @media ( min-width: 601px ) {
+    span.sm-header-title {
+      display: none
+    }
+    span.sm-top-nav-icon {
+      display: none
+    }
+    span.md-top-nav-text {
+      display: inline-block
+    }
+  }
+
+  /* Breakpoint: Tablets */
+  @media ( max-width: 992px ) {
+    .md-invoice-section-column {
+      flex: 50%;
+    }
+  }
+
+  /* Breakpoint: Mobiles */
+  @media ( max-width: 600px ) {
+    span.md-header-title {
+      display: none
+    }
+    span.md-top-nav-text {
+      display: none
+    }
+    span.sm-top-nav-icon {
+      display: inline-block
+    }
+    .sm-invoice-section-row {
+      flex-direction: column
+    }
+  }
 `;

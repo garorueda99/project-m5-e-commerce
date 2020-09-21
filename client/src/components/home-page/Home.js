@@ -63,7 +63,7 @@ const ContentWrapper = styled.div`
 `;
 
 const ColumnList = styled.div`
-  width: 200px;
+  width: 250px;
 `;
 
 const ItemGrid = styled.div`
@@ -74,7 +74,7 @@ const ItemGrid = styled.div`
   row-gap: 20px; */
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: flex-start;
 `;
 
 export default Homepage;

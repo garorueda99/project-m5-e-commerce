@@ -100,20 +100,20 @@ export default function Item() {
               // Add cart using redux dispatch
               onClick={() => {
                 dispatch(updateItemQuantity(item._id, itemQuantity));
-                window.location.href = '/cart/';
+                window.location.href = '/cart';
               }}
             >
               Add to cart
             </AddToCartButton>
           ) : (
-              <AddToCartButton
-                disabled
-                style={{ backgroundColor: 'grey' }}
+            <AddToCartButton
+              disabled
+              style={{ backgroundColor: 'grey' }}
               //unvailable because is out of stock
-              >
-                Unavailable
-              </AddToCartButton>
-            )}
+            >
+              Unavailable
+            </AddToCartButton>
+          )}
         </ItemInformationWrapper>
       </ItemWrapper>
       <ItemReviewWrapper>
