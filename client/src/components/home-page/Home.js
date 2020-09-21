@@ -84,6 +84,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  min-height: 450px;
   display: flex;
   width: 100%;
 `;
