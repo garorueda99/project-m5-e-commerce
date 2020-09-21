@@ -1,4 +1,4 @@
-//RELATED WITH ITEMS
+// RELATED WITH ITEMS
 export const requestItems = (query) => ({
   type: 'REQUEST_ITEMS',
   query,
@@ -13,7 +13,7 @@ export const nextPageItems = () => ({
   type: 'CHANGE_TO_NEXT_PAGE_ITEMS',
 });
 
-//RELATED WITH MODAL
+// RELATED WITH MODAL
 export const triggerModal = (title, message) => ({
   type: 'TRIGGER_MODAL',
   title,

@@ -1,9 +1,11 @@
+// Libraries
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { BsCaretRight } from 'react-icons/bs';
 import { BsCaretLeft } from 'react-icons/bs';
+import { BsCaretRight } from 'react-icons/bs';
+// Actions
 import { nextPageItems } from '../../actions';
 
 export default function PageIndex({ page, setPage }) {
@@ -38,8 +40,14 @@ export default function PageIndex({ page, setPage }) {
 }
 
 const Wrapper = styled.div`
-  width: 90%;
+  display: flex;
+  flex: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   text-align: center;
+  height: 100%;
+  padding: 10px 0;
 `;
 
 const Button = styled.button`

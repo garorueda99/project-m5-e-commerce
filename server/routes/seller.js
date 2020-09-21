@@ -1,4 +1,4 @@
-//Endpoints related to the sellers
+// Endpoints related to the sellers
 
 const router = require('express').Router();
 const { sellers } = require('./routes.helpers');

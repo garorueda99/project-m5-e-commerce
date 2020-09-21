@@ -1,7 +1,9 @@
+// Libraires
 import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+// Actions
 import { updateItemQuantity } from '../../actions';
 
 export default function Item() {
@@ -10,7 +12,7 @@ export default function Item() {
   const { itemId } = useParams();
 
   const [item, setItem] = React.useState('');
-  //create useState to show company name in item card
+  // create useState to show company name in item card
   const [company, setCompany] = React.useState('');
 
   // Quantity state to send to redux
@@ -45,9 +47,9 @@ export default function Item() {
   // added quantity to item page
   const itemsSelectionQuantity = [];
 
-  //loop for quantity by item (https://flaviocopes.com/react-how-to-loop/)
+  // loop for quantity by item (https://flaviocopes.com/react-how-to-loop/)
 
-  if (item.numInStock != 0) {
+  if (item.numInStock !== 0) {
     for (let index = 1; index < item.numInStock + 1; index++) {
       itemsSelectionQuantity.push(
         <option value={index}>Quantity: {index}</option>
@@ -60,7 +62,7 @@ export default function Item() {
   // if {qty on hand 0} disable purchanse button
   let buttonAvailability = true;
 
-  if (item.numInStock == 0) {
+  if (item.numInStock === 0) {
     isItemInStock.push(<p style={{ color: 'red' }}>Out of stock</p>);
     buttonAvailability = false;
   } else {
@@ -100,7 +102,7 @@ export default function Item() {
               // Add cart using redux dispatch
               onClick={() => {
                 dispatch(updateItemQuantity(item._id, itemQuantity));
-                window.location.href = '/cart/';
+                window.location.href = '/cart';
               }}
             >
               Add to cart
@@ -109,7 +111,7 @@ export default function Item() {
               <AddToCartButton
                 disabled
                 style={{ backgroundColor: 'grey' }}
-              //unvailable because is out of stock
+              // unvailable because is out of stock
               >
                 Unavailable
               </AddToCartButton>
@@ -123,7 +125,7 @@ export default function Item() {
   );
 }
 
-//components for style
+// components for style
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -160,7 +162,7 @@ const ItemReviewWrapper = styled.div`
   margin-top: 10%;
 `;
 
-//stylling item in card
+// stylling item in card
 
 const ItemImage = styled.img`
   width: 50%;
@@ -188,7 +190,7 @@ const ItemPrice = styled.h3`
   margin: 5%;
 `;
 
-const ItemInStock = styled.p`
+const ItemInStock = styled.div`
   flex: 2;
   margin-left: 5%;
 `;

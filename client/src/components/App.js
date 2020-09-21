@@ -1,5 +1,6 @@
 // Libraries
 import React from 'react';
+import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Components
 import Home from './home-page/Home';
@@ -10,17 +11,28 @@ import SignIn from './signin-page/SignIn';
 import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
 import Footer from './Footer';
+import Loader from './Loader';
 import { CurrentUserContext } from './CurrentUserContext';
 // Styles
 import GlobalStyles from './GlobalStyles';
-import styled from 'styled-components';
 
 function App() {
   const { currentUser } = React.useContext(CurrentUserContext);
 
   console.log('User data ', currentUser);
 
-  return (
+  return !currentUser ? (
+    <Router>
+      <Wrapper>
+        <Header />
+        <Main>
+          <Loader />
+        </Main>
+        <Footer />
+      </Wrapper>
+      <GlobalStyles />
+    </Router>
+  ) : (
     <>
       <Router>
         <Wrapper>
@@ -58,13 +70,14 @@ function App() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
 `;
 
 const Main = styled.div`
-  flex: 1 0 auto;
-  padding: 70px 24px 30px 24px;
-  flex-grow: 1;
+  flex: 1;
+  width: 97%;
+  padding-top: 60px;
 `;
 
 export default App;

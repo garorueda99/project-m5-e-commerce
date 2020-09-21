@@ -1,9 +1,11 @@
+// Libraries
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-
-import { updateItemQuantity } from '../../actions';
+// Components
 import AddToCart from './AddToCart';
+// Actions
+import { updateItemQuantity } from '../../actions';
 
 const Item = (props) => {
   const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const Item = (props) => {
     <Wrapper>
       <ItemWrapper>
         <ItemContent
-          //Onclick on card to redirect to the item page
+          // Onclick on card to redirect to the item page
           onClick={() => {
             window.location.href = '/item/' + data._id;
           }}
@@ -41,6 +43,8 @@ const Wrapper = styled.div`
   border: 1px solid lightgrey;
   border-radius: 15px;
   padding: 20px;
+  margin-bottom: 15px;
+  margin-right: 25px;
 `;
 
 const ItemWrapper = styled.div`

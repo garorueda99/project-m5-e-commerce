@@ -2,7 +2,7 @@ const initialState = {
   exampleID: null,
   exampleProducts: null,
   exampleValue: null,
-  status: "idle",
+  status: 'idle',
 };
 
 export default function artistReducer(state = initialState, action) {

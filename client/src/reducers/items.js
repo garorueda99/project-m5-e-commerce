@@ -1,4 +1,4 @@
-//This handles the error for the modal component
+// This handles the error for the modal component
 
 const initialState = {
   filters: null,

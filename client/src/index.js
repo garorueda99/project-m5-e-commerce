@@ -1,11 +1,13 @@
+// Libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import configureStore from './store';
+// Components
+import App from './components/App';
 import Modal from './components/modal';
 import { CurrentUserProvider } from './components/CurrentUserContext';
-
-import App from './components/App';
+// Store
+import configureStore from './store';
 
 const store = configureStore();
 const rootElement = document.getElementById('root');
