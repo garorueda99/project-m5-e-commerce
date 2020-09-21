@@ -190,7 +190,7 @@ const ItemPrice = styled.h3`
   margin: 5%;
 `;
 
-const ItemInStock = styled.p`
+const ItemInStock = styled.div`
   flex: 2;
   margin-left: 5%;
 `;
