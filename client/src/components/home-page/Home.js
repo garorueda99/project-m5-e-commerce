@@ -21,12 +21,14 @@ const Homepage = () => {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(2500);
   const [categories, setCategories] = useState([]);
+  const [bodyL, setBodyL] = useState([]);
   let index = page === 1 ? '' : `&initial_index=${(page - 1) * items.pageSize}`;
   let available_query = available ? `&available=${available}` : ``;
   let min_query = min > 0 ? `&min=${min}` : '';
   let max_query = max < 2500 ? `&max=${max}` : '';
   let categories_query =
     categories != '' ? `&category=${categories.join()}` : ``;
+  let body_query = bodyL != '' ? `&body_location=${bodyL.join()}` : ``;
   // pull list of items
 
   React.useEffect(() => {
@@ -37,9 +39,10 @@ const Homepage = () => {
       available_query +
       min_query +
       max_query +
-      categories_query;
+      categories_query +
+      body_query;
     fetchItems(query).then((res) => dispatch(receiveItemsInfo(res)));
-  }, [page, available, min, max, categories]);
+  }, [page, available, min, max, categories, bodyL]);
 
   // map through list of items and return individual items
   // pass through individual array item from itemList
@@ -58,6 +61,8 @@ const Homepage = () => {
             setMax={setMax}
             categories={categories}
             setCategories={setCategories}
+            bodyL={bodyL}
+            setBodyL={setBodyL}
           />
         </ColumnList>
         <ItemGrid>

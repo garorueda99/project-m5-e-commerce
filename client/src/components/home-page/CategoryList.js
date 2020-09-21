@@ -12,20 +12,11 @@ const CategoryList = ({
   setMax,
   categories,
   setCategories,
+  bodyL,
+  setBodyL,
 }) => {
   const [categoryItems, setCategoryItems] = React.useState('');
   const [bodyLocations, setBodyLocations] = React.useState('');
-  const Checkbox = (category) => {
-    return (
-      <input
-        onChange={(c) => {
-          setCategories(category);
-          console.log(category);
-        }}
-        type="checkbox"
-      />
-    );
-  };
 
   React.useEffect(() => {
     fetch('/api/items/categories')
@@ -97,7 +88,18 @@ const CategoryList = ({
           bodyLocations.map((location, index) => {
             return (
               <label key={`loc-${index}`}>
-                <Checkbox />
+                <input
+                  onClick={(e) => {
+                    if (e.target.checked) {
+                      setBodyL((n) => [...n, location]);
+                    } else {
+                      setBodyL((n) =>
+                        n.filter((element) => element !== location)
+                      );
+                    }
+                  }}
+                  type="checkbox"
+                />
                 {location}
               </label>
             );
