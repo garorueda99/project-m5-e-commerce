@@ -1,21 +1,88 @@
+// Libraries
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+// Actions
+import { updateItemQuantity } from '../../actions';
 
-const AddToCart = () => {
+const AddToCart = (props) => {
+  // if there are zero items in stock, show a greyed out button
+  // if there's zero quantity for the item in the cart, show default button
+  // if there's at least one, show the plus-minus experience
 
-    const dispatch = useDispatch();
+  const data = props.data;
 
-    const items = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
-    // if there are zero items in stock, show a greyed out button
-    // if there's zero quantity for the item in the cart, show default button
-    // if there's at least one, show the plus-minus experience
+  const cartContents = useSelector((state) => state.cart);
 
+  if (data.numInStock === 0 || cartContents[data._id] >= data.numInStock) {
+    return <GreyedButton>Out of stock</GreyedButton>;
+  } else if (data._id in cartContents !== true) {
     return (
-        <button onClick={() => dispatch(addToCart(data._id))}>Add to Cart</button>
-    )
-
-}
+      <AddToCartButton
+        onClick={() => dispatch(updateItemQuantity(data._id, 1))}
+      >
+        Add to Cart
+      </AddToCartButton>
+    );
+  } else if (cartContents[data._id] >= 1) {
+    return (
+      <QuantityWrapper>
+        <QuantityButton
+          onClick={() =>
+            dispatch(updateItemQuantity(data._id, cartContents[data._id] - 1))
+          }
+        >
+          <AiOutlineMinus />
+        </QuantityButton>
+        <div>{cartContents[data._id]}</div>
+        <QuantityButton
+          onClick={() =>
+            dispatch(updateItemQuantity(data._id, cartContents[data._id] + 1))
+          }
+        >
+          {' '}
+          <AiOutlinePlus />
+        </QuantityButton>
+      </QuantityWrapper>
+    );
+  } else {
+    return (
+      <AddToCartButton
+        onClick={() => dispatch(updateItemQuantity(data._id, 1))}
+      >
+        Add to Cart
+      </AddToCartButton>
+    );
+  }
+};
 
 export default AddToCart;
+
+const AddToCartButton = styled.button`
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+`;
+
+const GreyedButton = styled(AddToCartButton)`
+  background-color: lightgrey;
+`;
+
+const QuantityButton = styled.button`
+  background: none;
+  border: none;
+  margin: 0 15px;
+`;
+
+const QuantityWrapper = styled.div`
+  display: flex;
+  width: 50 px;
+`;

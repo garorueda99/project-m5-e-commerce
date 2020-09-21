@@ -1,4 +1,4 @@
-//RELATED WITH ITEMS
+// RELATED WITH ITEMS
 export const requestItems = (query) => ({
   type: 'REQUEST_ITEMS',
   query,
@@ -13,7 +13,7 @@ export const nextPageItems = () => ({
   type: 'CHANGE_TO_NEXT_PAGE_ITEMS',
 });
 
-//RELATED WITH MODAL
+// RELATED WITH MODAL
 export const triggerModal = (title, message) => ({
   type: 'TRIGGER_MODAL',
   title,
@@ -25,11 +25,6 @@ export const closeModal = () => ({
 });
 
 // Cart related stuff
-export const addToCart = (itemId, itemQuantity) => ({
-  type: 'ADD_ITEM_TO_CART',
-  itemId,
-  itemQuantity,
-});
 
 export const removeFromCart = (itemId) => ({
   type: 'DELETE_ITEM_FROM_CART',
@@ -43,5 +38,5 @@ export const updateItemQuantity = (itemId, itemQuantity) => ({
 });
 
 export const clearCart = () => ({
-  type: 'UPDATE_CART_QUANTITY',
+  type: 'CLEAR_CART',
 });

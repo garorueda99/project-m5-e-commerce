@@ -1,6 +1,5 @@
 // Libraries
 import React from 'react';
-// Styles
 import styled from 'styled-components';
 
 const Footer = () => {
@@ -14,6 +13,7 @@ const Footer = () => {
 };
 
 const Wrapper = styled.footer`
+  width: 100vw;
   height: 60px;
   padding: 24px;
   background-color: #575555;

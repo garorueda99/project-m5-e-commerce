@@ -1,11 +1,10 @@
 // Libraries
 import React from 'react';
+import styled from 'styled-components';
 import { BiUser } from 'react-icons/bi';
 import { CgShoppingCart } from 'react-icons/cg';
 import { GiPegasus } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
-// Styles
-import styled from 'styled-components';
 
 const Header = () => {
   return (

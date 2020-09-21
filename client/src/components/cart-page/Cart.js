@@ -1,7 +1,6 @@
+// Libraries
 import React from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
-
 import { FaTrash } from 'react-icons/fa';
 
 export default function Item() {
@@ -16,9 +15,9 @@ export default function Item() {
             ></ItemImage>
             <ItemInformationWrapper>
               <FaTrash
-                style={{ marginLeft: '95%' }} //Onclick on button to delete
+                style={{ marginLeft: '95%' }} // Onclick on button to delete
                 onClick={() => {
-                  window.location.href = '/order-confirmation/';
+                  window.location.href = '/order-confirmation';
                 }}
               >
                 {' '}
@@ -35,9 +34,9 @@ export default function Item() {
             ></ItemImage>
             <ItemInformationWrapper>
               <FaTrash
-                style={{ marginLeft: '95%' }} //Onclick on button to delete
+                style={{ marginLeft: '95%' }} // Onclick on button to delete
                 onClick={() => {
-                  window.location.href = '/order-confirmation/';
+                  window.location.href = '/order-confirmation';
                 }}
               >
                 {' '}
@@ -49,9 +48,9 @@ export default function Item() {
           </ItemWrapper>
           <TotalPrice>Total price : </TotalPrice>
           <PurchaseButton
-            //Onclick on button to redirect to the cart page
+            // Onclick on button to redirect to the cart page
             onClick={() => {
-              window.location.href = '/order-confirmation/';
+              window.location.href = '/order-confirmation';
             }}
           >
             Purchase
@@ -62,7 +61,7 @@ export default function Item() {
   );
 }
 
-//components for style
+// components for style
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -110,7 +109,7 @@ const ItemInformationWrapper = styled.div`
   margin-top: 2%;
 `;
 
-//stylling selected item card
+// stylling selected item card
 
 const ItemImage = styled.img`
   width: 15%;
@@ -138,7 +137,7 @@ const TotalPrice = styled.h2`
   margin-top: 3%;
 `;
 
-//stylling item in card
+// stylling item in card
 
 const PurchaseButton = styled.button`
   background-color: #4caf50;
