@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Item from './Item';
 import PageIndex from './PageIndex';
 import CategoryList from './CategoryList';
+
 // Actions
 import { requestItems, receiveItemsInfo } from '../../actions';
 // Helpers
@@ -16,16 +17,32 @@ const Homepage = () => {
   const items = useSelector((state) => state.items);
   const itemList = useSelector((state) => state.items.result);
   const [page, setPage] = useState(1);
-  let index =
-    page === 1 ? '' : `&&initial_index=${(page - 1) * items.pageSize}`;
+  const [available, setFilterAvailable] = useState(false);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(2500);
+  const [categories, setCategories] = useState([]);
+  const [bodyL, setBodyL] = useState([]);
+  let index = page === 1 ? '' : `&initial_index=${(page - 1) * items.pageSize}`;
+  let available_query = available ? `&available=${available}` : ``;
+  let min_query = min > 0 ? `&min=${min}` : '';
+  let max_query = max < 2500 ? `&max=${max}` : '';
+  let categories_query =
+    categories != '' ? `&category=${categories.join()}` : ``;
+  let body_query = bodyL != '' ? `&body_location=${bodyL.join()}` : ``;
   // pull list of items
 
   React.useEffect(() => {
     dispatch(requestItems());
-    fetchItems(items.filters + index).then((res) =>
-      dispatch(receiveItemsInfo(res))
-    );
-  }, [page]);
+    const query =
+      items.filters +
+      index +
+      available_query +
+      min_query +
+      max_query +
+      categories_query +
+      body_query;
+    fetchItems(query).then((res) => dispatch(receiveItemsInfo(res)));
+  }, [page, available, min, max, categories, bodyL]);
 
   // map through list of items and return individual items
   // pass through individual array item from itemList
@@ -35,7 +52,18 @@ const Homepage = () => {
       <PageIndex page={page} setPage={setPage} />
       <ContentWrapper>
         <ColumnList>
-          <CategoryList />
+          <CategoryList
+            available={available}
+            setFilterAvailable={setFilterAvailable}
+            min={min}
+            setMin={setMin}
+            max={max}
+            setMax={setMax}
+            categories={categories}
+            setCategories={setCategories}
+            bodyL={bodyL}
+            setBodyL={setBodyL}
+          />
         </ColumnList>
         <ItemGrid>
           {itemList &&
@@ -56,6 +84,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  min-height: 450px;
   display: flex;
   width: 100%;
 `;

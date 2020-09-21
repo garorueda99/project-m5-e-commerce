@@ -1,8 +1,20 @@
 // Libraries
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-
-const CategoryList = () => {
+// Components
+import MinMaxTest from './MinMaxTest';
+const CategoryList = ({
+  available,
+  setFilterAvailable,
+  min,
+  setMin,
+  max,
+  setMax,
+  categories,
+  setCategories,
+  bodyL,
+  setBodyL,
+}) => {
   const [categoryItems, setCategoryItems] = React.useState('');
   const [bodyLocations, setBodyLocations] = React.useState('');
 
@@ -33,7 +45,18 @@ const CategoryList = () => {
   }, []);
 
   return (
-    <>
+    <Wrapper>
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={available}
+            onChange={() => setFilterAvailable(!available)}
+          />
+          Available Only
+        </label>
+      </div>
+      <MinMaxTest min={min} setMin={setMin} max={max} setMax={setMax} />
       <h4>Categories</h4>
       <ListWrapper>
         {categoryItems &&
@@ -41,7 +64,18 @@ const CategoryList = () => {
             return (
               <CategoryItem key={`cat-${index}`}>
                 <label>
-                  <Checkbox />
+                  <input
+                    onClick={(e) => {
+                      if (e.target.checked) {
+                        setCategories((n) => [...n, category]);
+                      } else {
+                        setCategories((n) =>
+                          n.filter((element) => element !== category)
+                        );
+                      }
+                    }}
+                    type="checkbox"
+                  />
                   {category}
                 </label>
               </CategoryItem>
@@ -54,20 +88,32 @@ const CategoryList = () => {
           bodyLocations.map((location, index) => {
             return (
               <label key={`loc-${index}`}>
-                <Checkbox />
+                <input
+                  onClick={(e) => {
+                    if (e.target.checked) {
+                      setBodyL((n) => [...n, location]);
+                    } else {
+                      setBodyL((n) =>
+                        n.filter((element) => element !== location)
+                      );
+                    }
+                  }}
+                  type="checkbox"
+                />
                 {location}
               </label>
             );
           })}
       </ListWrapper>
-    </>
+    </Wrapper>
   );
 };
 
-const Checkbox = () => {
-  return <input type="checkbox" />;
-};
-
+const Wrapper = styled.div`
+  position: fixed;
+  width: 250px;
+  padding: 0px 15px 10px 10px;
+`;
 const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
