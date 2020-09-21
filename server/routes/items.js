@@ -1,4 +1,4 @@
-//Endpoints related to items
+// Endpoints related to items
 
 const router = require('express').Router();
 const {

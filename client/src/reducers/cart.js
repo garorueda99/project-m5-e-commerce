@@ -20,7 +20,7 @@ export default function itemsReducer(state = initialState, action) {
       return {
         ...state,
         [action.itemId]: action.itemQuantity,
-      }
+      };
     }
     case 'CLEAR_CART': {
       return initialState;

@@ -1,16 +1,14 @@
+// Libraries
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-
-// imported components
-
+// Components
 import Item from './Item';
 import PageIndex from './PageIndex';
 import CategoryList from './CategoryList';
-
-// helpers
-
+// Actions
 import { requestItems, receiveItemsInfo } from '../../actions';
+// Helpers
 import { fetchItems } from '../helpers/fetch-functions';
 
 const Homepage = () => {
