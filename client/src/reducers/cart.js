@@ -11,6 +11,12 @@ const initialState = {};
 
 export default function itemsReducer(state = initialState, action) {
   switch (action.type) {
+    case 'ADD_ITEM_TO_CART': {
+      return {
+        ...state,
+        [action.itemId]: action.itemQuantity,
+      };
+    }
     case 'DELETE_ITEM_FROM_CART': {
       let newCart = { ...state };
       delete newCart[action.itemId];
@@ -20,11 +26,7 @@ export default function itemsReducer(state = initialState, action) {
       return {
         ...state,
         [action.itemId]: action.itemQuantity,
-<<<<<<< HEAD
-      }
-=======
       };
->>>>>>> d5bb2e1eb992f978cf397398c2250995aa8f499d
     }
     case 'CLEAR_CART': {
       return initialState;

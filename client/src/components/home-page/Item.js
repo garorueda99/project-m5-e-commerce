@@ -1,7 +1,7 @@
 // Libraries
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // Components
 import AddToCart from './AddToCart';
 // Actions
@@ -10,28 +10,44 @@ import { updateItemQuantity } from '../../actions';
 const Item = (props) => {
   const dispatch = useDispatch();
 
-  // done: add dispatch(addItemToCart) to button onclick
-
   const data = props.data;
 
+  const cartContents = useSelector((state) => state.cart);
+
+  let CartWrapper;
+
+  if (data._id in cartContents) {
+    CartWrapper = PurchasedWrapper;
+  } else {
+    CartWrapper = Wrapper;
+  }
+
+  let itemDisplayName;
+
+  if (data.name.length > 30) {
+    itemDisplayName = data.name.slice(0, 34) + '...';
+  } else {
+    itemDisplayName = data.name;
+  }
+
   return (
-    <Wrapper>
-      <ItemWrapper>
+    <CartWrapper>
+      < ItemWrapper >
         <ItemContent
           // Onclick on card to redirect to the item page
           onClick={() => {
             window.location.href = '/item/' + data._id;
           }}
         >
-          <h3>{data.name}</h3>
+          <h3>{itemDisplayName}</h3>
           <ImgWrapper style={{ backgroundImage: `url(${data.imageSrc})` }} />
         </ItemContent>
         <ActionBar>
           <p>{data.price}</p>
           <AddToCart data={data} />
         </ActionBar>
-      </ItemWrapper>
-    </Wrapper>
+      </ItemWrapper >
+    </CartWrapper>
   );
 };
 
@@ -46,6 +62,10 @@ const Wrapper = styled.div`
   margin-bottom: 15px;
   margin-right: 25px;
 `;
+
+const PurchasedWrapper = styled(Wrapper)`
+  border: 1px solid #b1ff96;
+`
 
 const ItemWrapper = styled.div`
   display: flex;
