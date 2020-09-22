@@ -33,6 +33,7 @@ const CURRENT_USER_ID = {
     country: 'Canada',
     email: 'garo99@gmail.com',
     avatarSrc: '/assets/user1.jpg',
+    paymentMethod: 'VISA - ***096',
   },
 };
 
@@ -135,18 +136,26 @@ function filterByMaxPrice(items, max) {
 }
 
 function filterByBodyLocation(items, bodyLocation) {
-  // Missing to work with complex body_location = 2 or more
-  const newList = items.filter(
-    (element) =>
-      element.body_location.toLowerCase() === bodyLocation.toLowerCase()
+  const bodyLocationArray = bodyLocation.split(',');
+  let newList = [];
+  bodyLocationArray.forEach(
+    (location) =>
+      (newList = [
+        ...newList,
+        ...items.filter(
+          (element) =>
+            element.body_location.toLowerCase() === location.toLowerCase()
+        ),
+      ])
   );
+
   return newList;
 }
 
 // Removes this characters from the values |&;$%@"'<>()+,
 function clearObj(obj) {
   for (const [key, value] of Object.entries(obj)) {
-    obj[key] = obj[key].replace(/[|&;$%@"'<>()+,]/g, '');
+    obj[key] = obj[key].replace(/[|&;$%@"'<>()+]/g, '');
   }
 }
 
@@ -175,9 +184,18 @@ function filterByCompanyId(items, companyId) {
 }
 
 function filterByCategory(items, category) {
-  const newList = items.filter(
-    (element) => element.category.toLowerCase() === category.toLowerCase()
+  const categoryArray = category.split(',');
+  let newList = [];
+  categoryArray.forEach(
+    (category) =>
+      (newList = [
+        ...newList,
+        ...items.filter(
+          (element) => element.category.toLowerCase() === category.toLowerCase()
+        ),
+      ])
   );
+
   return newList;
 }
 
