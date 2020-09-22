@@ -2,10 +2,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 export default function Item() {
+  const Cart = useSelector((state) => state.cart);
+
   return (
     <Wrapper>
+      <div>{JSON.stringify(Cart)}</div>
       <CartWrapper>
         <CartItemInformationWrapper>
           <ItemWrapper>

@@ -2,6 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 // Components
 import AddToCart from './AddToCart';
 // Actions
@@ -9,6 +11,7 @@ import { updateItemQuantity } from '../../actions';
 
 const Item = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // done: add dispatch(addItemToCart) to button onclick
 
@@ -20,7 +23,9 @@ const Item = (props) => {
         <ItemContent
           // Onclick on card to redirect to the item page
           onClick={() => {
-            window.location.href = '/item/' + data._id;
+            history.push('/item/' + data._id);
+            // return <Route path="/cart" />;
+            // window.location.href = '/item/' + data._id;
           }}
         >
           <h3>{data.name}</h3>

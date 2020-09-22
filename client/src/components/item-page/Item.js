@@ -1,13 +1,15 @@
 // Libraires
 import React from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 // Actions
 import { updateItemQuantity } from '../../actions';
 
 export default function Item() {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const itemState = useSelector((state) => state.cart);
   // retreive the item Id from URL params
   const { itemId } = useParams();
 
@@ -16,7 +18,11 @@ export default function Item() {
   const [company, setCompany] = React.useState('');
 
   // Quantity state to send to redux
-  const [itemQuantity, setItemQuantity] = React.useState(1);
+  const [itemQuantity, setItemQuantity] = React.useState(itemState[itemId]);
+
+  if (itemQuantity == null) {
+    setItemQuantity(1);
+  }
 
   // calling backend API to get specif item for the card
   React.useEffect(() => {
@@ -51,9 +57,17 @@ export default function Item() {
 
   if (item.numInStock !== 0) {
     for (let index = 1; index < item.numInStock + 1; index++) {
-      itemsSelectionQuantity.push(
-        <option value={index}>Quantity: {index}</option>
-      );
+      if (index == itemState[itemId]) {
+        itemsSelectionQuantity.push(
+          <option value={index} selected>
+            Quantity: {index}
+          </option>
+        );
+      } else {
+        itemsSelectionQuantity.push(
+          <option value={index}>Quantity: {index}</option>
+        );
+      }
     }
   }
 
@@ -88,7 +102,7 @@ export default function Item() {
           {/* update available item selection quantity */}
           {item.numInStock > 0 && (
             <ItemQuantitySelect
-              value={itemQuantity}
+              // value={itemQuantity}
               onChange={handleDropdownChange}
             >
               {itemsSelectionQuantity}
@@ -101,8 +115,9 @@ export default function Item() {
               // Onclick on button to redirect to the cart page
               // Add cart using redux dispatch
               onClick={() => {
-                dispatch(updateItemQuantity(item._id, itemQuantity));
-                window.location.href = '/cart';
+                dispatch(updateItemQuantity(item._id, parseInt(itemQuantity)));
+                history.push('/cart');
+                // window.location.href = '/cart';
               }}
             >
               Add to cart
@@ -196,7 +211,7 @@ const ItemInStock = styled.div`
 `;
 
 const ItemQuantitySelect = styled.select`
-  width: 30%;
+  width: 60%;
   height: 15%;
   margin-left: 5%;
   flex: 2;
