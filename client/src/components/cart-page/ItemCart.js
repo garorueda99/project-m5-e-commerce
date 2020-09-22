@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
 import { fetchItem } from '../helpers/fetch-functions';
+import Loader from '../Loader';
 
 export default function ItemCart({ id, qty, setTotal }) {
+  const [loading, setLoadging] = useState(false);
   useEffect(() => {
     fetchItem(id).then((data) => {
       setItem(data);
@@ -16,6 +18,7 @@ export default function ItemCart({ id, qty, setTotal }) {
     <>
       {item && (
         <ItemWrapper>
+          {loading && <Loader />}
           <ItemImage src={item.imageSrc} alt="Item image"></ItemImage>
           <ItemInformationWrapper>
             <FaTrash

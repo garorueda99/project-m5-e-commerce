@@ -1,16 +1,23 @@
 // Libraries
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import ItemCart from './ItemCart';
-
+import { CurrentUserContext } from '../CurrentUserContext';
 export default function Item() {
   const Cart = useSelector((state) => state.cart);
   const [total, setTotal] = useState(0);
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <Wrapper>
       <CartWrapper>
+        Hello {currentUser.profile.firstName}!!
+        {Object.keys(Cart).length === 0 ? (
+          <div>No items at the moment in your cart</div>
+        ) : (
+          <div>The following products are in your cart{Object.keys(Cart)}</div>
+        )}
         <CartItemInformationWrapper>
           {Object.keys(Cart).map((element, index) => (
             <ItemCart
@@ -58,6 +65,7 @@ const CartWrapper = styled.div`
 `;
 
 const CartItemInformationWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
