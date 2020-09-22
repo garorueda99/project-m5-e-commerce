@@ -90,7 +90,7 @@ const ContentWrapper = styled.div`
 `;
 
 const ColumnList = styled.div`
-  width: 250px;
+  min-width: 250px;
 `;
 
 const ItemGrid = styled.div`

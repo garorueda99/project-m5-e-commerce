@@ -154,8 +154,9 @@ const ItemWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 500px;
   margin-top: 5%;
+  border: 1px solid lightgray;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
