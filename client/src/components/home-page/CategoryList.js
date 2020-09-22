@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 // Components
 import MinMaxTest from './MinMaxTest';
@@ -15,8 +15,8 @@ const CategoryList = ({
   bodyL,
   setBodyL,
 }) => {
-  const [categoryItems, setCategoryItems] = React.useState('');
-  const [bodyLocations, setBodyLocations] = React.useState('');
+  const [categoryItems, setCategoryItems] = React.useState(null);
+  const [bodyLocations, setBodyLocations] = React.useState(null);
 
   React.useEffect(() => {
     fetch('/api/items/categories')

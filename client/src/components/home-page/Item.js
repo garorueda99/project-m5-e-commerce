@@ -1,16 +1,12 @@
 // Libraries
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 // Components
 import AddToCart from './AddToCart';
-// Actions
-import { updateItemQuantity } from '../../actions';
 
 const Item = (props) => {
-  const dispatch = useDispatch();
   const history = useHistory();
 
   // done: add dispatch(addItemToCart) to button onclick

@@ -34,7 +34,7 @@ export default function Item() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [itemId]);
 
   let companyIdOfItem = item.companyId;
 
@@ -51,20 +51,20 @@ export default function Item() {
   }, []);
 
   // added quantity to item page
-  const itemsSelectionQuantity = [];
+  let itemsSelectionQuantity;
 
   // loop for quantity by item (https://flaviocopes.com/react-how-to-loop/)
 
   if (item.numInStock !== 0) {
     for (let index = 1; index < item.numInStock + 1; index++) {
-      if (index == itemState[itemId]) {
-        itemsSelectionQuantity.push(
+      if (index === itemState[itemId]) {
+        itemsSelectionQuantity = (
           <option value={index} selected>
             Quantity: {index}
           </option>
         );
       } else {
-        itemsSelectionQuantity.push(
+        itemsSelectionQuantity = (
           <option value={index}>Quantity: {index}</option>
         );
       }
@@ -72,15 +72,15 @@ export default function Item() {
   }
 
   // if {qty on hand 0} show out of stock
-  const isItemInStock = [];
+  let isItemInStock;
   // if {qty on hand 0} disable purchanse button
   let buttonAvailability = true;
 
   if (item.numInStock === 0) {
-    isItemInStock.push(<p style={{ color: 'red' }}>Out of stock</p>);
+    isItemInStock = <p style={{ color: 'red' }}>Out of stock</p>;
     buttonAvailability = false;
   } else {
-    isItemInStock.push(<p style={{ color: 'green' }}>In stock</p>);
+    isItemInStock = <p style={{ color: 'green' }}>In stock</p>;
   }
 
   // event update number of item in dropdown
@@ -133,9 +133,6 @@ export default function Item() {
           )}
         </ItemInformationWrapper>
       </ItemWrapper>
-      <ItemReviewWrapper>
-        <h2>Items review</h2>
-      </ItemReviewWrapper>
     </Wrapper>
   );
 }

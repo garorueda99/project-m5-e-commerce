@@ -27,8 +27,8 @@ const Homepage = () => {
   let min_query = min > 0 ? `&min=${min}` : '';
   let max_query = max < 2500 ? `&max=${max}` : '';
   let categories_query =
-    categories != '' ? `&category=${categories.join()}` : ``;
-  let body_query = bodyL != '' ? `&body_location=${bodyL.join()}` : ``;
+    categories.length !== 0 ? `&category=${categories.join()}` : ``;
+  let body_query = bodyL.length !== 0 ? `&body_location=${bodyL.join()}` : ``;
   // pull list of items
 
   React.useEffect(() => {
@@ -46,7 +46,6 @@ const Homepage = () => {
 
   // map through list of items and return individual items
   // pass through individual array item from itemList
-
   return (
     <Wrapper>
       <PageIndex page={page} setPage={setPage} />
