@@ -1,7 +1,8 @@
 // Libraries
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchCart } from '../actions';
+import { loadCart } from '../actions';
+import { fetchCart } from '../components/helpers/fetch-functions';
 export const CurrentUserContext = React.createContext(null);
 
 export const CurrentUserProvider = ({ children }) => {
@@ -25,7 +26,7 @@ export const CurrentUserProvider = ({ children }) => {
       .catch((error) => {
         console.error('Error:', error);
       });
-    dispatch(fetchCart());
+    fetchCart().then((data) => dispatch(loadCart(data.cart)));
   }, []);
 
   return (

@@ -43,6 +43,7 @@ export const clearCart = () => ({
   type: 'CLEAR_CART',
 });
 
-export const fetchCart = () => ({
-  type: 'FETCH_CART',
+export const loadCart = (cart) => ({
+  type: 'LOAD_CART',
+  cart,
 });

@@ -1,5 +1,5 @@
 // shopping cart state
-import { postCart, fetchCart } from '../components/helpers/fetch-functions';
+import { postCart } from '../components/helpers/fetch-functions';
 const initialState = {};
 
 // adding items is simple; we should pass in the item ID
@@ -11,12 +11,8 @@ const initialState = {};
 
 export default function itemsReducer(state = initialState, action) {
   switch (action.type) {
-    case 'FETCH_CART':
-      let newCart = async () => {
-        return await fetchCart().then((data) => data.cart);
-      };
-      console.log('CART===>', newCart());
-      return { ...newCart };
+    case 'LOAD_CART':
+      return { ...action.cart };
     case 'DELETE_ITEM_FROM_CART': {
       const newCart = { ...state };
       delete newCart[action.itemId];
