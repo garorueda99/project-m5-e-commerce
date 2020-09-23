@@ -1,10 +1,11 @@
 // Libraires
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // Actions
 import { updateItemQuantity } from '../../actions';
+import { postCart } from '../helpers/fetch-functions';
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -51,21 +52,23 @@ export default function Item() {
   }, []);
 
   // added quantity to item page
-  let itemsSelectionQuantity;
+  const itemsSelectionQuantity = [];
 
   // loop for quantity by item (https://flaviocopes.com/react-how-to-loop/)
 
   if (item.numInStock !== 0) {
     for (let index = 1; index < item.numInStock + 1; index++) {
       if (index === itemState[itemId]) {
-        itemsSelectionQuantity = (
-          <option value={index} selected>
+        itemsSelectionQuantity.push(
+          <option key={`qty-${index}`} value={index} selected>
             Quantity: {index}
           </option>
         );
       } else {
-        itemsSelectionQuantity = (
-          <option value={index}>Quantity: {index}</option>
+        itemsSelectionQuantity.push(
+          <option key={`else-${index}`} value={index}>
+            Quantity: {index}
+          </option>
         );
       }
     }
@@ -87,7 +90,6 @@ export default function Item() {
   const handleDropdownChange = (e) => {
     setItemQuantity(e.target.value);
   };
-
   return (
     <Wrapper>
       <ItemWrapper>

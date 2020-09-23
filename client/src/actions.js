@@ -42,3 +42,7 @@ export const updateItemQuantity = (itemId, itemQuantity) => {
 export const clearCart = () => ({
   type: 'CLEAR_CART',
 });
+
+export const fetchCart = () => ({
+  type: 'FETCH_CART',
+});

@@ -16,7 +16,7 @@ export default function Item() {
         {Object.keys(Cart).length === 0 ? (
           <div>No items at the moment in your cart</div>
         ) : (
-          <div>The following products are in your cart{Object.keys(Cart)}</div>
+          <div>The following products are in your cart:</div>
         )}
         <CartItemInformationWrapper>
           {Object.keys(Cart).map((element, index) => (
