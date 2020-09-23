@@ -1,13 +1,16 @@
 // Libraires
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 // Actions
 import { updateItemQuantity } from '../../actions';
+import { postCart } from '../helpers/fetch-functions';
 
 export default function Item() {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const itemState = useSelector((state) => state.cart);
   // retreive the item Id from URL params
   const { itemId } = useParams();
 
@@ -16,7 +19,11 @@ export default function Item() {
   const [company, setCompany] = React.useState('');
 
   // Quantity state to send to redux
-  const [itemQuantity, setItemQuantity] = React.useState(1);
+  const [itemQuantity, setItemQuantity] = React.useState(itemState[itemId]);
+
+  if (itemQuantity == null) {
+    setItemQuantity(1);
+  }
 
   // calling backend API to get specif item for the card
   React.useEffect(() => {
@@ -28,7 +35,7 @@ export default function Item() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [itemId]);
 
   let companyIdOfItem = item.companyId;
 
@@ -51,29 +58,38 @@ export default function Item() {
 
   if (item.numInStock !== 0) {
     for (let index = 1; index < item.numInStock + 1; index++) {
-      itemsSelectionQuantity.push(
-        <option value={index}>Quantity: {index}</option>
-      );
+      if (index === itemState[itemId]) {
+        itemsSelectionQuantity.push(
+          <option key={`qty-${index}`} value={index} selected>
+            Quantity: {index}
+          </option>
+        );
+      } else {
+        itemsSelectionQuantity.push(
+          <option key={`else-${index}`} value={index}>
+            Quantity: {index}
+          </option>
+        );
+      }
     }
   }
 
   // if {qty on hand 0} show out of stock
-  const isItemInStock = [];
+  let isItemInStock;
   // if {qty on hand 0} disable purchanse button
   let buttonAvailability = true;
 
   if (item.numInStock === 0) {
-    isItemInStock.push(<p style={{ color: 'red' }}>Out of stock</p>);
+    isItemInStock = <p style={{ color: 'red' }}>Out of stock</p>;
     buttonAvailability = false;
   } else {
-    isItemInStock.push(<p style={{ color: 'green' }}>In stock</p>);
+    isItemInStock = <p style={{ color: 'green' }}>In stock</p>;
   }
 
   // event update number of item in dropdown
   const handleDropdownChange = (e) => {
     setItemQuantity(e.target.value);
   };
-
   return (
     <Wrapper>
       <ItemWrapper>
@@ -88,7 +104,7 @@ export default function Item() {
           {/* update available item selection quantity */}
           {item.numInStock > 0 && (
             <ItemQuantitySelect
-              value={itemQuantity}
+              // value={itemQuantity}
               onChange={handleDropdownChange}
             >
               {itemsSelectionQuantity}
@@ -101,8 +117,9 @@ export default function Item() {
               // Onclick on button to redirect to the cart page
               // Add cart using redux dispatch
               onClick={() => {
-                dispatch(updateItemQuantity(item._id, itemQuantity));
-                window.location.href = '/cart';
+                dispatch(updateItemQuantity(item._id, parseInt(itemQuantity)));
+                history.push('/cart');
+                // window.location.href = '/cart';
               }}
             >
               Add to cart
@@ -118,9 +135,6 @@ export default function Item() {
             )}
         </ItemInformationWrapper>
       </ItemWrapper>
-      <ItemReviewWrapper>
-        <h2>Items review</h2>
-      </ItemReviewWrapper>
     </Wrapper>
   );
 }
@@ -139,8 +153,9 @@ const ItemWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 500px;
   margin-top: 5%;
+  border: 1px solid lightgray;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
@@ -196,7 +211,7 @@ const ItemInStock = styled.div`
 `;
 
 const ItemQuantitySelect = styled.select`
-  width: 30%;
+  width: 60%;
   height: 15%;
   margin-left: 5%;
   flex: 2;

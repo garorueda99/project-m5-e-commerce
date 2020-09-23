@@ -2,7 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineMinus } from 'react-icons/ai';
+import { BsPlus } from 'react-icons/bs';
 // Actions
 import { updateItemQuantity } from '../../actions';
 
@@ -64,8 +65,7 @@ const AddToCart = (props) => {
             dispatch(updateItemQuantity(data._id, cartContents[data._id] + 1))
           }
         >
-          {' '}
-          <AiOutlinePlus />
+          <BsPlus />
         </QuantityButton>
       </QuantityWrapper>
     );
