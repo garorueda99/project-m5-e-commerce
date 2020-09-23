@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMinus } from 'react-icons/ai';
+// import { AiOutlinePlus } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
 // Actions
 import { updateItemQuantity } from '../../actions';
@@ -32,13 +33,12 @@ const AddToCart = (props) => {
         >
           <AiOutlineMinus />
         </QuantityButton>
-        <div>{cartContents[data._id]}</div>
-        {' '}
+        <div>{cartContents[data._id]}</div>{' '}
         <QuantityButton>
           <GreyPlusItem />
         </QuantityButton>
-      </QuantityWrapper >
-    )
+      </QuantityWrapper>
+    );
   } else if (data._id in cartContents !== true) {
     // none in cart
     return (
@@ -109,6 +109,6 @@ const QuantityWrapper = styled.div`
   width: 50 px;
 `;
 
-const GreyPlusItem = styled(AiOutlinePlus)`
+const GreyPlusItem = styled(BsPlus)`
   color: lightgrey;
-`
+`;
