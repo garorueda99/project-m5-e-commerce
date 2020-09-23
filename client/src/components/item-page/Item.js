@@ -1,10 +1,11 @@
 // Libraires
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // Actions
 import { updateItemQuantity } from '../../actions';
+import { postCart } from '../helpers/fetch-functions';
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function Item() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [itemId]);
 
   let companyIdOfItem = item.companyId;
 
@@ -57,37 +58,38 @@ export default function Item() {
 
   if (item.numInStock !== 0) {
     for (let index = 1; index < item.numInStock + 1; index++) {
-      if (index == itemState[itemId]) {
+      if (index === itemState[itemId]) {
         itemsSelectionQuantity.push(
-          <option value={index} selected>
+          <option key={`qty-${index}`} value={index} selected>
             Quantity: {index}
           </option>
         );
       } else {
         itemsSelectionQuantity.push(
-          <option value={index}>Quantity: {index}</option>
+          <option key={`else-${index}`} value={index}>
+            Quantity: {index}
+          </option>
         );
       }
     }
   }
 
   // if {qty on hand 0} show out of stock
-  const isItemInStock = [];
+  let isItemInStock;
   // if {qty on hand 0} disable purchanse button
   let buttonAvailability = true;
 
   if (item.numInStock === 0) {
-    isItemInStock.push(<p style={{ color: 'red' }}>Out of stock</p>);
+    isItemInStock = <p style={{ color: 'red' }}>Out of stock</p>;
     buttonAvailability = false;
   } else {
-    isItemInStock.push(<p style={{ color: 'green' }}>In stock</p>);
+    isItemInStock = <p style={{ color: 'green' }}>In stock</p>;
   }
 
   // event update number of item in dropdown
   const handleDropdownChange = (e) => {
     setItemQuantity(e.target.value);
   };
-
   return (
     <Wrapper>
       <ItemWrapper>
@@ -133,9 +135,6 @@ export default function Item() {
           )}
         </ItemInformationWrapper>
       </ItemWrapper>
-      <ItemReviewWrapper>
-        <h2>Items review</h2>
-      </ItemReviewWrapper>
     </Wrapper>
   );
 }
@@ -154,8 +153,9 @@ const ItemWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 500px;
   margin-top: 5%;
+  border: 1px solid lightgray;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;

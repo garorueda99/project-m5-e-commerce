@@ -14,12 +14,12 @@ const rootElement = document.getElementById('root');
 
 ReactDOM.render(
   <React.StrictMode>
-    <CurrentUserProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <CurrentUserProvider>
         <App />
         <Modal />
-      </Provider>
-    </CurrentUserProvider>
+      </CurrentUserProvider>
+    </Provider>
   </React.StrictMode>,
   rootElement
 );

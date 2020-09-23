@@ -1,5 +1,5 @@
 // shopping cart state
-
+import { postCart } from '../components/helpers/fetch-functions';
 const initialState = {};
 
 // adding items is simple; we should pass in the item ID
@@ -11,12 +11,15 @@ const initialState = {};
 
 export default function itemsReducer(state = initialState, action) {
   switch (action.type) {
+    case 'LOAD_CART':
+      return { ...action.cart };
     case 'DELETE_ITEM_FROM_CART': {
-      let newCart = { ...state };
+      const newCart = { ...state };
       delete newCart[action.itemId];
-      return newCart;
+      return { ...newCart };
     }
     case 'UPDATE_CART_QUANTITY': {
+      postCart({ ...state, [action.itemId]: action.itemQuantity });
       return {
         ...state,
         [action.itemId]: action.itemQuantity,

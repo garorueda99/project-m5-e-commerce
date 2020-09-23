@@ -6,12 +6,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './home-page/Home';
 import Cart from './cart-page/Cart';
 import Item from './item-page/Item';
-import Error from './error-page/Error';
 import SignIn from './signin-page/SignIn';
 import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
 import Footer from './Footer';
 import Loader from './Loader';
+// import Error from './error-page/Error';
+import NotFound from './error-page/NotFound';
 import { CurrentUserContext } from './CurrentUserContext';
 // Styles
 import GlobalStyles from './GlobalStyles';
@@ -45,18 +46,16 @@ function App() {
               <Route path="/item/:itemId">
                 <Item />
               </Route>
-              <Route path="/cart">
+              <Route exact path="/cart">
                 <Cart />
               </Route>
-              <Route path="/order-confirmation">
+              <Route exact path="/order-confirmation">
                 <OrderConfirmation />
               </Route>
-              <Route path="/signin">
+              <Route exact path="/signin">
                 <SignIn />
               </Route>
-              <Route path="/error">
-                <Error />
-              </Route>
+              <Route component={NotFound} />
             </Switch>
           </Main>
           <Footer />
