@@ -25,6 +25,11 @@ export const closeModal = () => ({
 });
 
 // Cart related stuff
+export const addItemToCart = (itemId, itemQuantity) => ({
+  type: 'ADD_ITEM_TO_CART',
+  itemId,
+  itemQuantity,
+});
 
 export const removeFromCart = (itemId) => ({
   type: 'DELETE_ITEM_FROM_CART',

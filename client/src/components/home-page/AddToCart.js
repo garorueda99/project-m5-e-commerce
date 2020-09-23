@@ -11,6 +11,7 @@ const AddToCart = (props) => {
   // if there are zero items in stock, show a greyed out button
   // if there's zero quantity for the item in the cart, show default button
   // if there's at least one, show the plus-minus experience
+  // if there are items in the cart corresponding, show the plus-minus experience
 
   const data = props.data;
 
@@ -18,9 +19,28 @@ const AddToCart = (props) => {
 
   const cartContents = useSelector((state) => state.cart);
 
-  if (data.numInStock === 0 || cartContents[data._id] >= data.numInStock) {
+  // none in stock, or cart contents equal in stock
+  if (data.numInStock === 0) {
     return <GreyedButton>Out of stock</GreyedButton>;
+  } else if (cartContents[data._id] >= data.numInStock) {
+    return (
+      <QuantityWrapper>
+        <QuantityButton
+          onClick={() =>
+            dispatch(updateItemQuantity(data._id, cartContents[data._id] - 1))
+          }
+        >
+          <AiOutlineMinus />
+        </QuantityButton>
+        <div>{cartContents[data._id]}</div>
+        {' '}
+        <QuantityButton>
+          <GreyPlusItem />
+        </QuantityButton>
+      </QuantityWrapper >
+    )
   } else if (data._id in cartContents !== true) {
+    // none in cart
     return (
       <AddToCartButton
         onClick={() => dispatch(updateItemQuantity(data._id, 1))}
@@ -29,6 +49,7 @@ const AddToCart = (props) => {
       </AddToCartButton>
     );
   } else if (cartContents[data._id] >= 1) {
+    // one or more in cart
     return (
       <QuantityWrapper>
         <QuantityButton
@@ -49,6 +70,7 @@ const AddToCart = (props) => {
       </QuantityWrapper>
     );
   } else {
+    // standard view
     return (
       <AddToCartButton
         onClick={() => dispatch(updateItemQuantity(data._id, 1))}
@@ -86,3 +108,7 @@ const QuantityWrapper = styled.div`
   display: flex;
   width: 50 px;
 `;
+
+const GreyPlusItem = styled(AiOutlinePlus)`
+  color: lightgrey;
+`

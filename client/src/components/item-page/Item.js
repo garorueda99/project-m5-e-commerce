@@ -125,14 +125,14 @@ export default function Item() {
               Add to cart
             </AddToCartButton>
           ) : (
-            <AddToCartButton
-              disabled
-              style={{ backgroundColor: 'grey' }}
+              <AddToCartButton
+                disabled
+                style={{ backgroundColor: 'grey' }}
               // unvailable because is out of stock
-            >
-              Unavailable
-            </AddToCartButton>
-          )}
+              >
+                Unavailable
+              </AddToCartButton>
+            )}
         </ItemInformationWrapper>
       </ItemWrapper>
     </Wrapper>
