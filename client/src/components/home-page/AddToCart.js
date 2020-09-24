@@ -109,6 +109,6 @@ const QuantityWrapper = styled.div`
   width: 50 px;
 `;
 
-const GreyPlusItem = styled(AiOutlinePlus)`
+const GreyPlusItem = styled(BsPlus)`
   color: lightgrey;
 `
