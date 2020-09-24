@@ -68,7 +68,7 @@ const Homepage = () => {
         </ColumnList>
         <ItemGrid>
           {itemList &&
-            itemList.map((item) => <Item key={item._id} data={item} />)}
+            itemList.map((item) => <Item key={item._id} itemData={item} />)}
         </ItemGrid>
       </ContentWrapper>
       <PageIndex page={page} setPage={setPage} />

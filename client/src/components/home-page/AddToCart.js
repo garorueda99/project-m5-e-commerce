@@ -8,60 +8,65 @@ import { BsPlus } from 'react-icons/bs';
 // Actions
 import { updateItemQuantity } from '../../actions';
 
-const AddToCart = (props) => {
+const AddToCart = ({ itemData }) => {
   // if there are zero items in stock, show a greyed out button
   // if there's zero quantity for the item in the cart, show default button
   // if there's at least one, show the plus-minus experience
   // if there are items in the cart corresponding, show the plus-minus experience
 
-  const data = props.data;
-
   const dispatch = useDispatch();
 
   const cartContents = useSelector((state) => state.cart.indexes);
+
   // none in stock, or cart contents equal in stock
-  if (data.numInStock === 0) {
+  if (itemData.numInStock === 0) {
     return <GreyedButton>Out of stock</GreyedButton>;
-  } else if (cartContents[data._id] >= data.numInStock) {
+  } else if (cartContents[itemData._id] >= itemData.numInStock) {
     return (
       <QuantityWrapper>
         <QuantityButton
           onClick={() =>
-            dispatch(updateItemQuantity(data, cartContents[data._id] - 1))
+            dispatch(
+              updateItemQuantity(itemData, cartContents[itemData._id] - 1)
+            )
           }
         >
           <AiOutlineMinus />
         </QuantityButton>
-        <div>{cartContents[data._id]}</div>{' '}
+        <div>{cartContents[itemData._id]}</div>{' '}
         <QuantityButton>
           <GreyPlusItem />
         </QuantityButton>
       </QuantityWrapper>
     );
-  } else if (data._id in cartContents !== true) {
+  } else if (itemData._id in cartContents !== true) {
     // none in cart
     return (
       <AddToCartButton
-        onClick={() => dispatch(updateItemQuantity(data._id, 1))}
+        onClick={() => dispatch(updateItemQuantity(itemData, 1))}
       >
         Add to Cart
       </AddToCartButton>
     );
-  } else if (cartContents[data._id] >= 1) {
+  } else if (cartContents[itemData._id] >= 1) {
     // one or more in cart
     return (
       <QuantityWrapper>
         <QuantityButton
-          onClick={() =>
-            dispatch(updateItemQuantity(data, cartContents[data._id] - 1))
-          }
+          onClick={() => {
+            dispatch(
+              updateItemQuantity(itemData, cartContents[itemData._id] - 1)
+            );
+          }}
         >
           <AiOutlineMinus />
         </QuantityButton>
-        <div>{cartContents[data._id]}</div>
+        <div>{cartContents[itemData._id]}</div>
         <QuantityButton
           onClick={() =>
-            dispatch(updateItemQuantity(data, cartContents[data._id] + 1))
+            dispatch(
+              updateItemQuantity(itemData, cartContents[itemData._id] + 1)
+            )
           }
         >
           <BsPlus />
@@ -71,7 +76,9 @@ const AddToCart = (props) => {
   } else {
     // standard view
     return (
-      <AddToCartButton onClick={() => dispatch(updateItemQuantity(data, 1))}>
+      <AddToCartButton
+        onClick={() => dispatch(updateItemQuantity(itemData, 1))}
+      >
         Add to Cart
       </AddToCartButton>
     );
