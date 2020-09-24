@@ -33,7 +33,7 @@ const CURRENT_USER_ID = {
     country: 'Canada',
     email: 'garo99@gmail.com',
     avatarSrc: '/assets/user1.jpg',
-    paymentMethod: 'VISA - ***096',
+    paymentMethod: 'Visa - 0096',
   },
 };
 
