@@ -18,6 +18,7 @@ const Wrapper = styled.footer`
   padding: 24px;
   background-color: #575555;
   color: #fff;
+  z-index: 10;
 `;
 
 export default Footer;
