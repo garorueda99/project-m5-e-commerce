@@ -1,6 +1,7 @@
 // Libraries
 import React from 'react';
 import styled from 'styled-components';
+import { BiSearch } from 'react-icons/bi';
 // Components
 import MinMaxTest from './MinMaxTest';
 const CategoryList = ({
@@ -14,6 +15,8 @@ const CategoryList = ({
   setCategories,
   bodyL,
   setBodyL,
+  keyword,
+  setKeyword,
 }) => {
   const [categoryItems, setCategoryItems] = React.useState(null);
   const [bodyLocations, setBodyLocations] = React.useState(null);
@@ -44,6 +47,15 @@ const CategoryList = ({
 
   return (
     <Wrapper>
+      <Search>
+        <BiSearch />
+        <input
+          type="text"
+          value={keyword}
+          style={{ flex: 1 }}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+      </Search>
       <div>
         <label>
           <input
@@ -106,6 +118,12 @@ const CategoryList = ({
     </Wrapper>
   );
 };
+
+const Search = styled.div`
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+`;
 
 const Wrapper = styled.div`
   position: fixed;

@@ -22,6 +22,7 @@ const Homepage = () => {
   const [max, setMax] = useState(2500);
   const [categories, setCategories] = useState([]);
   const [bodyL, setBodyL] = useState([]);
+  const [keyword, setKeyword] = useState('');
   let pageSize = `query_result_maxqty=${items.pageSize}`;
   let index = page === 1 ? '' : `&initial_index=${(page - 1) * items.pageSize}`;
   let available_query = available ? `&available=${available}` : ``;
@@ -30,6 +31,7 @@ const Homepage = () => {
   let categories_query =
     categories.length !== 0 ? `&category=${categories.join()}` : ``;
   let body_query = bodyL.length !== 0 ? `&body_location=${bodyL.join()}` : ``;
+  let keyword_query = keyword.length >= 3 ? `&keyword=${keyword}` : '';
   // pull list of items
 
   React.useEffect(() => {
@@ -41,9 +43,20 @@ const Homepage = () => {
       min_query +
       max_query +
       categories_query +
-      body_query;
+      body_query +
+      keyword_query;
+    console.log();
     fetchItems(query).then((res) => dispatch(receiveItemsInfo(res)));
-  }, [page, available, min, max, categories, bodyL, items.pageSize]);
+  }, [
+    page,
+    available,
+    min,
+    max,
+    categories,
+    bodyL,
+    keyword_query,
+    items.pageSize,
+  ]);
 
   // map through list of items and return individual items
   // pass through individual array item from itemList
@@ -64,6 +77,8 @@ const Homepage = () => {
             setCategories={setCategories}
             bodyL={bodyL}
             setBodyL={setBodyL}
+            keyword={keyword}
+            setKeyword={setKeyword}
           />
         </ColumnList>
         <ItemGrid>
@@ -95,6 +110,7 @@ const ColumnList = styled.div`
 `;
 
 const ItemGrid = styled.div`
+  margin-left: 35px;
   flex: 1;
   display: flex;
   flex-wrap: wrap;
