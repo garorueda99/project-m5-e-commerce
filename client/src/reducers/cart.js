@@ -21,10 +21,11 @@ export default function itemsReducer(state = initialState, action) {
     }
     case 'UPDATE_CART_QUANTITY': {
       // postCart({ ...state, [action.itemId]: action.itemQuantity });
+      console.log(state);
       const { _id } = action.data;
       return {
         ...state,
-        indexes: { [_id]: action.itemQuantity },
+        indexes: { ...state.indexes, [_id]: action.itemQuantity },
         articles: [...state.articles, action.data],
         status: 'pending',
       };
