@@ -20,10 +20,9 @@ const Header = () => {
         <NavigationList>
           <li>
             <NavigationLink to="/cart">
-              <span className="md-top-nav-text">Cart</span>
-              <span className="sm-top-nav-icon">
+              <span>
                 <CgShoppingCart
-                  style={{ height: '18px', width: '18px', marginTop: '4px' }}
+                  style={{ height: '22px', width: '22px'}}
                 />
               </span>
             </NavigationLink>
@@ -32,9 +31,7 @@ const Header = () => {
             <NavigationLink to="/signin">
               <span className="md-top-nav-text">Sign In</span>
               <span className="sm-top-nav-icon">
-                <BiUser
-                  style={{ height: '18px', width: '18px', marginTop: '4px' }}
-                />
+                <BiUser style={{ height: '22px', width: '22px' }} />
               </span>
             </NavigationLink>
           </li>
@@ -76,8 +73,8 @@ const Title = styled.span`
 
 const NavigationList = styled.ul`
   display: flex;
+  align-items: center;
   list-style: none;
-  text-align: right;
   text-decoration: none;
 `;
 
