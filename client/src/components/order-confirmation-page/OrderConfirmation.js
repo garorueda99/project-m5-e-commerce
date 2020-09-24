@@ -2,14 +2,28 @@
 import React from 'react';
 import Moment from 'react-moment';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+
 // Components
 import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
 
+
 const orderNumber = Math.random().toString().slice(2, 11);
+
+// TODO
+// render correct items from cart
+// debit the items correctly from BE
+// clear cart
 
 const OrderConfirmation = () => {
   const { currentUser } = React.useContext(CurrentUserContext);
+
+  const cartContents = useSelector((state) => state.cart);
+
+  // cartContents is an object. We need to iterate through each entry.
+  // let's try Object.entries()
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 
   return (
     <>

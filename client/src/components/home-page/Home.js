@@ -94,10 +94,6 @@ const ColumnList = styled.div`
 
 const ItemGrid = styled.div`
   flex: 1;
-  /* display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 20px;
-  row-gap: 20px; */
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

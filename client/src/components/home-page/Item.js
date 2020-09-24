@@ -19,7 +19,6 @@ const Item = (props) => {
   // greenify item outline if in cart
 
   React.useEffect(() => {
-    console.log(cartContents);
     if (data._id in cartContents && cartContents[data._id] !== 0) {
       setCartWrapper(PurchasedWrapper);
     } else {
