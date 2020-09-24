@@ -42,7 +42,6 @@ export const removeFromCart = (itemId) => ({
 });
 
 export const updateItemQuantity = (data, itemQuantity) => {
-  console.log("I'm really here", data, itemQuantity);
   return {
     type: 'UPDATE_CART_QUANTITY',
     data,
