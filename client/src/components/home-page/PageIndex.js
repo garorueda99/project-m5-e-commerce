@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { BsCaretLeft } from 'react-icons/bs';
 import { BsCaretRight } from 'react-icons/bs';
 // Actions
-import { nextPageItems } from '../../actions';
+import { changePageItems, changePageSize } from '../../actions';
 
 export default function PageIndex({ page, setPage }) {
   const dispatch = useDispatch();
@@ -14,34 +14,51 @@ export default function PageIndex({ page, setPage }) {
   const lastPage = Math.round(items.totalFound / items.pageSize);
   return (
     <Wrapper>
-      <Button
-        onClick={() => {
-          if (page > 1) {
-            setPage((n) => n - 1);
-          }
-          dispatch(nextPageItems());
-        }}
-      >
-        <BsCaretLeft color={'gray'} />
-      </Button>
-      Page {page} of {lastPage}
-      <Button
-        onClick={() => {
-          if (page < lastPage) {
-            setPage((n) => n + 1);
-          }
-          dispatch(nextPageItems());
-        }}
-      >
-        <BsCaretRight color={'gray'} />
-      </Button>
+      <div>
+        <Button
+          onClick={() => {
+            if (page > 1) {
+              setPage((n) => n - 1);
+            }
+            dispatch(changePageItems());
+          }}
+        >
+          <BsCaretLeft color={'gray'} />
+        </Button>
+        Page {page} of {lastPage}
+        <Button
+          onClick={() => {
+            if (page < lastPage) {
+              setPage((n) => n + 1);
+            }
+            dispatch(changePageItems());
+          }}
+        >
+          <BsCaretRight color={'gray'} />
+        </Button>
+      </div>
+      <div>
+        <label htmlFor="pages">Items per page: </label>
+        <select
+          name="cars"
+          id="cars"
+          onChange={(e) => {
+            dispatch(changePageSize(e.target.value));
+          }}
+        >
+          <option value="9">9</option>
+          <option value="12">12</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   display: flex;
-  flex: column;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;

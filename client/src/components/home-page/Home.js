@@ -22,6 +22,7 @@ const Homepage = () => {
   const [max, setMax] = useState(2500);
   const [categories, setCategories] = useState([]);
   const [bodyL, setBodyL] = useState([]);
+  let pageSize = `query_result_maxqty=${items.pageSize}`;
   let index = page === 1 ? '' : `&initial_index=${(page - 1) * items.pageSize}`;
   let available_query = available ? `&available=${available}` : ``;
   let min_query = min > 0 ? `&min=${min}` : '';
@@ -34,7 +35,7 @@ const Homepage = () => {
   React.useEffect(() => {
     dispatch(requestItems());
     const query =
-      items.filters +
+      pageSize +
       index +
       available_query +
       min_query +
@@ -42,7 +43,7 @@ const Homepage = () => {
       categories_query +
       body_query;
     fetchItems(query).then((res) => dispatch(receiveItemsInfo(res)));
-  }, [page, available, min, max, categories, bodyL]);
+  }, [page, available, min, max, categories, bodyL, items.pageSize]);
 
   // map through list of items and return individual items
   // pass through individual array item from itemList

@@ -9,8 +9,13 @@ export const receiveItemsInfo = (payload) => ({
   ...payload,
 });
 
-export const nextPageItems = () => ({
+export const changePageItems = () => ({
   type: 'CHANGE_TO_NEXT_PAGE_ITEMS',
+});
+
+export const changePageSize = (newPageSize) => ({
+  type: 'CHANGE_PAGE_SIZE',
+  newPageSize,
 });
 
 // RELATED WITH MODAL

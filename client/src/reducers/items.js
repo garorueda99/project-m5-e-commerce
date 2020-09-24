@@ -32,6 +32,11 @@ export default function itemsReducer(state = initialState, action) {
         nextIndex: state.nextIndex + state.pageSize,
         status: 'loading',
       };
+    case 'CHANGE_PAGE_SIZE':
+      return {
+        ...state,
+        pageSize: action.newPageSize,
+      };
 
     default: {
       return state;
