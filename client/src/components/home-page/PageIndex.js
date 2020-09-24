@@ -17,6 +17,18 @@ export default function PageIndex({ page, setPage }) {
       <div>
         <Button
           onClick={() => {
+            setPage(1);
+            dispatch(changePageItems());
+          }}
+        >
+          <BsCaretLeft
+            style={{ position: 'absolute', left: '15px' }}
+            color={'gray'}
+          />
+          <BsCaretLeft color={'gray'} />
+        </Button>
+        <Button
+          onClick={() => {
             if (page > 1) {
               setPage((n) => n - 1);
             }
@@ -36,21 +48,36 @@ export default function PageIndex({ page, setPage }) {
         >
           <BsCaretRight color={'gray'} />
         </Button>
-      </div>
-      <div>
-        <label htmlFor="pages">Items per page: </label>
-        <select
-          name="cars"
-          id="cars"
-          onChange={(e) => {
-            dispatch(changePageSize(e.target.value));
+        <Button
+          onClick={() => {
+            setPage(lastPage);
+            dispatch(changePageItems());
           }}
         >
-          <option value="9">9</option>
-          <option value="12">12</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
-        </select>
+          <BsCaretRight
+            style={{ position: 'absolute', left: '15px' }}
+            color={'gray'}
+          />
+          <BsCaretRight color={'gray'} />
+        </Button>
+      </div>
+      <div>
+        <label htmlFor="pages">
+          Display{' '}
+          <select
+            name="cars"
+            id="cars"
+            onChange={(e) => {
+              dispatch(changePageSize(e.target.value));
+            }}
+          >
+            <option value="9">9</option>
+            <option value="12">12</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>{' '}
+          Items per page
+        </label>
       </div>
     </Wrapper>
   );
@@ -68,6 +95,7 @@ const Wrapper = styled.div`
 `;
 
 const Button = styled.button`
+  position: relative;
   border: none;
   background: none;
   outline: none;
