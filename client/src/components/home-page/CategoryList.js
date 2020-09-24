@@ -25,7 +25,6 @@ const CategoryList = ({
       })
       .then((json) => {
         setCategoryItems(json);
-        console.log(categoryItems);
       })
       .catch((err) => {
         console.log(err);
@@ -37,7 +36,6 @@ const CategoryList = ({
       })
       .then((json) => {
         setBodyLocations(json);
-        console.log(bodyLocations);
       })
       .catch((err) => {
         console.log(err);

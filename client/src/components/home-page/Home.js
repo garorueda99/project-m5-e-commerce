@@ -46,6 +46,7 @@ const Homepage = () => {
 
   // map through list of items and return individual items
   // pass through individual array item from itemList
+
   return (
     <Wrapper>
       <PageIndex page={page} setPage={setPage} />

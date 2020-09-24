@@ -24,9 +24,9 @@ const Item = (props) => {
     } else {
       setCartWrapper(Wrapper);
     }
-  }, [cartContents])
+  }, [cartContents]);
 
-  // shorten item name if too long
+  //   // shorten item name if too long
 
   let itemDisplayName;
 
@@ -38,7 +38,7 @@ const Item = (props) => {
 
   return (
     <CartWrapper>
-      < ItemWrapper >
+      <ItemWrapper>
         <ItemContent
           // Onclick on card to redirect to the item page
           onClick={() => {
@@ -54,7 +54,7 @@ const Item = (props) => {
           <p>{data.price}</p>
           <AddToCart data={data} />
         </ActionBar>
-      </ItemWrapper >
+      </ItemWrapper>
     </CartWrapper>
   );
 };
@@ -73,7 +73,7 @@ const Wrapper = styled.div`
 
 const PurchasedWrapper = styled(Wrapper)`
   border: 1px solid #b1ff96;
-`
+`;
 
 const ItemWrapper = styled.div`
   display: flex;

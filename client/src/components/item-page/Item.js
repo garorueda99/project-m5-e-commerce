@@ -10,7 +10,7 @@ import { postCart } from '../helpers/fetch-functions';
 export default function Item() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const itemState = useSelector((state) => state.cart);
+  const itemState = useSelector((state) => state.cart.indexes);
   // retreive the item Id from URL params
   const { itemId } = useParams();
 
@@ -117,7 +117,7 @@ export default function Item() {
               // Onclick on button to redirect to the cart page
               // Add cart using redux dispatch
               onClick={() => {
-                dispatch(updateItemQuantity(item._id, parseInt(itemQuantity)));
+                dispatch(updateItemQuantity(item, parseInt(itemQuantity)));
                 history.push('/cart');
                 // window.location.href = '/cart';
               }}
@@ -125,14 +125,14 @@ export default function Item() {
               Add to cart
             </AddToCartButton>
           ) : (
-              <AddToCartButton
-                disabled
-                style={{ backgroundColor: 'grey' }}
+            <AddToCartButton
+              disabled
+              style={{ backgroundColor: 'grey' }}
               // unvailable because is out of stock
-              >
-                Unavailable
-              </AddToCartButton>
-            )}
+            >
+              Unavailable
+            </AddToCartButton>
+          )}
         </ItemInformationWrapper>
       </ItemWrapper>
     </Wrapper>

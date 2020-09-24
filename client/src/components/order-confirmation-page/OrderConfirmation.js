@@ -10,7 +10,6 @@ import { CurrentUserContext } from '../CurrentUserContext';
 // Assets
 import visa from '../../assets/payment-method-visa.png';
 
-
 const orderNumber = Math.random().toString().slice(2, 11);
 
 // TODO
@@ -21,7 +20,7 @@ const orderNumber = Math.random().toString().slice(2, 11);
 const OrderConfirmation = () => {
   const { currentUser } = React.useContext(CurrentUserContext);
 
-  const cartContents = useSelector((state) => state.cart);
+  const cartContents = useSelector((state) => state.cart.indexes);
 
   // cartContents is an object. We need to iterate through each entry.
   // let's try Object.entries()

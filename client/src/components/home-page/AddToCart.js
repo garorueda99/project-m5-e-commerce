@@ -18,8 +18,7 @@ const AddToCart = (props) => {
 
   const dispatch = useDispatch();
 
-  const cartContents = useSelector((state) => state.cart);
-
+  const cartContents = useSelector((state) => state.cart.indexes);
   // none in stock, or cart contents equal in stock
   if (data.numInStock === 0) {
     return <GreyedButton>Out of stock</GreyedButton>;
@@ -28,7 +27,7 @@ const AddToCart = (props) => {
       <QuantityWrapper>
         <QuantityButton
           onClick={() =>
-            dispatch(updateItemQuantity(data._id, cartContents[data._id] - 1))
+            dispatch(updateItemQuantity(data, cartContents[data._id] - 1))
           }
         >
           <AiOutlineMinus />
@@ -54,7 +53,7 @@ const AddToCart = (props) => {
       <QuantityWrapper>
         <QuantityButton
           onClick={() =>
-            dispatch(updateItemQuantity(data._id, cartContents[data._id] - 1))
+            dispatch(updateItemQuantity(data, cartContents[data._id] - 1))
           }
         >
           <AiOutlineMinus />
@@ -62,7 +61,7 @@ const AddToCart = (props) => {
         <div>{cartContents[data._id]}</div>
         <QuantityButton
           onClick={() =>
-            dispatch(updateItemQuantity(data._id, cartContents[data._id] + 1))
+            dispatch(updateItemQuantity(data, cartContents[data._id] + 1))
           }
         >
           <BsPlus />
@@ -72,9 +71,7 @@ const AddToCart = (props) => {
   } else {
     // standard view
     return (
-      <AddToCartButton
-        onClick={() => dispatch(updateItemQuantity(data._id, 1))}
-      >
+      <AddToCartButton onClick={() => dispatch(updateItemQuantity(data, 1))}>
         Add to Cart
       </AddToCartButton>
     );

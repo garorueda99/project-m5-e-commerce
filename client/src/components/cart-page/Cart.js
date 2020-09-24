@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import ItemCart from './ItemCart';
 import { CurrentUserContext } from '../CurrentUserContext';
 export default function Item() {
-  const Cart = useSelector((state) => state.cart);
+  const Cart = useSelector((state) => state.cart.indexes);
   const [total, setTotal] = useState(0);
   const { currentUser } = useContext(CurrentUserContext);
 
