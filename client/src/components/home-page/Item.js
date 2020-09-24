@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -14,13 +14,19 @@ const Item = (props) => {
 
   const cartContents = useSelector((state) => state.cart);
 
-  let CartWrapper;
+  const [CartWrapper, setCartWrapper] = useState(Wrapper);
 
-  if (data._id in cartContents) {
-    CartWrapper = PurchasedWrapper;
-  } else {
-    CartWrapper = Wrapper;
-  }
+  // greenify item outline if in cart
+
+  React.useEffect(() => {
+    if (data._id in cartContents && cartContents[data._id] !== 0) {
+      setCartWrapper(PurchasedWrapper);
+    } else {
+      setCartWrapper(Wrapper);
+    }
+  }, [cartContents])
+
+  // shorten item name if too long
 
   let itemDisplayName;
 
