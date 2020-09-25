@@ -9,7 +9,7 @@ import { removeFromCart } from '../../actions';
 
 export default function Item() {
   const dispatch = useDispatch();
-  const Cart = useSelector((state) => state.cart);
+  const Cart = useSelector((state) => state.cart.indexes);
   const [total, setTotal] = useState(0);
   const { currentUser } = useContext(CurrentUserContext);
 

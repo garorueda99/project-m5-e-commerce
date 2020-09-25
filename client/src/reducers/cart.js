@@ -1,6 +1,6 @@
 // shopping cart state
 import { postCart } from '../components/helpers/fetch-functions';
-const initialState = {};
+const initialState = { id: null, indexes: {}, status: 'empty', articles: [] };
 
 // adding items is simple; we should pass in the item ID
 // removing the item, maybe harder
@@ -10,19 +10,24 @@ const initialState = {};
 // maybe what we want is { "itemId" : action.itemQuantity }
 
 export default function itemsReducer(state = initialState, action) {
+  const { id, indexes, status, articles } = action;
   switch (action.type) {
     case 'LOAD_CART':
-      return { ...action.cart };
+      return { ...state, id, indexes, status, articles };
     case 'DELETE_ITEM_FROM_CART': {
       const newCart = { ...state };
       delete newCart[action.itemId];
       return { ...newCart };
     }
     case 'UPDATE_CART_QUANTITY': {
-      postCart({ ...state, [action.itemId]: action.itemQuantity });
+      // postCart({ ...state, [action.itemId]: action.itemQuantity });
+      console.log(state);
+      const { _id } = action.data;
       return {
         ...state,
-        [action.itemId]: action.itemQuantity,
+        indexes: { ...state.indexes, [_id]: action.itemQuantity },
+        articles: [...state.articles, action.data],
+        status: 'pending',
       };
     }
     case 'CLEAR_CART': {

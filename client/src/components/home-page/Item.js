@@ -1,38 +1,60 @@
 // Libraries
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 // Components
 import AddToCart from './AddToCart';
 
-const Item = (props) => {
+const Item = ({ itemData }) => {
   const history = useHistory();
 
-  // done: add dispatch(addItemToCart) to button onclick
+  const cartContents = useSelector((state) => state.cart);
 
-  const data = props.data;
+  const [CartWrapper, setCartWrapper] = useState(Wrapper);
+
+  // greenify item outline if in cart
+  React.useEffect(() => {
+    if (itemData._id in cartContents && cartContents[itemData._id] !== 0) {
+      setCartWrapper(PurchasedWrapper);
+    } else {
+      setCartWrapper(Wrapper);
+    }
+  }, [cartContents]);
+
+  // shorten item name if too long
+
+  let itemDisplayName;
+
+  if (itemData.name.length > 30) {
+    itemDisplayName = itemData.name.slice(0, 34) + '...';
+  } else {
+    itemDisplayName = itemData.name;
+  }
 
   return (
-    <Wrapper>
+    <CartWrapper>
       <ItemWrapper>
         <ItemContent
           // Onclick on card to redirect to the item page
           onClick={() => {
-            history.push('/item/' + data._id);
+            history.push('/item/' + itemData._id);
             // return <Route path="/cart" />;
             // window.location.href = '/item/' + data._id;
           }}
         >
-          <h3>{data.name}</h3>
-          <ImgWrapper style={{ backgroundImage: `url(${data.imageSrc})` }} />
+          <h3>{itemDisplayName}</h3>
+          <ImgWrapper
+            style={{ backgroundImage: `url(${itemData.imageSrc})` }}
+          />
         </ItemContent>
         <ActionBar>
-          <p>{data.price}</p>
-          <AddToCart data={data} />
+          <p>{itemData.price}</p>
+          <AddToCart itemData={itemData} />
         </ActionBar>
       </ItemWrapper>
-    </Wrapper>
+    </CartWrapper>
   );
 };
 
@@ -46,6 +68,10 @@ const Wrapper = styled.div`
   padding: 20px;
   margin-bottom: 15px;
   margin-right: 25px;
+`;
+
+const PurchasedWrapper = styled(Wrapper)`
+  border: 1px solid #b1ff96;
 `;
 
 const ItemWrapper = styled.div`

@@ -2,14 +2,29 @@
 import React from 'react';
 import Moment from 'react-moment';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+
 // Components
 import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
+// Assets
+import visa from '../../assets/payment-method-visa.png';
 
 const orderNumber = Math.random().toString().slice(2, 11);
 
+// TODO
+// render correct items from cart
+// debit the items correctly from BE
+// clear cart
+
 const OrderConfirmation = () => {
   const { currentUser } = React.useContext(CurrentUserContext);
+
+  const cartContents = useSelector((state) => state.cart.indexes);
+
+  // cartContents is an object. We need to iterate through each entry.
+  // let's try Object.entries()
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 
   return (
     <>
@@ -33,11 +48,16 @@ const OrderConfirmation = () => {
               {/* static number for now, should be coming from the purchase */}
               <p>$123.45</p>
             </Column>
-            <Column id="fullname" className="md-invoice-section-column">
-              <InvoiceTitle>Customer</InvoiceTitle>
-              <p>{`
-              ${currentUser.profile.firstName}
-              ${currentUser.profile.lastName}`}</p>
+            <Column id="payment-method" className="md-invoice-section-column">
+              <InvoiceTitle>Payment method</InvoiceTitle>
+              <PaymentMethod>
+                <img
+                  style={{ height: '25px', width: '35px' }}
+                  src={visa}
+                  alt="visa"
+                />
+                <p>&nbsp;{`${currentUser.profile.paymentMethod}`}</p>
+              </PaymentMethod>
             </Column>
             <Column id="email" className="md-invoice-section-column">
               <InvoiceTitle>Order confirmation sent to</InvoiceTitle>
@@ -113,6 +133,11 @@ const LineItemWrapper = styled.ul`
 
 const ProductTitle = styled.h2`
   margin-bottom: 20px;
+`;
+
+const PaymentMethod = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export default OrderConfirmation;
