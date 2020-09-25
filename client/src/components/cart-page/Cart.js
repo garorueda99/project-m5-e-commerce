@@ -1,16 +1,22 @@
 // Libraries
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ItemCart from './ItemCart';
 import { CurrentUserContext } from '../CurrentUserContext';
+import { FaTrash } from 'react-icons/fa';
+import { removeFromCart } from '../../actions';
+
 export default function Item() {
-  const Cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const Cart = useSelector((state) => state.cart.indexes);
   const [total, setTotal] = useState(0);
   const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <Wrapper>
+      <div>{JSON.stringify(Cart)}</div>
+
       <CartWrapper>
         Hello {currentUser.profile.firstName}!!
         {Object.keys(Cart).length === 0 ? (
@@ -18,6 +24,16 @@ export default function Item() {
         ) : (
           <div>The following products are in your cart:</div>
         )}
+        <FaTrash
+          style={{ marginLeft: '95%' }} // Onclick on button to delete
+          onClick={(e) => {
+            for (const [key, value] of Object.entries(Cart)) {
+              dispatch(removeFromCart(key));
+            }
+          }}
+        >
+          {' '}
+        </FaTrash>
         <CartItemInformationWrapper>
           {Object.keys(Cart).map((element, index) => (
             <ItemCart

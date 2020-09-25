@@ -26,7 +26,9 @@ export const CurrentUserProvider = ({ children }) => {
       .catch((error) => {
         console.error('Error:', error);
       });
-    fetchCart().then((data) => dispatch(loadCart(data.cart)));
+    fetchCart().then((data) => {
+      dispatch(loadCart(data));
+    });
   }, []);
 
   return (

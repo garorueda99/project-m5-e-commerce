@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
 import { fetchItem } from '../helpers/fetch-functions';
 import Loader from '../Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeFromCart } from '../../actions';
 
 export default function ItemCart({ id, qty, setTotal }) {
+  const dispatch = useDispatch();
   const [loading, setLoadging] = useState(false);
   useEffect(() => {
     fetchItem(id).then((data) => {
@@ -24,7 +27,7 @@ export default function ItemCart({ id, qty, setTotal }) {
             <FaTrash
               style={{ marginLeft: '95%' }} // Onclick on button to delete
               onClick={() => {
-                window.location.href = '/order-confirmation';
+                dispatch(removeFromCart(item._id));
               }}
             >
               {' '}

@@ -10,8 +10,6 @@ const initialState = {
   selectedItems: null,
 };
 
-initialState.filters = `query_result_maxqty=${initialState.pageSize}`;
-
 export default function itemsReducer(state = initialState, action) {
   switch (action.type) {
     case 'REQUEST_ITEMS':
@@ -31,6 +29,11 @@ export default function itemsReducer(state = initialState, action) {
         ...state,
         nextIndex: state.nextIndex + state.pageSize,
         status: 'loading',
+      };
+    case 'CHANGE_PAGE_SIZE':
+      return {
+        ...state,
+        pageSize: action.newPageSize,
       };
 
     default: {

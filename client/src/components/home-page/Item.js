@@ -7,54 +7,53 @@ import { useHistory } from 'react-router-dom';
 // Components
 import AddToCart from './AddToCart';
 
-const Item = (props) => {
+const Item = ({ itemData }) => {
   const history = useHistory();
-
-  const data = props.data;
 
   const cartContents = useSelector((state) => state.cart);
 
   const [CartWrapper, setCartWrapper] = useState(Wrapper);
 
   // greenify item outline if in cart
-
   React.useEffect(() => {
-    if (data._id in cartContents && cartContents[data._id] !== 0) {
+    if (itemData._id in cartContents && cartContents[itemData._id] !== 0) {
       setCartWrapper(PurchasedWrapper);
     } else {
       setCartWrapper(Wrapper);
     }
-  }, [cartContents])
+  }, [cartContents]);
 
   // shorten item name if too long
 
   let itemDisplayName;
 
-  if (data.name.length > 30) {
-    itemDisplayName = data.name.slice(0, 34) + '...';
+  if (itemData.name.length > 30) {
+    itemDisplayName = itemData.name.slice(0, 34) + '...';
   } else {
-    itemDisplayName = data.name;
+    itemDisplayName = itemData.name;
   }
 
   return (
     <CartWrapper>
-      < ItemWrapper >
+      <ItemWrapper>
         <ItemContent
           // Onclick on card to redirect to the item page
           onClick={() => {
-            history.push('/item/' + data._id);
+            history.push('/item/' + itemData._id);
             // return <Route path="/cart" />;
             // window.location.href = '/item/' + data._id;
           }}
         >
           <h3>{itemDisplayName}</h3>
-          <ImgWrapper style={{ backgroundImage: `url(${data.imageSrc})` }} />
+          <ImgWrapper
+            style={{ backgroundImage: `url(${itemData.imageSrc})` }}
+          />
         </ItemContent>
         <ActionBar>
-          <p>{data.price}</p>
-          <AddToCart data={data} />
+          <p>{itemData.price}</p>
+          <AddToCart itemData={itemData} />
         </ActionBar>
-      </ItemWrapper >
+      </ItemWrapper>
     </CartWrapper>
   );
 };
@@ -73,7 +72,7 @@ const Wrapper = styled.div`
 
 const PurchasedWrapper = styled(Wrapper)`
   border: 1px solid #b1ff96;
-`
+`;
 
 const ItemWrapper = styled.div`
   display: flex;

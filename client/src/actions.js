@@ -9,8 +9,13 @@ export const receiveItemsInfo = (payload) => ({
   ...payload,
 });
 
-export const nextPageItems = () => ({
+export const changePageItems = () => ({
   type: 'CHANGE_TO_NEXT_PAGE_ITEMS',
+});
+
+export const changePageSize = (newPageSize) => ({
+  type: 'CHANGE_PAGE_SIZE',
+  newPageSize,
 });
 
 // RELATED WITH MODAL
@@ -36,10 +41,10 @@ export const removeFromCart = (itemId) => ({
   itemId,
 });
 
-export const updateItemQuantity = (itemId, itemQuantity) => {
+export const updateItemQuantity = (data, itemQuantity) => {
   return {
     type: 'UPDATE_CART_QUANTITY',
-    itemId,
+    data,
     itemQuantity,
   };
 };
@@ -48,7 +53,7 @@ export const clearCart = () => ({
   type: 'CLEAR_CART',
 });
 
-export const loadCart = (cart) => ({
+export const loadCart = (payload) => ({
   type: 'LOAD_CART',
-  cart,
+  ...payload,
 });
