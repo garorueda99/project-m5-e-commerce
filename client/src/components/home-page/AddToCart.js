@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMinus } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
 // Actions
-import { updateItemQuantity } from '../../actions';
+import { updateItemQuantity, removeFromCart } from '../../actions';
 
 const AddToCart = (props) => {
   // if there are zero items in stock, show a greyed out button
@@ -17,6 +17,13 @@ const AddToCart = (props) => {
   const dispatch = useDispatch();
 
   const cartContents = useSelector((state) => state.cart);
+
+  // Removes items card on cart page if quantity is at zero
+  if (cartContents[data._id] === 0) {
+    for (const [key, value] of Object.entries(cartContents)) {
+      dispatch(removeFromCart(key));
+    }
+  }
 
   if (data.numInStock === 0 || cartContents[data._id] >= data.numInStock) {
     return <GreyedButton>Out of stock</GreyedButton>;
