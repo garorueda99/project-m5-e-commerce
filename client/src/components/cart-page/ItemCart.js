@@ -16,7 +16,6 @@ export default function ItemCart({ id, qty, setTotal, total }) {
   useEffect(() => {
     setTotal((n) => n + convertPriceToNumber(itemData.price) * itemQty);
   }, [itemQty]);
-
   return (
     <>
       {itemData && (
