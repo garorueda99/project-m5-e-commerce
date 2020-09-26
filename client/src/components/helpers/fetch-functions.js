@@ -15,7 +15,6 @@ export async function fetchItem(id) {
 }
 
 export async function postCart(cart) {
-  console.log('==>', cart);
   const url = `/api/me/profile/history`;
   const options = {
     method: 'POST',

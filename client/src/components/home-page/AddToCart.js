@@ -38,15 +38,9 @@ const AddToCart = ({ itemData }) => {
               updateItemQuantity(itemData, cartContents[itemData._id] - 1)
             );
 
-            const newArticles =
-              cartContents[itemData._id] - 1 <= 0
-                ? cart.articles.filter(
-                    (element) => element._id !== itemData._id
-                  )
-                : cart.articles;
             postCart({
-              ...cart,
-              articles: newArticles,
+              id: cart.id,
+              status: cart.status,
               indexes: {
                 ...cart.indexes,
                 [itemData._id]: cartContents[itemData._id] - 1,
@@ -68,12 +62,9 @@ const AddToCart = ({ itemData }) => {
       <AddToCartButton
         onClick={() => {
           dispatch(updateItemQuantity(itemData, 1));
-          const newArticles = cart.articles.includes(itemData)
-            ? [...cart.articles]
-            : [...cart.articles, itemData];
           postCart({
-            ...cart,
-            articles: newArticles,
+            id: cart.id,
+            status: cart.status,
             indexes: { ...cart.indexes, [itemData._id]: 1 },
           });
         }}
@@ -90,17 +81,33 @@ const AddToCart = ({ itemData }) => {
             dispatch(
               updateItemQuantity(itemData, cartContents[itemData._id] - 1)
             );
+            postCart({
+              id: cart.id,
+              status: cart.status,
+              indexes: {
+                ...cart.indexes,
+                [itemData._id]: cartContents[itemData._id] - 1,
+              },
+            });
           }}
         >
           <AiOutlineMinus />
         </QuantityButton>
         <div>{cartContents[itemData._id]}</div>
         <QuantityButton
-          onClick={() =>
+          onClick={() => {
             dispatch(
               updateItemQuantity(itemData, cartContents[itemData._id] + 1)
-            )
-          }
+            );
+            postCart({
+              id: cart.id,
+              status: cart.status,
+              indexes: {
+                ...cart.indexes,
+                [itemData._id]: cartContents[itemData._id] + 1,
+              },
+            });
+          }}
         >
           <BsPlus />
         </QuantityButton>
@@ -112,13 +119,9 @@ const AddToCart = ({ itemData }) => {
       <AddToCartButton
         onClick={() => {
           dispatch(updateItemQuantity(itemData, 1));
-          const newArticles = cart.articles.includes(itemData)
-            ? [...cart.articles]
-            : [...cart.articles, itemData];
-          console.log('before Post no used', itemData);
           postCart({
-            ...cart,
-            articles: newArticles,
+            id: cart.id,
+            status: cart.status,
             indexes: { ...cart.indexes },
           });
         }}

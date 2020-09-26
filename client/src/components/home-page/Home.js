@@ -45,7 +45,6 @@ const Homepage = () => {
       categories_query +
       body_query +
       keyword_query;
-    console.log();
     fetchItems(query).then((res) => dispatch(receiveItemsInfo(res)));
   }, [
     page,
@@ -60,7 +59,6 @@ const Homepage = () => {
 
   // map through list of items and return individual items
   // pass through individual array item from itemList
-
   return (
     <Wrapper>
       <PageIndex page={page} setPage={setPage} />
