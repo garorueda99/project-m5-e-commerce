@@ -25,10 +25,8 @@ export default function Item() {
         {Object.keys(Cart).length !== 0 && (
           <Button
             onClick={(e) => {
-              for (const [key, value] of Object.entries(Cart)) {
-                dispatch(removeAllFromCart());
-                setTotal(0);
-              }
+              dispatch(removeAllFromCart());
+              setTotal(0);
             }}
           >
             <FaTrash color="white" />

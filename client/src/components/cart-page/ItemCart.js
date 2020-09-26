@@ -4,7 +4,7 @@ import { FaTrash } from 'react-icons/fa';
 import { fetchItem } from '../helpers/fetch-functions';
 import Loader from '../Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromCart } from '../../actions';
+import { removeItemFromCart } from '../../actions';
 
 export default function ItemCart({ id, qty, setTotal }) {
   const dispatch = useDispatch();
@@ -24,14 +24,14 @@ export default function ItemCart({ id, qty, setTotal }) {
           {loading && <Loader />}
           <ItemImage src={item.imageSrc} alt="Item image"></ItemImage>
           <ItemInformationWrapper>
-            <FaTrash
-              style={{ marginLeft: '95%' }} // Onclick on button to delete
-              onClick={() => {
-                dispatch(removeFromCart(item._id));
+            <Button
+              onClick={(e) => {
+                dispatch(removeItemFromCart());
+                setTotal(0);
               }}
             >
-              {' '}
-            </FaTrash>
+              <FaTrash color="white" />
+            </Button>
             <ItemName>{item.name}</ItemName>
             <ItemPrice> - Price per unit: {item.price} </ItemPrice>
             <ItemPrice>
@@ -90,4 +90,23 @@ const ItemPrice = styled.h3`
 const ItemSelected = styled.p`
   flex: 2;
   margin: 2%;
+`;
+
+const Button = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #4caf50;
+  border: none;
+  outline: none;
+  &:hover {
+    background-color: red;
+  }
 `;

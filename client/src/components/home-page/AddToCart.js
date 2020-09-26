@@ -6,7 +6,7 @@ import { AiOutlineMinus } from 'react-icons/ai';
 // import { AiOutlinePlus } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
 // Actions
-import { updateItemQuantity, removeFromCart } from '../../actions';
+import { updateItemQuantity, removeItemFromCart } from '../../actions';
 
 const AddToCart = ({ itemData }) => {
   // if there are zero items in stock, show a greyed out button
@@ -21,7 +21,7 @@ const AddToCart = ({ itemData }) => {
   // Removes items card on cart page if quantity is at zero
   if (cartContents[itemData._id] === 0) {
     for (const [key, value] of Object.entries(cartContents)) {
-      dispatch(removeFromCart(key));
+      dispatch(removeItemFromCart(key));
     }
   }
 
