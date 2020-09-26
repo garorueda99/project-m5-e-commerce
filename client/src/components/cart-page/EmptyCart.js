@@ -1,23 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const NotFound = () => {
-  const currentHrefLocation = window.location.href;
-  if (currentHrefLocation !== 'http://localhost:3000/404') {
-    const redirect = <Redirect to="/404" />;
-    return redirect;
-  }
-
+const EmptyCart = () => {
   return (
     <>
       <Wrapper>
-        <h1 style={{ fontWeight: '400' }}>404 - Page not Found!</h1>
+        <h1 style={{ fontWeight: '400' }}>Your cart is empty</h1>
         <TextWrapper>
           <HorizontalRule />
           <Paragraph>
-            We're sorry but we can't find the page you're looking for. Please
-            check the URL or <Link to="/">continue shopping</Link>.
+            <Link to="/">Continue shopping</Link>
           </Paragraph>
         </TextWrapper>
       </Wrapper>
@@ -53,4 +46,4 @@ const Paragraph = styled.p`
   padding-top: 20px;
 `;
 
-export default NotFound;
+export default EmptyCart;
