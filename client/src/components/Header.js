@@ -5,8 +5,12 @@ import { BiUser } from 'react-icons/bi';
 import { CgShoppingCart } from 'react-icons/cg';
 import { GiPegasus } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const Cart = useSelector((state) => state.cart.indexes);
+  const cartCount = Object.values(Cart).reduce((a, b) => a + b, 0);
+
   return (
     <Wrapper>
       <Logo to="/">
@@ -20,10 +24,9 @@ const Header = () => {
         <NavigationList>
           <li>
             <NavigationLink to="/cart">
+              {cartCount > 0 && <span>{cartCount}</span>}
               <span>
-                <CgShoppingCart
-                  style={{ height: '22px', width: '22px'}}
-                />
+                <CgShoppingCart style={{ height: '22px', width: '22px' }} />
               </span>
             </NavigationLink>
           </li>
