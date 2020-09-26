@@ -1,8 +1,9 @@
 // Libraries
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { clearCart } from '../../actions';
 
 // Components
 import LineItem from './LineItem';
@@ -23,10 +24,15 @@ const OrderConfirmation = () => {
   const cartContents = useSelector((state) => state.cart.indexes);
   const cartArtlicles = useSelector((state) => state.cart.articles);
   const [total, setTotal] = useState(0);
+  const dispatch = useDispatch();
   // cartContents is an object. We need to iterate through each entry.
   // let's try Object.entries()
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
-
+  useEffect(() => {
+    return () => {
+      dispatch(clearCart());
+    };
+  }, []);
   return (
     <>
       <Wrapper>
