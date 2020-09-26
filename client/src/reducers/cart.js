@@ -15,19 +15,38 @@ export default function itemsReducer(state = initialState, action) {
     case 'LOAD_CART':
       return { ...state, id, indexes, status, articles };
     case 'DELETE_ITEM_FROM_CART': {
-      const newCart = { ...state };
-      delete newCart[action.itemId];
-      return { ...newCart };
+      const newIndexes = { ...state.indexes };
+      delete newIndexes[action.itemId];
+      const newArticles = state.articles.filter(
+        (element) => element._id !== parseInt(action.itemId)
+      );
+      return { ...state, indexes: { ...newIndexes }, articles: newArticles };
+    }
+    case 'DELETE_ALL_FROM_CART': {
+      return { ...initialState };
     }
     case 'UPDATE_CART_QUANTITY': {
-      // postCart({ ...state, [action.itemId]: action.itemQuantity });
-      console.log(state);
       const { _id } = action.data;
-      return {
+      postCart({
         ...state,
         indexes: { ...state.indexes, [_id]: action.itemQuantity },
         articles: [...state.articles, action.data],
         status: 'pending',
+      });
+      const newArticles = state.articles.includes(action.data)
+        ? [...state.articles]
+        : [...state.articles, action.data];
+      return {
+        ...state,
+        indexes: { ...state.indexes, [_id]: action.itemQuantity },
+        articles: newArticles,
+        status: 'pending',
+      };
+    }
+    case 'PURCHASE_CART': {
+      return {
+        ...state,
+        status: 'purchasing',
       };
     }
     case 'CLEAR_CART': {

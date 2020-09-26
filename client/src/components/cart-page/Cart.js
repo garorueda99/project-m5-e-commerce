@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import ItemCart from './ItemCart';
 import { CurrentUserContext } from '../CurrentUserContext';
 import { FaTrash } from 'react-icons/fa';
-import { removeFromCart } from '../../actions';
+import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
+import { useHistory } from 'react-router-dom';
 
 export default function Item() {
   const dispatch = useDispatch();
   const Cart = useSelector((state) => state.cart.indexes);
   const [total, setTotal] = useState(0);
   const { currentUser } = useContext(CurrentUserContext);
-
+  const history = useHistory();
   return (
     <Wrapper>
       <div>{JSON.stringify(Cart)}</div>
@@ -24,16 +25,16 @@ export default function Item() {
         ) : (
           <div>The following products are in your cart:</div>
         )}
-        <FaTrash
-          style={{ marginLeft: '95%' }} // Onclick on button to delete
-          onClick={(e) => {
-            for (const [key, value] of Object.entries(Cart)) {
-              dispatch(removeFromCart(key));
-            }
-          }}
-        >
-          {' '}
-        </FaTrash>
+        {Object.keys(Cart).length !== 0 && (
+          <Button
+            onClick={() => {
+              dispatch(removeAllFromCart());
+              setTotal(0);
+            }}
+          >
+            <FaTrash color="white" />
+          </Button>
+        )}
         <CartItemInformationWrapper>
           {Object.keys(Cart).map((element, index) => (
             <ItemCart
@@ -41,13 +42,15 @@ export default function Item() {
               id={element}
               qty={Cart[element]}
               setTotal={setTotal}
+              total={total}
             />
           ))}
           <TotalPrice>Total price : ${total.toFixed(2)}</TotalPrice>
           <PurchaseButton
             // Onclick on button to redirect to the cart page
             onClick={() => {
-              window.location.href = '/order-confirmation';
+              dispatch(purchaseCart());
+              history.push('/order-confirmation');
             }}
           >
             Purchase
@@ -108,4 +111,23 @@ const PurchaseButton = styled.button`
   margin-right: 5%;
   margin-bottom: 5%;
   cursor: pointer;
+`;
+
+const Button = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #4caf50;
+  border: none;
+  outline: none;
+  &:hover {
+    background-color: red;
+  }
 `;

@@ -1,5 +1,5 @@
 // Libraries
-import React from 'react';
+import React, { useState } from 'react';
 import Moment from 'react-moment';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +21,8 @@ const OrderConfirmation = () => {
   const { currentUser } = React.useContext(CurrentUserContext);
 
   const cartContents = useSelector((state) => state.cart.indexes);
-
+  const cartArtlicles = useSelector((state) => state.cart.articles);
+  const [total, setTotal] = useState(0);
   // cartContents is an object. We need to iterate through each entry.
   // let's try Object.entries()
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
@@ -45,8 +46,7 @@ const OrderConfirmation = () => {
             </Column>
             <Column id="total" className="md-invoice-section-column">
               <InvoiceTitle>Total</InvoiceTitle>
-              {/* static number for now, should be coming from the purchase */}
-              <p>$123.45</p>
+              <p>${total.toFixed(2)}</p>
             </Column>
             <Column id="payment-method" className="md-invoice-section-column">
               <InvoiceTitle>Payment method</InvoiceTitle>
@@ -75,12 +75,14 @@ const OrderConfirmation = () => {
         </InvoiceWrapper>
         <ProductTitle>Product</ProductTitle>
         <LineItemWrapper>
-          {/* Product mapping to be added here - temp static data to showcase */}
-          <LineItem />
-          <LineItem />
-          <LineItem />
-          <LineItem />
-          <LineItem />
+          {cartArtlicles.map((element, index) => (
+            <LineItem
+              key={`purchase-${index}`}
+              itemData={element}
+              qty={cartContents[element._id]}
+              setTotal={setTotal}
+            />
+          ))}
         </LineItemWrapper>
       </Wrapper>
     </>

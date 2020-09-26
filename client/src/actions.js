@@ -36,10 +36,24 @@ export const addItemToCart = (itemId, itemQuantity) => ({
   itemQuantity,
 });
 
-export const removeFromCart = (itemId) => ({
-  type: 'DELETE_ITEM_FROM_CART',
-  itemId,
-});
+export const removeItemFromCart = (itemId) => {
+  return {
+    type: 'DELETE_ITEM_FROM_CART',
+    itemId,
+  };
+};
+
+export const removeAllFromCart = () => {
+  return {
+    type: 'DELETE_ALL_FROM_CART',
+  };
+};
+
+export const purchaseCart = () => {
+  return {
+    type: 'PURCHASE_CART',
+  };
+};
 
 export const updateItemQuantity = (data, itemQuantity) => {
   return {
