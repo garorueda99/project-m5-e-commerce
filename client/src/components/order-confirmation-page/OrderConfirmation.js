@@ -25,14 +25,13 @@ const OrderConfirmation = () => {
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
 
-  // cartContents is an object. We need to iterate through each entry.
-  // let's try Object.entries()
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
-
   useEffect(() => {
     fetch('/api/items/reduce', {
       method: 'PUT',
-      body: cartContents,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(cartContents),
     }).catch((err) => console.log(err));
     return () => {
       dispatch(clearCart());
