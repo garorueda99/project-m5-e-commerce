@@ -37,7 +37,6 @@ export const addItemToCart = (itemId, itemQuantity) => ({
 });
 
 export const removeItemFromCart = (itemId) => {
-  console.log("I'm here");
   return {
     type: 'DELETE_ITEM_FROM_CART',
     itemId,

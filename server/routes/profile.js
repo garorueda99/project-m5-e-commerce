@@ -9,7 +9,7 @@ const userhistory = [
   {
     id: '1d87dd51-9a56-4877-bfc2-fd4ec93ef58b',
     status: 'pending',
-    indexes: { 6625: 1 },
+    indexes: {},
     articles: [],
   },
 ];

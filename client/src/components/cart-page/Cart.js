@@ -24,7 +24,7 @@ export default function Item() {
         )}
         {Object.keys(Cart).length !== 0 && (
           <Button
-            onClick={(e) => {
+            onClick={() => {
               dispatch(removeAllFromCart());
               setTotal(0);
             }}
@@ -39,6 +39,7 @@ export default function Item() {
               id={element}
               qty={Cart[element]}
               setTotal={setTotal}
+              total={total}
             />
           ))}
           <TotalPrice>Total price : ${total.toFixed(2)}</TotalPrice>

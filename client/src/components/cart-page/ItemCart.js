@@ -1,44 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
-import { fetchItem } from '../helpers/fetch-functions';
 import Loader from '../Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItemFromCart } from '../../actions';
 
-export default function ItemCart({ id, qty, setTotal }) {
+export default function ItemCart({ id, qty, setTotal, total }) {
   const dispatch = useDispatch();
   const [loading, setLoadging] = useState(false);
-  useEffect(() => {
-    fetchItem(id).then((data) => {
-      setItem(data);
-      setTotal((n) => n + convertPriceToNumber(data.price) * qty);
-    });
-  }, []);
+  const [itemQty, setItemQty] = useState(qty);
+  const itemData = useSelector((state) =>
+    state.cart.articles.find((element) => element._id === parseInt(id))
+  );
 
-  const [item, setItem] = useState(null);
+  useEffect(() => {
+    setTotal((n) => n + convertPriceToNumber(itemData.price) * itemQty);
+  }, [itemQty]);
+
   return (
     <>
-      {item && (
+      {itemData && (
         <ItemWrapper>
           {loading && <Loader />}
-          <ItemImage src={item.imageSrc} alt="Item image"></ItemImage>
+          <ItemImage src={itemData.imageSrc} alt="Item image"></ItemImage>
           <ItemInformationWrapper>
             <Button
-              onClick={(e) => {
-                dispatch(removeItemFromCart());
-                setTotal(0);
+              onClick={() => {
+                const newCost =
+                  total - convertPriceToNumber(itemData.price) * itemQty;
+                setTotal(newCost <= 0 ? 0 : newCost);
+                dispatch(removeItemFromCart(id));
               }}
             >
               <FaTrash color="white" />
             </Button>
-            <ItemName>{item.name}</ItemName>
-            <ItemPrice> - Price per unit: {item.price} </ItemPrice>
+            <ItemName>{itemData.name}</ItemName>
+            <ItemPrice> - Price per unit: {itemData.price} </ItemPrice>
             <ItemPrice>
-              - Subtotal Item: ${convertPriceToNumber(item.price) * qty}
+              - Subtotal Item: ${convertPriceToNumber(itemData.price) * qty}
             </ItemPrice>
             <ItemSelected>
-              Qty selected: {qty} / Qty available: {item.numInStock}
+              Qty selected: {qty} / Qty available: {itemData.numInStock}
             </ItemSelected>
           </ItemInformationWrapper>
         </ItemWrapper>
@@ -51,10 +53,11 @@ const convertPriceToNumber = (priceString) =>
   Number(priceString.replace(/[^0-9\.-]+/g, ''));
 
 const ItemWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 95%;
+  width: 95%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
