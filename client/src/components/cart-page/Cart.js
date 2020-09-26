@@ -96,27 +96,6 @@ export default function Item() {
               No item to purchase
             </PurchaseButton>
           )}
-
-          {/* <PurchaseButton
-          
-          <TotalPrice>
-            Total price:{' '}
-            {new Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: 'USD',
-            }).format(total)}
-          </TotalPrice>
-          <PurchaseButton
-            // Onclick on button to redirect to the cart page
-            onClick={() => {
-              dispatch(purchaseCart());
-              history.push('/order-confirmation');
-            }}
-
-            
-          >
-            Purchase
-          </PurchaseButton> */}
         </CartItemInformationWrapper>
       </CartWrapper>
     </Wrapper>
