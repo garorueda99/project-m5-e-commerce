@@ -18,12 +18,20 @@ const LineItem = ({ itemData, qty, setTotal }) => {
           </ProductDetails>
           <ProductDetails>
             Price/unit:{' '}
-            <span style={{ fontWeight: 'bold' }}>{itemData.price}</span>
+            <span style={{ fontWeight: 'bold' }}>
+              {new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              }).format(convertPriceToNumber(itemData.price))}
+            </span>
           </ProductDetails>
           <ProductDetails>
             Subtotal:{' '}
             <span style={{ fontWeight: 'bold' }}>
-              ${(convertPriceToNumber(itemData.price) * qty).toFixed(2)}
+              {new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              }).format(convertPriceToNumber(itemData.price) * qty)}
             </span>
           </ProductDetails>
         </div>

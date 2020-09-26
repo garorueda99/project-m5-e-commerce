@@ -43,7 +43,13 @@ export default function Item() {
               total={total}
             />
           ))}
-          <TotalPrice>Total price : ${total.toFixed(2)}</TotalPrice>
+          <TotalPrice>
+            Total price :
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(total)}
+          </TotalPrice>
           <PurchaseButton
             // Onclick on button to redirect to the cart page
             onClick={() => {

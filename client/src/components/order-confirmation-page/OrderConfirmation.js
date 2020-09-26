@@ -46,7 +46,13 @@ const OrderConfirmation = () => {
             </Column>
             <Column id="total" className="md-invoice-section-column">
               <InvoiceTitle>Total</InvoiceTitle>
-              <p>${total.toFixed(2)}</p>
+              <p>
+                $
+                {new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                }).format(total)}
+              </p>
             </Column>
             <Column id="payment-method" className="md-invoice-section-column">
               <InvoiceTitle>Payment method</InvoiceTitle>
