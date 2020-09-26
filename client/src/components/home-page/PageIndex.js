@@ -67,6 +67,7 @@ export default function PageIndex({ page, setPage }) {
           <select
             name="cars"
             id="cars"
+            value={items.pageSize}
             onChange={(e) => {
               dispatch(changePageSize(e.target.value));
             }}
