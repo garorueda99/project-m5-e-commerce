@@ -6,7 +6,7 @@ import ItemCart from './ItemCart';
 import { CurrentUserContext } from '../CurrentUserContext';
 import { FaTrash } from 'react-icons/fa';
 import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -14,6 +14,13 @@ export default function Item() {
   const [total, setTotal] = useState(0);
   const { currentUser } = useContext(CurrentUserContext);
   const history = useHistory();
+  const itemState = useSelector((state) => state.cart.indexes);
+  // retreive the item Id from URL params
+  const { itemId } = useParams();
+
+  const [itemQuantity, setItemQuantity] = React.useState(itemState[itemId]);
+
+  let buttonAvailability = true;
   return (
     <Wrapper>
       <div>{JSON.stringify(Cart)}</div>
@@ -46,15 +53,34 @@ export default function Item() {
             />
           ))}
           <TotalPrice>Total price : ${total.toFixed(2)}</TotalPrice>
-          <PurchaseButton
+
+          {buttonAvailability ? (
+            <PurchaseButton
+              // Onclick on button to redirect to the cart page
+              onClick={() => {
+                dispatch(purchaseCart());
+                history.push('/order-confirmation');
+              }}
+            >
+              Purchase
+            </PurchaseButton>
+          ) : (
+            <PurchaseButton disabled style={{ backgroundColor: 'grey' }}>
+              No item to purchase
+            </PurchaseButton>
+          )}
+          {/* <PurchaseButton
+          
             // Onclick on button to redirect to the cart page
             onClick={() => {
               dispatch(purchaseCart());
               history.push('/order-confirmation');
             }}
+
+            
           >
             Purchase
-          </PurchaseButton>
+          </PurchaseButton> */}
         </CartItemInformationWrapper>
       </CartWrapper>
     </Wrapper>
