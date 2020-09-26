@@ -19,9 +19,6 @@ import GlobalStyles from './GlobalStyles';
 
 function App() {
   const { currentUser } = React.useContext(CurrentUserContext);
-
-  console.log('User data ', currentUser);
-
   return !currentUser ? (
     <Router>
       <Wrapper>
