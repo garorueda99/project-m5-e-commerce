@@ -10,7 +10,6 @@ import { CurrentUserContext } from '../CurrentUserContext';
 // Assets
 import visa from '../../assets/payment-method-visa.png';
 
-
 const orderNumber = Math.random().toString().slice(2, 11);
 
 // TODO
@@ -22,6 +21,8 @@ const OrderConfirmation = () => {
   const { currentUser } = React.useContext(CurrentUserContext);
 
   const cartContents = useSelector((state) => state.cart.indexes);
+
+  console.log(cartContents);
 
   // cartContents is an object. We need to iterate through each entry.
   // let's try Object.entries()
@@ -76,12 +77,10 @@ const OrderConfirmation = () => {
         </InvoiceWrapper>
         <ProductTitle>Product</ProductTitle>
         <LineItemWrapper>
-          {/* Product mapping to be added here - temp static data to showcase */}
-          <LineItem />
-          <LineItem />
-          <LineItem />
-          <LineItem />
-          <LineItem />
+          {Object.entries(cartContents).map(item => {
+            return <LineItem item={item} />
+          })
+          }
         </LineItemWrapper>
       </Wrapper>
     </>
