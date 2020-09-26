@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { clearCart } from '../../actions';
 // Components
 import LineItem from './LineItem';
@@ -24,15 +25,16 @@ const OrderConfirmation = () => {
   const cartArticles = useSelector((state) => state.cart.articles);
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     fetch('/api/items/reduce', {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(cartContents),
-    }).catch((err) => console.log(err));
+    }).catch((err) => history.push('/technical-issue'));
     return () => {
       dispatch(clearCart());
     };

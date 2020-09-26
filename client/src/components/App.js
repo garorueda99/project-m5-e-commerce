@@ -12,6 +12,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Loader from './Loader';
 // import Error from './error-page/Error';
+import TechnicalIssue from './error-page/TechnicalIssue';
 import NotFound from './error-page/NotFound';
 import { CurrentUserContext } from './CurrentUserContext';
 // Styles
@@ -53,6 +54,7 @@ function App() {
                 <SignIn />
               </Route>
               <Route component={NotFound} />
+              <Route component={TechnicalIssue} />
             </Switch>
           </Main>
           <Footer />
