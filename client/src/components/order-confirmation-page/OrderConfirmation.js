@@ -4,7 +4,6 @@ import Moment from 'react-moment';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart } from '../../actions';
-
 // Components
 import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
@@ -33,9 +32,8 @@ const OrderConfirmation = () => {
   useEffect(() => {
     fetch('/api/items/reduce', {
       method: 'PUT',
-      body: cartContents
-    })
-      .catch(err => console.log(err));
+      body: cartContents,
+    }).catch((err) => console.log(err));
     return () => {
       dispatch(clearCart());
     };
@@ -43,7 +41,7 @@ const OrderConfirmation = () => {
   return (
     <>
       <Wrapper>
-        <h1>Thank you for your order!</h1>
+        <h1 style={{ fontWeight: '400' }}>Thank you for your order!</h1>
         <InvoiceWrapper>
           <HorizontalRule />
           <Row className="sm-invoice-section-row">
@@ -91,7 +89,7 @@ const OrderConfirmation = () => {
           </Row>
           <HorizontalRule />
         </InvoiceWrapper>
-        <ProductTitle>Product</ProductTitle>
+        <ProductTitle>Product(s)</ProductTitle>
         <LineItemWrapper>
           {cartArticles.map((element, index) => (
             <LineItem
@@ -110,7 +108,7 @@ const OrderConfirmation = () => {
 const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  margin-top: 5%;
   margin-bottom: 0;
   max-width: 78em;
   min-width: 20em;

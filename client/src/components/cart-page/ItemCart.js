@@ -43,7 +43,7 @@ export default function ItemCart({ id, qty, setTotal, total }) {
               }).format(convertPriceToNumber(itemData.price))}{' '}
             </ItemPrice>
             <ItemPrice>
-              - Subtotal Item:
+              - Subtotal Item:{' '}
               {new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: 'USD',
