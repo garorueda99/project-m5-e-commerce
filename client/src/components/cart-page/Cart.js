@@ -2,11 +2,14 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import ItemCart from './ItemCart';
-import { CurrentUserContext } from '../CurrentUserContext';
 import { FaTrash } from 'react-icons/fa';
-import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
 import { useHistory } from 'react-router-dom';
+// Components
+import ItemCart from './ItemCart';
+import EmptyCart from './EmptyCart';
+import { CurrentUserContext } from '../CurrentUserContext';
+// Actions
+import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -14,15 +17,18 @@ export default function Item() {
   const [total, setTotal] = useState(0);
   const { currentUser } = useContext(CurrentUserContext);
   const history = useHistory();
+
+  if (Object.keys(Cart).length === 0) {
+    return <EmptyCart />;
+  }
+
   return (
     <Wrapper>
       <CartWrapper>
-        Hello {currentUser.profile.firstName}!!
-        {Object.keys(Cart).length === 0 ? (
-          <div>No items at the moment in your cart</div>
-        ) : (
-          <div>The following products are in your cart:</div>
-        )}
+        <p style={{ textAlign: 'center' }}>
+          Hello <strong>{currentUser.profile.firstName}</strong>!! <br />
+          The following product(s) are in your cart:
+        </p>
         {Object.keys(Cart).length !== 0 && (
           <Button
             onClick={() => {

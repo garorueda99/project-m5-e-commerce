@@ -54,7 +54,14 @@ const AddToCart = ({ itemData }) => {
       <AddToCartButton
         onClick={() => {
           dispatch(updateItemQuantity(itemData, 1));
-          postCart(cart);
+          const newArticles = cart.articles.includes(itemData)
+            ? [...cart.articles]
+            : [...cart.articles, itemData];
+          postCart({
+            ...cart,
+            articles: newArticles,
+            indexes: { ...cart.indexes, [itemData._id]: 1 },
+          });
         }}
       >
         Add to Cart
@@ -91,8 +98,15 @@ const AddToCart = ({ itemData }) => {
       <AddToCartButton
         onClick={() => {
           dispatch(updateItemQuantity(itemData, 1));
-          console.log('before Post');
-          postCart(cart);
+          const newArticles = cart.articles.includes(itemData)
+            ? [...cart.articles]
+            : [...cart.articles, itemData];
+          console.log('before Post no used', itemData);
+          postCart({
+            ...cart,
+            articles: newArticles,
+            indexes: { ...cart.indexes },
+          });
         }}
       >
         Add to Cart
