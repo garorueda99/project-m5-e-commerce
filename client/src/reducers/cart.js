@@ -17,8 +17,10 @@ export default function itemsReducer(state = initialState, action) {
     case 'DELETE_ITEM_FROM_CART': {
       const newIndexes = { ...state.indexes };
       delete newIndexes[action.itemId];
-      console.log(newIndexes);
-      return { ...state, indexes: { ...newIndexes } };
+      const newArticles = state.articles.filter(
+        (element) => element._id !== parseInt(action.itemId)
+      );
+      return { ...state, indexes: { ...newIndexes }, articles: newArticles };
     }
     case 'DELETE_ALL_FROM_CART': {
       return { ...initialState };
@@ -31,11 +33,20 @@ export default function itemsReducer(state = initialState, action) {
         articles: [...state.articles, action.data],
         status: 'pending',
       });
+      const newArticles = state.articles.includes(action.data)
+        ? [...state.articles]
+        : [...state.articles, action.data];
       return {
         ...state,
         indexes: { ...state.indexes, [_id]: action.itemQuantity },
-        articles: [...state.articles, action.data],
+        articles: newArticles,
         status: 'pending',
+      };
+    }
+    case 'PURCHASE_CART': {
+      return {
+        ...state,
+        status: 'purchasing',
       };
     }
     case 'CLEAR_CART': {

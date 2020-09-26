@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import ItemCart from './ItemCart';
 import { CurrentUserContext } from '../CurrentUserContext';
 import { FaTrash } from 'react-icons/fa';
-import { removeFromCart, removeAllFromCart } from '../../actions';
+import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
+import { useHistory } from 'react-router-dom';
 
 export default function Item() {
   const dispatch = useDispatch();
   const Cart = useSelector((state) => state.cart.indexes);
   const [total, setTotal] = useState(0);
   const { currentUser } = useContext(CurrentUserContext);
-
+  const history = useHistory();
   return (
     <Wrapper>
       <CartWrapper>
@@ -46,7 +47,8 @@ export default function Item() {
           <PurchaseButton
             // Onclick on button to redirect to the cart page
             onClick={() => {
-              window.location.href = '/order-confirmation';
+              dispatch(purchaseCart());
+              history.push('/order-confirmation');
             }}
           >
             Purchase

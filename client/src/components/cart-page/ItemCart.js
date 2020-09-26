@@ -37,7 +37,8 @@ export default function ItemCart({ id, qty, setTotal, total }) {
             <ItemName>{itemData.name}</ItemName>
             <ItemPrice> - Price per unit: {itemData.price} </ItemPrice>
             <ItemPrice>
-              - Subtotal Item: ${convertPriceToNumber(itemData.price) * qty}
+              - Subtotal Item: $
+              {(convertPriceToNumber(itemData.price) * qty).toFixed(2)}
             </ItemPrice>
             <ItemSelected>
               Qty selected: {qty} / Qty available: {itemData.numInStock}

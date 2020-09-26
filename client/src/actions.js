@@ -49,6 +49,12 @@ export const removeAllFromCart = () => {
   };
 };
 
+export const purchaseCart = () => {
+  return {
+    type: 'PURCHASE_CART',
+  };
+};
+
 export const updateItemQuantity = (data, itemQuantity) => {
   return {
     type: 'UPDATE_CART_QUANTITY',
