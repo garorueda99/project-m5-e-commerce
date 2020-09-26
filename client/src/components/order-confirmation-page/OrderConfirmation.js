@@ -31,6 +31,11 @@ const OrderConfirmation = () => {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 
   useEffect(() => {
+    fetch('/api/items/reduce', {
+      method: 'PUT',
+      body: cartContents
+    })
+      .catch(err => console.log(err));
     return () => {
       dispatch(clearCart());
     };
