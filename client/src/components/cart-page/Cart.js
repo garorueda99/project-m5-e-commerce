@@ -42,8 +42,6 @@ export default function Item() {
 
   return (
     <Wrapper>
-      <div>{JSON.stringify(Cart)}</div>
-
       <CartWrapper>
         <p style={{ textAlign: 'center' }}>
           Hello <strong>{currentUser.profile.firstName}</strong>!! <br />
