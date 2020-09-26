@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ItemCart from './ItemCart';
 import { CurrentUserContext } from '../CurrentUserContext';
 import { FaTrash } from 'react-icons/fa';
-import { removeFromCart } from '../../actions';
+import { removeFromCart, removeAllFromCart } from '../../actions';
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -15,8 +15,6 @@ export default function Item() {
 
   return (
     <Wrapper>
-      <div>{JSON.stringify(Cart)}</div>
-
       <CartWrapper>
         Hello {currentUser.profile.firstName}!!
         {Object.keys(Cart).length === 0 ? (
@@ -24,16 +22,18 @@ export default function Item() {
         ) : (
           <div>The following products are in your cart:</div>
         )}
-        <FaTrash
-          style={{ marginLeft: '95%' }} // Onclick on button to delete
-          onClick={(e) => {
-            for (const [key, value] of Object.entries(Cart)) {
-              dispatch(removeFromCart(key));
-            }
-          }}
-        >
-          {' '}
-        </FaTrash>
+        {Object.keys(Cart).length !== 0 && (
+          <Button
+            onClick={(e) => {
+              for (const [key, value] of Object.entries(Cart)) {
+                dispatch(removeAllFromCart());
+                setTotal(0);
+              }
+            }}
+          >
+            <FaTrash color="white" />
+          </Button>
+        )}
         <CartItemInformationWrapper>
           {Object.keys(Cart).map((element, index) => (
             <ItemCart
@@ -108,4 +108,23 @@ const PurchaseButton = styled.button`
   margin-right: 5%;
   margin-bottom: 5%;
   cursor: pointer;
+`;
+
+const Button = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #4caf50;
+  border: none;
+  outline: none;
+  &:hover {
+    background-color: red;
+  }
 `;

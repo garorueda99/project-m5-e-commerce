@@ -16,13 +16,20 @@ export default function itemsReducer(state = initialState, action) {
       return { ...state, id, indexes, status, articles };
     case 'DELETE_ITEM_FROM_CART': {
       const newCart = { ...state };
-      delete newCart[action.itemId];
+      delete newCart.indexes[action.itemId];
       return { ...newCart };
     }
+    case 'DELETE_ALL_FROM_CART': {
+      return { ...initialState };
+    }
     case 'UPDATE_CART_QUANTITY': {
-      // postCart({ ...state, [action.itemId]: action.itemQuantity });
-      console.log(state);
       const { _id } = action.data;
+      postCart({
+        ...state,
+        indexes: { ...state.indexes, [_id]: action.itemQuantity },
+        articles: [...state.articles, action.data],
+        status: 'pending',
+      });
       return {
         ...state,
         indexes: { ...state.indexes, [_id]: action.itemQuantity },
