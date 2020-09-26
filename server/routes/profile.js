@@ -9,7 +9,7 @@ const userhistory = [
   {
     id: '1d87dd51-9a56-4877-bfc2-fd4ec93ef58b',
     status: 'pending',
-    indexes: { 6625: 1 },
+    indexes: {},
     articles: [],
   },
 ];
@@ -30,7 +30,10 @@ router.post('/api/me/profile/history', (req, res) => {
   let history = userhistory.find((element) => element.status === 'pending');
   history = !!history ? history : {};
   if (Object.keys(history).length !== 0) {
-    history.cart = req.body;
+    history = req.body;
+    const rest = userhistory.filter((element) => element.id !== history.id),
+      userhistory = [history];
+    console.log('USER_HISTORY', userhistory);
     return res.json({ success: true });
   }
   res.sendStatus(404);

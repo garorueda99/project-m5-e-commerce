@@ -1,44 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
-import { fetchItem } from '../helpers/fetch-functions';
 import Loader from '../Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromCart } from '../../actions';
+import { removeItemFromCart } from '../../actions';
 
-export default function ItemCart({ id, qty, setTotal }) {
+export default function ItemCart({ id, qty, setTotal, total }) {
   const dispatch = useDispatch();
   const [loading, setLoadging] = useState(false);
-  useEffect(() => {
-    fetchItem(id).then((data) => {
-      setItem(data);
-      setTotal((n) => n + convertPriceToNumber(data.price) * qty);
-    });
-  }, []);
+  const [itemQty, setItemQty] = useState(qty);
+  const itemData = useSelector((state) =>
+    state.cart.articles.find((element) => element._id === parseInt(id))
+  );
 
-  const [item, setItem] = useState(null);
+  useEffect(() => {
+    setTotal((n) => n + convertPriceToNumber(itemData.price) * itemQty);
+  }, [itemQty]);
+
   return (
     <>
-      {item && (
+      {itemData && (
         <ItemWrapper>
           {loading && <Loader />}
-          <ItemImage src={item.imageSrc} alt="Item image"></ItemImage>
+          <ItemImage src={itemData.imageSrc} alt="Item image"></ItemImage>
           <ItemInformationWrapper>
-            <FaTrash
-              style={{ marginLeft: '95%' }} // Onclick on button to delete
+            <Button
               onClick={() => {
-                dispatch(removeFromCart(item._id));
+                const newCost =
+                  total - convertPriceToNumber(itemData.price) * itemQty;
+                setTotal(newCost <= 0 ? 0 : newCost);
+                dispatch(removeItemFromCart(id));
               }}
             >
-              {' '}
-            </FaTrash>
-            <ItemName>{item.name}</ItemName>
-            <ItemPrice> - Price per unit: {item.price} </ItemPrice>
+              <FaTrash color="white" />
+            </Button>
+            <ItemName>{itemData.name}</ItemName>
             <ItemPrice>
-              - Subtotal Item: ${convertPriceToNumber(item.price) * qty}
+              {' '}
+              - Price per unit:{' '}
+              {new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              }).format(convertPriceToNumber(itemData.price))}{' '}
+            </ItemPrice>
+            <ItemPrice>
+              - Subtotal Item:
+              {new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              }).format(convertPriceToNumber(itemData.price) * qty)}
             </ItemPrice>
             <ItemSelected>
-              Qty selected: {qty} / Qty available: {item.numInStock}
+              Qty selected: {qty} / Qty available: {itemData.numInStock}
             </ItemSelected>
           </ItemInformationWrapper>
         </ItemWrapper>
@@ -51,10 +64,11 @@ const convertPriceToNumber = (priceString) =>
   Number(priceString.replace(/[^0-9\.-]+/g, ''));
 
 const ItemWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 95%;
+  width: 95%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
@@ -90,4 +104,23 @@ const ItemPrice = styled.h3`
 const ItemSelected = styled.p`
   flex: 2;
   margin: 2%;
+`;
+
+const Button = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #4caf50;
+  border: none;
+  outline: none;
+  &:hover {
+    background-color: red;
+  }
 `;

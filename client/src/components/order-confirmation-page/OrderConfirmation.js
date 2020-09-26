@@ -1,8 +1,9 @@
 // Libraries
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { clearCart } from '../../actions';
 
 // Components
 import LineItem from './LineItem';
@@ -13,21 +14,27 @@ import visa from '../../assets/payment-method-visa.png';
 const orderNumber = Math.random().toString().slice(2, 11);
 
 // TODO
-// render correct items from cart
-// debit the items correctly from BE
-// clear cart
+// render correct items from cart - done by AR
+// debit the items correctly from BE - in progress
+// clear cart - done by AR
 
 const OrderConfirmation = () => {
   const { currentUser } = React.useContext(CurrentUserContext);
 
   const cartContents = useSelector((state) => state.cart.indexes);
-
-  console.log(cartContents);
+  const cartArticles = useSelector((state) => state.cart.articles);
+  const [total, setTotal] = useState(0);
+  const dispatch = useDispatch();
 
   // cartContents is an object. We need to iterate through each entry.
   // let's try Object.entries()
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearCart());
+    };
+  }, []);
   return (
     <>
       <Wrapper>
@@ -47,8 +54,12 @@ const OrderConfirmation = () => {
             </Column>
             <Column id="total" className="md-invoice-section-column">
               <InvoiceTitle>Total</InvoiceTitle>
-              {/* static number for now, should be coming from the purchase */}
-              <p>$123.45</p>
+              <p>
+                {new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                }).format(total)}
+              </p>
             </Column>
             <Column id="payment-method" className="md-invoice-section-column">
               <InvoiceTitle>Payment method</InvoiceTitle>
@@ -77,10 +88,14 @@ const OrderConfirmation = () => {
         </InvoiceWrapper>
         <ProductTitle>Product</ProductTitle>
         <LineItemWrapper>
-          {Object.entries(cartContents).map(item => {
-            return <LineItem item={item} />
-          })
-          }
+          {cartArticles.map((element, index) => (
+            <LineItem
+              key={`purchase-${index}`}
+              itemData={element}
+              qty={cartContents[element._id]}
+              setTotal={setTotal}
+            />
+          ))}
         </LineItemWrapper>
       </Wrapper>
     </>

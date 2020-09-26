@@ -50,7 +50,12 @@ const Item = ({ itemData }) => {
           />
         </ItemContent>
         <ActionBar>
-          <p>{itemData.price}</p>
+          <p>
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(convertPriceToNumber(itemData.price))}
+          </p>
           <AddToCart itemData={itemData} />
         </ActionBar>
       </ItemWrapper>
@@ -59,6 +64,9 @@ const Item = ({ itemData }) => {
 };
 
 export default Item;
+
+const convertPriceToNumber = (priceString) =>
+  Number(priceString.replace(/[^0-9\.-]+/g, ''));
 
 const Wrapper = styled.div`
   width: 300px;
