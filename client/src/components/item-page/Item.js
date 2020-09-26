@@ -106,7 +106,6 @@ export default function Item() {
           {item.numInStock > 0 && (
             <ItemQuantitySelect
               value={itemQuantity}
-              // defaultValue={itemState[itemId]}
               onChange={handleDropdownChange}
             >
               {itemsSelectionQuantity}
