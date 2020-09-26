@@ -31,8 +31,9 @@ router.post('/api/me/profile/history', (req, res) => {
   history = !!history ? history : {};
   if (Object.keys(history).length !== 0) {
     history = req.body;
-    const rest = userhistory.filter((element) => element.id !== history.id),
-      userhistory = [history];
+    // these following two lines seem to be superfluous but generated errors - RL
+    // const rest = userhistory.filter((element) => element.id !== history.id),
+    //   userhistory = [history];
     console.log('USER_HISTORY', userhistory);
     return res.json({ success: true });
   }

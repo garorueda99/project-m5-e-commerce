@@ -2,11 +2,14 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import ItemCart from './ItemCart';
-import { CurrentUserContext } from '../CurrentUserContext';
 import { FaTrash } from 'react-icons/fa';
-import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
 import { useHistory, useParams } from 'react-router-dom';
+// Components
+import ItemCart from './ItemCart';
+import EmptyCart from './EmptyCart';
+import { CurrentUserContext } from '../CurrentUserContext';
+// Actions
+import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -17,6 +20,7 @@ export default function Item() {
 
   const { currentUser } = useContext(CurrentUserContext);
   const history = useHistory();
+
   const itemState = useSelector((state) => state.cart.indexes);
   // retreive the item Id from URL params
   const { itemId } = useParams();
@@ -33,6 +37,7 @@ export default function Item() {
 
   if (Object.keys(Cart).length === 0) {
     purchaseButtonAvailability = false;
+    return <EmptyCart />;
   }
 
   return (
@@ -40,12 +45,10 @@ export default function Item() {
       <div>{JSON.stringify(Cart)}</div>
 
       <CartWrapper>
-        Hello {currentUser.profile.firstName}!!
-        {Object.keys(Cart).length === 0 ? (
-          <div>No items at the moment in your cart</div>
-        ) : (
-          <div>The following products are in your cart:</div>
-        )}
+        <p style={{ textAlign: 'center' }}>
+          Hello <strong>{currentUser.profile.firstName}</strong>!! <br />
+          The following product(s) are in your cart:
+        </p>
         {Object.keys(Cart).length !== 0 && (
           <Button
             onClick={() => {
@@ -97,7 +100,7 @@ export default function Item() {
           {/* <PurchaseButton
           
           <TotalPrice>
-            Total price :
+            Total price:{' '}
             {new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',

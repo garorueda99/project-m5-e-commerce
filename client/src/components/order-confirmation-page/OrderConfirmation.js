@@ -4,7 +4,6 @@ import Moment from 'react-moment';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart } from '../../actions';
-
 // Components
 import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
@@ -14,21 +13,27 @@ import visa from '../../assets/payment-method-visa.png';
 const orderNumber = Math.random().toString().slice(2, 11);
 
 // TODO
-// render correct items from cart
-// debit the items correctly from BE
-// clear cart
+// render correct items from cart - done by AR
+// debit the items correctly from BE - in progress
+// clear cart - done by AR
 
 const OrderConfirmation = () => {
   const { currentUser } = React.useContext(CurrentUserContext);
 
   const cartContents = useSelector((state) => state.cart.indexes);
-  const cartArtlicles = useSelector((state) => state.cart.articles);
+  const cartArticles = useSelector((state) => state.cart.articles);
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
+
   // cartContents is an object. We need to iterate through each entry.
   // let's try Object.entries()
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+
   useEffect(() => {
+    fetch('/api/items/reduce', {
+      method: 'PUT',
+      body: cartContents,
+    }).catch((err) => console.log(err));
     return () => {
       dispatch(clearCart());
     };
@@ -36,7 +41,7 @@ const OrderConfirmation = () => {
   return (
     <>
       <Wrapper>
-        <h1>Thank you for your order!</h1>
+        <h1 style={{ fontWeight: '400' }}>Thank you for your order!</h1>
         <InvoiceWrapper>
           <HorizontalRule />
           <Row className="sm-invoice-section-row">
@@ -53,7 +58,6 @@ const OrderConfirmation = () => {
             <Column id="total" className="md-invoice-section-column">
               <InvoiceTitle>Total</InvoiceTitle>
               <p>
-                $
                 {new Intl.NumberFormat('en-US', {
                   style: 'currency',
                   currency: 'USD',
@@ -85,9 +89,9 @@ const OrderConfirmation = () => {
           </Row>
           <HorizontalRule />
         </InvoiceWrapper>
-        <ProductTitle>Product</ProductTitle>
+        <ProductTitle>Product(s)</ProductTitle>
         <LineItemWrapper>
-          {cartArtlicles.map((element, index) => (
+          {cartArticles.map((element, index) => (
             <LineItem
               key={`purchase-${index}`}
               itemData={element}
@@ -104,7 +108,7 @@ const OrderConfirmation = () => {
 const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  margin-top: 5%;
   margin-bottom: 0;
   max-width: 78em;
   min-width: 20em;
