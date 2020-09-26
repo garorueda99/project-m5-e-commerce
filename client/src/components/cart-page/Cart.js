@@ -44,7 +44,7 @@ export default function Item() {
             />
           ))}
           <TotalPrice>
-            Total price :
+            Total price:{' '}
             {new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
