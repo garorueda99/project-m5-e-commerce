@@ -35,10 +35,20 @@ export default function ItemCart({ id, qty, setTotal, total }) {
               <FaTrash color="white" />
             </Button>
             <ItemName>{itemData.name}</ItemName>
-            <ItemPrice> - Price per unit: {itemData.price} </ItemPrice>
             <ItemPrice>
-              - Subtotal Item: $
-              {(convertPriceToNumber(itemData.price) * qty).toFixed(2)}
+              {' '}
+              - Price per unit:{' '}
+              {new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              }).format(convertPriceToNumber(itemData.price))}{' '}
+            </ItemPrice>
+            <ItemPrice>
+              - Subtotal Item:
+              {new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              }).format(convertPriceToNumber(itemData.price) * qty)}
             </ItemPrice>
             <ItemSelected>
               Qty selected: {qty} / Qty available: {itemData.numInStock}
