@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // Components
 import ItemCart from './ItemCart';
 import EmptyCart from './EmptyCart';
@@ -13,30 +13,12 @@ import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
 
 export default function Item() {
   const dispatch = useDispatch();
-
   const Cart = useSelector((state) => state.cart.indexes);
   const [total, setTotal] = useState(0);
-  const [item, setItem] = React.useState('');
-
   const { currentUser } = useContext(CurrentUserContext);
   const history = useHistory();
 
-  const itemState = useSelector((state) => state.cart.indexes);
-  // retreive the item Id from URL params
-  const { itemId } = useParams();
-  const itemsSelectionQuantity = [];
-
-  const [itemQuantity, setItemQuantity] = React.useState(itemState[itemId]);
-
-  let purchaseButtonAvailability = true;
-  let isItemInCart;
-
-  const handleDropdownChange = (e) => {
-    setItemQuantity(e.target.value);
-  };
-
   if (Object.keys(Cart).length === 0) {
-    purchaseButtonAvailability = false;
     return <EmptyCart />;
   }
 
@@ -67,7 +49,6 @@ export default function Item() {
               total={total}
             />
           ))}
-
           <TotalPrice>
             Total price:{' '}
             {new Intl.NumberFormat('en-US', {
@@ -75,21 +56,15 @@ export default function Item() {
               currency: 'USD',
             }).format(total)}
           </TotalPrice>
-
-          {purchaseButtonAvailability ? (
-            <PurchaseButton
-              // Onclick on button to redirect to the cart page
-              onClick={() => {
-                history.push('/order-confirmation');
-              }}
-            >
-              Purchase
-            </PurchaseButton>
-          ) : (
-            <PurchaseButton disabled style={{ backgroundColor: 'grey' }}>
-              No item to purchase
-            </PurchaseButton>
-          )}
+          <PurchaseButton
+            // Onclick on button to redirect to the cart page
+            onClick={() => {
+              dispatch(purchaseCart());
+              history.push('/order-confirmation');
+            }}
+          >
+            Purchase
+          </PurchaseButton>
         </CartItemInformationWrapper>
       </CartWrapper>
     </Wrapper>
@@ -165,11 +140,4 @@ const Button = styled.button`
   &:hover {
     background-color: red;
   }
-`;
-
-const ItemQuantitySelect = styled.select`
-  width: 60%;
-  height: 15%;
-  margin-left: 5%;
-  flex: 2;
 `;
