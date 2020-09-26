@@ -59,7 +59,7 @@ export default function Item() {
     for (let index = 1; index < item.numInStock + 1; index++) {
       if (index === itemState[itemId]) {
         itemsSelectionQuantity.push(
-          <option key={`qty-${index}`} value={index} selected>
+          <option key={`qty-${index}`} value={index}>
             Quantity: {index}
           </option>
         );
@@ -87,6 +87,7 @@ export default function Item() {
 
   // event update number of item in dropdown
   const handleDropdownChange = (e) => {
+    dispatch(updateItemQuantity(item, parseInt(e.target.value)));
     setItemQuantity(e.target.value);
   };
   return (
@@ -103,7 +104,7 @@ export default function Item() {
           {/* update available item selection quantity */}
           {item.numInStock > 0 && (
             <ItemQuantitySelect
-              // value={itemQuantity}
+              value={itemQuantity}
               onChange={handleDropdownChange}
             >
               {itemsSelectionQuantity}
