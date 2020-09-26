@@ -33,11 +33,26 @@ const AddToCart = ({ itemData }) => {
     return (
       <QuantityWrapper>
         <QuantityButton
-          onClick={() =>
+          onClick={() => {
             dispatch(
               updateItemQuantity(itemData, cartContents[itemData._id] - 1)
-            )
-          }
+            );
+
+            const newArticles =
+              cartContents[itemData._id] - 1 <= 0
+                ? cart.articles.filter(
+                    (element) => element._id !== itemData._id
+                  )
+                : cart.articles;
+            postCart({
+              ...cart,
+              articles: newArticles,
+              indexes: {
+                ...cart.indexes,
+                [itemData._id]: cartContents[itemData._id] - 1,
+              },
+            });
+          }}
         >
           <AiOutlineMinus />
         </QuantityButton>
