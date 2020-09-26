@@ -70,17 +70,13 @@ export default function Item() {
             />
           ))}
 
-          <TotalPrice>Total price : ${total.toFixed(2)}</TotalPrice>
-
-          {/* update available item selection quantity */}
-          {item.isItemInCart === 0 && (
-            <ItemQuantitySelect
-              // value={itemQuantity}
-              onChange={handleDropdownChange}
-            >
-              {itemsSelectionQuantity}
-            </ItemQuantitySelect>
-          )}
+          <TotalPrice>
+            Total price:{' '}
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(total)}
+          </TotalPrice>
 
           {purchaseButtonAvailability ? (
             <PurchaseButton
