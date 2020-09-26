@@ -30,11 +30,14 @@ export const closeModal = () => ({
 });
 
 // Cart related stuff
-export const addItemToCart = (itemId, itemQuantity) => ({
-  type: 'ADD_ITEM_TO_CART',
-  itemId,
-  itemQuantity,
-});
+
+export const updateItemQuantity = (data, itemQuantity) => {
+  return {
+    type: 'UPDATE_CART_QUANTITY',
+    data,
+    itemQuantity,
+  };
+};
 
 export const removeItemFromCart = (itemId) => {
   return {
@@ -52,14 +55,6 @@ export const removeAllFromCart = () => {
 export const purchaseCart = () => {
   return {
     type: 'PURCHASE_CART',
-  };
-};
-
-export const updateItemQuantity = (data, itemQuantity) => {
-  return {
-    type: 'UPDATE_CART_QUANTITY',
-    data,
-    itemQuantity,
   };
 };
 

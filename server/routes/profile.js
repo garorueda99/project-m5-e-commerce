@@ -5,7 +5,7 @@ const router = require('express').Router();
 
 const { CURRENT_USER_ID } = require('./routes.helpers.js');
 
-const userhistory = [
+let userhistory = [
   {
     id: '1d87dd51-9a56-4877-bfc2-fd4ec93ef58b',
     status: 'pending',
@@ -27,15 +27,13 @@ router.get('/api/me/profile/history', (req, res) => {
 });
 
 router.post('/api/me/profile/history', (req, res) => {
-  let history = userhistory.find((element) => element.status === 'pending');
-  history = !!history ? history : {};
-  if (Object.keys(history).length !== 0) {
-    history = req.body;
-    const rest = userhistory.filter((element) => element.id !== history.id),
-      userhistory = [history];
-    console.log('USER_HISTORY', userhistory);
-    return res.json({ success: true });
-  }
-  res.sendStatus(404);
+  newCart = req.body;
+  console.log(newCart);
+  const newHistory = userhistory.filter((element) => element.id !== newCart.id);
+  userhistory = [...newHistory, newCart];
+  // const rest = userhistory.filter((element) => element.id !== history.id),
+  //   userhistory = [history];
+  console.log('USER_HISTORY==>', userhistory);
+  return res.json({ success: true });
 });
 module.exports = router;

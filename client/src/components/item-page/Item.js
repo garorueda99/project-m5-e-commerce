@@ -5,7 +5,6 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // Actions
 import { updateItemQuantity } from '../../actions';
-import { postCart } from '../helpers/fetch-functions';
 
 export default function Item() {
   const dispatch = useDispatch();
