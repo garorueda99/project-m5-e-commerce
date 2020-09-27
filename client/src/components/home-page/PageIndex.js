@@ -70,6 +70,7 @@ export default function PageIndex({ page, setPage }) {
             value={items.pageSize}
             onChange={(e) => {
               dispatch(changePageSize(e.target.value));
+              setPage(1);
             }}
           >
             <option value="9">9</option>

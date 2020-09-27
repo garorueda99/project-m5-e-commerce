@@ -12,7 +12,6 @@ const Header = () => {
   const Cart = useSelector((state) => state.cart.indexes);
   const cartCount = Object.values(Cart).reduce((a, b) => a + b, 0);
   const { currentUser } = useContext(CurrentUserContext);
-  !!currentUser && console.log(!!currentUser, currentUser);
   return (
     <Wrapper>
       <Logo to="/">
