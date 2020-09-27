@@ -1,5 +1,5 @@
 // Libraries
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Components
@@ -19,7 +19,7 @@ import { CurrentUserContext } from './CurrentUserContext';
 import GlobalStyles from './GlobalStyles';
 
 function App() {
-  const { currentUser } = React.useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   return !currentUser ? (
     <Router>
       <Wrapper>
