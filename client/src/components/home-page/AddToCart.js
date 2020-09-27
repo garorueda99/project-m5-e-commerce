@@ -1,11 +1,12 @@
 // Libraries
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMinus } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
 // Actions
 import { updateItemQuantity, removeItemFromCart } from '../../actions';
+import { postCart } from '../helpers/fetch-functions';
 
 const AddToCart = ({ itemData }) => {
   // if there are zero items in stock, show a greyed out button
@@ -16,8 +17,9 @@ const AddToCart = ({ itemData }) => {
   const dispatch = useDispatch();
 
   const cartContents = useSelector((state) => state.cart.indexes);
-
+  const cart = useSelector((state) => state.cart);
   // Removes items card on cart page if quantity is at zero
+
   if (cartContents[itemData._id] === 0) {
     for (const [key, value] of Object.entries(cartContents)) {
       dispatch(removeItemFromCart(key));
@@ -31,11 +33,20 @@ const AddToCart = ({ itemData }) => {
     return (
       <QuantityWrapper>
         <QuantityButton
-          onClick={() =>
+          onClick={() => {
             dispatch(
               updateItemQuantity(itemData, cartContents[itemData._id] - 1)
-            )
-          }
+            );
+
+            postCart({
+              id: cart.id,
+              status: cart.status,
+              indexes: {
+                ...cart.indexes,
+                [itemData._id]: cartContents[itemData._id] - 1,
+              },
+            });
+          }}
         >
           <AiOutlineMinus />
         </QuantityButton>
@@ -49,7 +60,14 @@ const AddToCart = ({ itemData }) => {
     // none in cart
     return (
       <AddToCartButton
-        onClick={() => dispatch(updateItemQuantity(itemData, 1))}
+        onClick={() => {
+          dispatch(updateItemQuantity(itemData, 1));
+          postCart({
+            id: cart.id,
+            status: cart.status,
+            indexes: { ...cart.indexes, [itemData._id]: 1 },
+          });
+        }}
       >
         Add to Cart
       </AddToCartButton>
@@ -63,17 +81,33 @@ const AddToCart = ({ itemData }) => {
             dispatch(
               updateItemQuantity(itemData, cartContents[itemData._id] - 1)
             );
+            postCart({
+              id: cart.id,
+              status: cart.status,
+              indexes: {
+                ...cart.indexes,
+                [itemData._id]: cartContents[itemData._id] - 1,
+              },
+            });
           }}
         >
           <AiOutlineMinus />
         </QuantityButton>
         <div>{cartContents[itemData._id]}</div>
         <QuantityButton
-          onClick={() =>
+          onClick={() => {
             dispatch(
               updateItemQuantity(itemData, cartContents[itemData._id] + 1)
-            )
-          }
+            );
+            postCart({
+              id: cart.id,
+              status: cart.status,
+              indexes: {
+                ...cart.indexes,
+                [itemData._id]: cartContents[itemData._id] + 1,
+              },
+            });
+          }}
         >
           <BsPlus />
         </QuantityButton>
@@ -83,7 +117,14 @@ const AddToCart = ({ itemData }) => {
     // standard view
     return (
       <AddToCartButton
-        onClick={() => dispatch(updateItemQuantity(itemData, 1))}
+        onClick={() => {
+          dispatch(updateItemQuantity(itemData, 1));
+          postCart({
+            id: cart.id,
+            status: cart.status,
+            indexes: { ...cart.indexes },
+          });
+        }}
       >
         Add to Cart
       </AddToCartButton>
