@@ -33,7 +33,6 @@ const Homepage = () => {
   let body_query = bodyL.length !== 0 ? `&body_location=${bodyL.join()}` : ``;
   let keyword_query = keyword.length >= 3 ? `&keyword=${keyword}` : '';
   // pull list of items
-
   React.useEffect(() => {
     dispatch(requestItems());
     const query =

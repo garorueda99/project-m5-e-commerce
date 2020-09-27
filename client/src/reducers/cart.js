@@ -17,7 +17,9 @@ export default function itemsReducer(state = initialState, action) {
   const { id, indexes, status } = action;
   switch (action.type) {
     case 'LOAD_CART':
-      return { ...state, id, indexes, status };
+      return { ...state, id, indexes, status: 'loading' };
+    case 'LOAD_ARTICLE':
+      return { ...state, articles: [...state.articles, action.data] };
     case 'DELETE_ITEM_FROM_CART': {
       const newIndexes = { ...state.indexes };
       delete newIndexes[action.itemId];
