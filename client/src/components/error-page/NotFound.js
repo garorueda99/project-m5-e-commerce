@@ -17,7 +17,11 @@ const NotFound = () => {
           <HorizontalRule />
           <Paragraph>
             We're sorry but we can't find the page you're looking for. Please
-            check the URL or <Link to="/">continue shopping</Link>.
+            check the URL or{' '}
+            <ContinueShoppingLink to="/">
+              continue shopping
+            </ContinueShoppingLink>
+            .
           </Paragraph>
         </TextWrapper>
       </Wrapper>
@@ -51,6 +55,15 @@ const HorizontalRule = styled.hr`
 
 const Paragraph = styled.p`
   padding-top: 20px;
+`;
+
+const ContinueShoppingLink = styled(Link)`
+  text-decoration: none;
+  border-bottom: dashed 1px;
+  color: black;
+  &&:hover {
+    border-bottom: solid 1px;
+  }
 `;
 
 export default NotFound;
