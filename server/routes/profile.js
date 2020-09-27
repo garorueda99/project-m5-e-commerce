@@ -19,7 +19,9 @@ router.get('/api/me/profile', (req, res) => {
 });
 
 router.get('/api/me/profile/history', (req, res) => {
-  const history = userhistory.find((element) => element.status === 'pending');
+  const history = userhistory.find(
+    (element) => element.status === 'pending' || element.status === 'pending'
+  );
   res
     .status(200)
     .json(!!history ? history : { indexes: {}, state: 'empty', articles: [] });

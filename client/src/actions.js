@@ -39,6 +39,13 @@ export const updateItemQuantity = (data, itemQuantity) => {
   };
 };
 
+export const loadArticle = (data) => {
+  return {
+    type: 'LOAD_ARTICLE',
+    data,
+  };
+};
+
 export const removeItemFromCart = (itemId) => {
   return {
     type: 'DELETE_ITEM_FROM_CART',

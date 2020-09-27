@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
 import Loader from '../Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeItemFromCart } from '../../actions';
+import { removeItemFromCart, loadArticle } from '../../actions';
+import { fetchItem } from '../helpers/fetch-functions';
 
 export default function ItemCart({ id, qty, setTotal, total }) {
   const dispatch = useDispatch();
@@ -14,11 +15,17 @@ export default function ItemCart({ id, qty, setTotal, total }) {
   );
 
   useEffect(() => {
-    setTotal((n) => n + convertPriceToNumber(itemData.price) * itemQty);
+    !itemData && fetchItem(id).then((data) => dispatch(loadArticle(data)));
+  }, []);
+
+  useEffect(() => {
+    if (!!itemData) {
+      setTotal((n) => n + convertPriceToNumber(itemData.price) * itemQty);
+    }
   }, [itemQty]);
   return (
     <>
-      {itemData && (
+      {!!itemData && (
         <ItemWrapper>
           {loading && <Loader />}
           <ItemImage src={itemData.imageSrc} alt="Item image"></ItemImage>

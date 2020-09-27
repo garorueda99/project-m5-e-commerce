@@ -1,5 +1,5 @@
 // Libraries
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMinus } from 'react-icons/ai';
@@ -15,15 +15,12 @@ const AddToCart = ({ itemData }) => {
   // if there are items in the cart corresponding, show the plus-minus experience
 
   const dispatch = useDispatch();
-
   const cartContents = useSelector((state) => state.cart.indexes);
   const cart = useSelector((state) => state.cart);
-  // Removes items card on cart page if quantity is at zero
 
+  // Removes items card on cart page if quantity is at zero
   if (cartContents[itemData._id] === 0) {
-    for (const [key, value] of Object.entries(cartContents)) {
-      dispatch(removeItemFromCart(key));
-    }
+    dispatch(removeItemFromCart(itemData._id));
   }
 
   // none in stock, or cart contents equal in stock
@@ -112,22 +109,6 @@ const AddToCart = ({ itemData }) => {
           <BsPlus />
         </QuantityButton>
       </QuantityWrapper>
-    );
-  } else {
-    // standard view
-    return (
-      <AddToCartButton
-        onClick={() => {
-          dispatch(updateItemQuantity(itemData, 1));
-          postCart({
-            id: cart.id,
-            status: cart.status,
-            indexes: { ...cart.indexes },
-          });
-        }}
-      >
-        Add to Cart
-      </AddToCartButton>
     );
   }
 };
