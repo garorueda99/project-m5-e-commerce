@@ -11,7 +11,6 @@ import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
 import Footer from './Footer';
 import Loader from './Loader';
-// import Error from './error-page/Error';
 import TechnicalIssue from './error-page/TechnicalIssue';
 import NotFound from './error-page/NotFound';
 import { CurrentUserContext } from './CurrentUserContext';

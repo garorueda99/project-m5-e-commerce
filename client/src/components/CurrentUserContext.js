@@ -1,9 +1,12 @@
 // Libraries
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadCart } from '../actions';
-import { fetchCart } from '../components/helpers/fetch-functions';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+// Actions
+import { loadCart } from '../actions';
+// Helpers
+import { fetchCart } from '../components/helpers/fetch-functions';
+
 export const CurrentUserContext = React.createContext(null);
 
 export const CurrentUserProvider = ({ children }) => {

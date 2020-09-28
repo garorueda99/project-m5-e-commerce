@@ -135,8 +135,8 @@ export default function Item() {
             </AddToCartButton>
           ) : (
             <AddToCartButton
+              className="disabled-button"
               disabled
-              style={{ backgroundColor: 'grey' }}
               // unvailable because is out of stock
             >
               Unavailable
@@ -152,7 +152,6 @@ export default function Item() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
 `;
@@ -160,7 +159,6 @@ const Wrapper = styled.div`
 const ItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
   width: 500px;
   margin-top: 5%;
@@ -175,15 +173,6 @@ const ItemInformationWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 2%;
-`;
-
-const ItemReviewWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 10%;
 `;
 
 // stylling item in card
@@ -237,5 +226,5 @@ const AddToCartButton = styled.button`
   font-size: 16px;
   margin: 5%;
   margin-top: 50%;
-  cursor: pointer;
+  border-radius: 5px;
 `;

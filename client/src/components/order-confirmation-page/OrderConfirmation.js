@@ -5,11 +5,12 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { clearCart } from '../../actions';
 import { IoIosArrowDroprightCircle } from 'react-icons/io';
 // Components
 import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
+// Actions
+import { clearCart } from '../../actions';
 // Assets
 import visa from '../../assets/payment-method-visa.png';
 

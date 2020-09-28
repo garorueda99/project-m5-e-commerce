@@ -6,6 +6,7 @@ import { CgShoppingCart } from 'react-icons/cg';
 import { GiPegasus } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+// Components
 import { CurrentUserContext } from './CurrentUserContext';
 
 const Header = () => {

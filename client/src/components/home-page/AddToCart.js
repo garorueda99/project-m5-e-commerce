@@ -25,7 +25,11 @@ const AddToCart = ({ itemData }) => {
 
   // none in stock, or cart contents equal in stock
   if (itemData.numInStock === 0) {
-    return <GreyedButton>Out of stock</GreyedButton>;
+    return (
+      <AddToCartButton className="disabled-button" disabled>
+        Out of stock
+      </AddToCartButton>
+    );
   } else if (cartContents[itemData._id] >= itemData.numInStock) {
     return (
       <QuantityWrapper>
@@ -121,14 +125,8 @@ const AddToCartButton = styled.button`
   color: white;
   text-decoration: none;
   font-size: 16px;
-  cursor: pointer;
   padding: 5px 10px;
   border-radius: 5px;
-`;
-
-const GreyedButton = styled(AddToCartButton)`
-  background-color: lightgrey;
-  cursor: default;
 `;
 
 const QuantityButton = styled.button`

@@ -1,7 +1,9 @@
+// Libraries
 import React from 'react';
-import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
-import { SliderRail, Handle, Track, Tick } from './sliderComponents';
 import styled from 'styled-components';
+import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
+// Components
+import { SliderRail, Handle, Track, Tick } from './sliderComponents';
 
 const sliderStyle = {
   marginTop: '15px',

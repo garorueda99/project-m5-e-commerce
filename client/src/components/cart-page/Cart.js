@@ -121,7 +121,7 @@ const PurchaseButton = styled.button`
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 5%;
-  cursor: pointer;
+  border-radius: 5px;
 `;
 
 const Button = styled.button`

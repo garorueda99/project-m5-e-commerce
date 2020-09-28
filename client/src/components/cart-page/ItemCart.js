@@ -1,9 +1,13 @@
+// Libraries
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
-import Loader from '../Loader';
 import { useDispatch, useSelector } from 'react-redux';
+// Components
+import Loader from '../Loader';
+// Actions
 import { removeItemFromCart, loadArticle } from '../../actions';
+// Helpers
 import { fetchItem } from '../helpers/fetch-functions';
 
 export default function ItemCart({ id, qty, setTotal, total }) {

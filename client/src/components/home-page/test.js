@@ -1,6 +1,8 @@
+// Libraries
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
+// Components
 import { SliderRail, Handle, Track, Tick } from './components'; // example render components - source below
 
 const sliderStyle = {

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Item from './Item';
 import PageIndex from './PageIndex';
 import CategoryList from './CategoryList';
-
 // Actions
 import { requestItems, receiveItemsInfo } from '../../actions';
 // Helpers
