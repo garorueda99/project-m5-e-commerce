@@ -70,10 +70,9 @@ const Homepage = () => {
             setMin={setMin}
             max={max}
             setMax={setMax}
-            categories={categories}
             setCategories={setCategories}
-            bodyL={bodyL}
             setBodyL={setBodyL}
+            setPage={setPage}
             keyword={keyword}
             setKeyword={setKeyword}
           />
