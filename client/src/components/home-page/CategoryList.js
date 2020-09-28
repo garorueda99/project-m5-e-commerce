@@ -2,6 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
+import { useHistory } from 'react-router-dom';
+
 // Components
 import MinMaxTest from './MinMaxTest';
 const CategoryList = ({
@@ -19,6 +21,7 @@ const CategoryList = ({
 }) => {
   const [categoryItems, setCategoryItems] = React.useState(null);
   const [bodyLocations, setBodyLocations] = React.useState(null);
+  const history = useHistory();
 
   React.useEffect(() => {
     fetch('/api/items/categories')
@@ -28,8 +31,12 @@ const CategoryList = ({
       .then((json) => {
         setCategoryItems(json);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+        if (error.status == 404) {
+          history.push('/404');
+        } else {
+          history.push('/technical-issue');
+        }
       });
 
     fetch('/api/items/body_locations')
@@ -39,8 +46,12 @@ const CategoryList = ({
       .then((json) => {
         setBodyLocations(json);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+        if (error.status == 404) {
+          history.push('/404');
+        } else {
+          history.push('/technical-issue');
+        }
       });
   }, []);
 

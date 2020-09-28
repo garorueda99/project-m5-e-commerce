@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadCart } from '../actions';
 import { fetchCart } from '../components/helpers/fetch-functions';
+import { useHistory } from 'react-router-dom';
 export const CurrentUserContext = React.createContext(null);
 
 export const CurrentUserProvider = ({ children }) => {
@@ -10,6 +11,7 @@ export const CurrentUserProvider = ({ children }) => {
   const [status, setStatus] = React.useState('idle');
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const history = useHistory();
   React.useEffect(() => {
     fetch('/api/me/profile', { method: 'GET' })
       .then((res) => {
@@ -24,8 +26,12 @@ export const CurrentUserProvider = ({ children }) => {
         setStatus('idle');
       })
 
-      .catch((error) => {
-        console.error('Error:', error);
+      .catch(function (error) {
+        if (error.status == 404) {
+          history.push('/404');
+        } else {
+          history.push('/technical-issue');
+        }
       });
     fetchCart().then((data) => {
       dispatch(loadCart(data));

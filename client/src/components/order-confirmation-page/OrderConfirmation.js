@@ -36,7 +36,13 @@ const OrderConfirmation = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(cartContents),
-    }).catch((err) => history.push('/technical-issue'));
+    }).catch(function (error) {
+      if (error.status == 404) {
+        history.push('/404');
+      } else {
+        history.push('/technical-issue');
+      }
+    });
     return () => {
       dispatch(clearCart());
     };
