@@ -2,7 +2,13 @@ export async function fetchItems(filters = '') {
   const url = `/api/items/?${filters}`;
   const response = await fetch(url)
     .then((res) => res.json())
-    .catch((err) => console.log('FETCHING ITEMS ERROR', err));
+    .catch(function (error) {
+      if (error.status == 404) {
+        window.location.href = '/404';
+      } else {
+        window.location.href = '/technical-issue';
+      }
+    });
   return response;
 }
 
@@ -10,7 +16,13 @@ export async function fetchItem(id) {
   const url = `/api/item/${id}`;
   const response = await fetch(url)
     .then((res) => res.json())
-    .catch((err) => console.log(`FETCHING ITEM ${id} ERROR`, err));
+    .catch(function (error) {
+      if (error.status == 404) {
+        window.location.href = '/404';
+      } else {
+        window.location.href = '/technical-issue';
+      }
+    });
   return response;
 }
 
@@ -26,7 +38,13 @@ export async function postCart(cart) {
   };
   const response = await fetch(url, options)
     .then((res) => res.json())
-    .catch((err) => console.log(`POSTING CART ${cart} ERROR`, err));
+    .catch(function (error) {
+      if (error.status == 404) {
+        window.location.href = '/404';
+      } else {
+        window.location.href = '/technical-issue';
+      }
+    });
   return response;
 }
 
@@ -34,6 +52,12 @@ export async function fetchCart() {
   const url = `/api/me/profile/history`;
   const response = await fetch(url)
     .then((res) => res.json())
-    .catch((err) => console.log(`FETCHING USER CART ERROR`, err));
+    .catch(function (error) {
+      if (error.status == 404) {
+        window.location.href = '/404';
+      } else {
+        window.location.href = '/technical-issue';
+      }
+    });
   return response;
 }

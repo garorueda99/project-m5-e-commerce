@@ -1,27 +1,40 @@
+// Libraries
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
-import Loader from '../Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeItemFromCart } from '../../actions';
+// Components
+import Loader from '../Loader';
+// Actions
+import { removeItemFromCart, loadArticle } from '../../actions';
+// Helpers
+import { fetchItem } from '../helpers/fetch-functions';
 
 export default function ItemCart({ id, qty, setTotal, total }) {
   const dispatch = useDispatch();
-  const [loading, setLoadging] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [itemQty, setItemQty] = useState(qty);
   const itemData = useSelector((state) =>
     state.cart.articles.find((element) => element._id === parseInt(id))
   );
 
   useEffect(() => {
-    setTotal((n) => n + convertPriceToNumber(itemData.price) * itemQty);
+    !itemData && fetchItem(id).then((data) => dispatch(loadArticle(data)));
+  }, []);
+
+  useEffect(() => {
+    if (!!itemData) {
+      setTotal((n) => n + convertPriceToNumber(itemData.price) * itemQty);
+    }
   }, [itemQty]);
   return (
     <>
-      {itemData && (
+      {!!itemData && (
         <ItemWrapper>
           {loading && <Loader />}
-          <ItemImage src={itemData.imageSrc} alt="Item image"></ItemImage>
+          <ImgWrapper
+            style={{ backgroundImage: `url(${itemData.imageSrc})` }}
+          />
           <ItemInformationWrapper>
             <Button
               onClick={() => {
@@ -77,10 +90,13 @@ const ItemWrapper = styled.div`
 `;
 // stylling selected item card
 
-const ItemImage = styled.img`
-  width: 15%;
-  height: 15%;
+const ImgWrapper = styled.div`
+  width: 140px;
+  height: 140px;
   margin: 2%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const ItemName = styled.h2`

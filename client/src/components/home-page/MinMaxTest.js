@@ -1,7 +1,9 @@
+// Libraries
 import React from 'react';
-import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
-import { SliderRail, Handle, Track, Tick } from './sliderComponents';
 import styled from 'styled-components';
+import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
+// Components
+import { SliderRail, Handle, Track, Tick } from './sliderComponents';
 
 const sliderStyle = {
   marginTop: '15px',
@@ -11,7 +13,7 @@ const sliderStyle = {
 const domain = [0, 2500];
 const defaultValues = [0, 2500];
 
-export default function MinMaxTest({ min, setMin, max, setMax }) {
+export default function MinMaxTest({ min, setMin, max, setMax, setPage }) {
   return (
     <Wrapper>
       <div>
@@ -25,6 +27,7 @@ export default function MinMaxTest({ min, setMin, max, setMax }) {
         onChange={(e) => {
           setMin(e[0]);
           setMax(e[1]);
+          setPage(1);
         }}
         values={defaultValues}
       >

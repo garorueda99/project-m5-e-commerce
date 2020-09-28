@@ -4,21 +4,21 @@ import { Link, Redirect } from 'react-router-dom';
 // Styles
 import '../../styles/ErrorStyling.css';
 
-const NotFound = () => {
+const TechnicalIssue = () => {
   const currentHrefLocation = window.location.href;
-  if (currentHrefLocation !== 'http://localhost:3000/404') {
-    const redirect = <Redirect to="/404" />;
+  if (currentHrefLocation !== 'http://localhost:3000/technical-issue') {
+    const redirect = <Redirect to="/technical-issue" />;
     return redirect;
   }
 
   return (
     <>
       <div className="error-container">
-        <h1 className="error-heading">404 - Page not Found!</h1>
+        <h1 className="error-heading">Error - Technical issues!</h1>
         <div className="error-text-container">
           <hr className="horizontale-rule" />
           <p className="error-paragraph">
-            We're sorry but we can't find the page you're looking for. Please
+            We're sorry but we can't load the page you're looking for. Please
             check the URL or{' '}
             <Link className="continue-shopping-link" to="/">
               continue shopping
@@ -31,4 +31,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default TechnicalIssue;

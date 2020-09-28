@@ -1,5 +1,5 @@
 // Libraries
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Components
@@ -11,14 +11,14 @@ import OrderConfirmation from './order-confirmation-page/OrderConfirmation';
 import Header from './Header';
 import Footer from './Footer';
 import Loader from './Loader';
-// import Error from './error-page/Error';
+import TechnicalIssue from './error-page/TechnicalIssue';
 import NotFound from './error-page/NotFound';
 import { CurrentUserContext } from './CurrentUserContext';
 // Styles
 import GlobalStyles from './GlobalStyles';
 
 function App() {
-  const { currentUser } = React.useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   return !currentUser ? (
     <Router>
       <Wrapper>
@@ -53,6 +53,7 @@ function App() {
                 <SignIn />
               </Route>
               <Route component={NotFound} />
+              <Route component={TechnicalIssue} />
             </Switch>
           </Main>
           <Footer />

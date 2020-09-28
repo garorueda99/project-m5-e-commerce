@@ -2,8 +2,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
+import { useHistory } from 'react-router-dom';
+
 // Components
 import MinMaxTest from './MinMaxTest';
+
 const CategoryList = ({
   available,
   setFilterAvailable,
@@ -11,15 +14,15 @@ const CategoryList = ({
   setMin,
   max,
   setMax,
-  categories,
   setCategories,
-  bodyL,
   setBodyL,
+  setPage,
   keyword,
   setKeyword,
 }) => {
   const [categoryItems, setCategoryItems] = React.useState(null);
   const [bodyLocations, setBodyLocations] = React.useState(null);
+  const history = useHistory();
 
   React.useEffect(() => {
     fetch('/api/items/categories')
@@ -29,8 +32,12 @@ const CategoryList = ({
       .then((json) => {
         setCategoryItems(json);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+        if (error.status == 404) {
+          history.push('/404');
+        } else {
+          history.push('/technical-issue');
+        }
       });
 
     fetch('/api/items/body_locations')
@@ -40,8 +47,12 @@ const CategoryList = ({
       .then((json) => {
         setBodyLocations(json);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+        if (error.status == 404) {
+          history.push('/404');
+        } else {
+          history.push('/technical-issue');
+        }
       });
   }, []);
 
@@ -61,12 +72,21 @@ const CategoryList = ({
           <input
             type="checkbox"
             checked={available}
-            onChange={() => setFilterAvailable(!available)}
+            onChange={() => {
+              setFilterAvailable(!available);
+              setPage(1);
+            }}
           />
           Available Only
         </label>
       </div>
-      <MinMaxTest min={min} setMin={setMin} max={max} setMax={setMax} />
+      <MinMaxTest
+        min={min}
+        setMin={setMin}
+        max={max}
+        setMax={setMax}
+        setPage={setPage}
+      />
       <h4>Categories</h4>
       <ListWrapper>
         {categoryItems &&
@@ -83,6 +103,7 @@ const CategoryList = ({
                           n.filter((element) => element !== category)
                         );
                       }
+                      setPage(1);
                     }}
                     type="checkbox"
                   />
@@ -107,6 +128,7 @@ const CategoryList = ({
                         n.filter((element) => element !== location)
                       );
                     }
+                    setPage(1);
                   }}
                   type="checkbox"
                 />

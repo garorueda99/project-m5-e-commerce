@@ -2,11 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearCart } from '../../actions';
+import { useHistory } from 'react-router-dom';
+import { IoIosArrowDroprightCircle } from 'react-icons/io';
 // Components
 import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
+// Actions
+import { clearCart } from '../../actions';
 // Assets
 import visa from '../../assets/payment-method-visa.png';
 
@@ -24,15 +28,22 @@ const OrderConfirmation = () => {
   const cartArticles = useSelector((state) => state.cart.articles);
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     fetch('/api/items/reduce', {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(cartContents),
-    }).catch((err) => console.log(err));
+    }).catch(function (error) {
+      if (error.status == 404) {
+        history.push('/404');
+      } else {
+        history.push('/technical-issue');
+      }
+    });
     return () => {
       dispatch(clearCart());
     };
@@ -40,9 +51,17 @@ const OrderConfirmation = () => {
   return (
     <>
       <Wrapper>
+        <LinkContainer>
+          <IoIosArrowDroprightCircle
+            style={{ height: '22px', width: '22px' }}
+          />
+          <ContinueShoppingLink to="/">
+            &nbsp;Continue shopping
+          </ContinueShoppingLink>
+        </LinkContainer>
         <h1 style={{ fontWeight: '400' }}>Thank you for your order!</h1>
         <InvoiceWrapper>
-          <HorizontalRule />
+          <hr className="horizontale-rule" />
           <Row className="sm-invoice-section-row">
             <Column id="order-number" className="md-invoice-section-column">
               <InvoiceTitle>Order Number</InvoiceTitle>
@@ -86,7 +105,7 @@ const OrderConfirmation = () => {
               ${currentUser.profile.country}`}</p>
             </Column>
           </Row>
-          <HorizontalRule />
+          <hr className="horizontale-rule" />
         </InvoiceWrapper>
         <ProductTitle>Product(s)</ProductTitle>
         <LineItemWrapper>
@@ -122,11 +141,6 @@ const InvoiceWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-const HorizontalRule = styled.hr`
-  border: 0;
-  border-bottom: 1px solid #dadada;
-`;
-
 const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -155,6 +169,18 @@ const ProductTitle = styled.h2`
 const PaymentMethod = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const ContinueShoppingLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
+const LinkContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #0080ff;
 `;
 
 export default OrderConfirmation;

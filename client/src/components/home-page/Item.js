@@ -1,9 +1,8 @@
 // Libraries
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 // Components
 import AddToCart from './AddToCart';
 
@@ -40,8 +39,6 @@ const Item = ({ itemData }) => {
           // Onclick on card to redirect to the item page
           onClick={() => {
             history.push('/item/' + itemData._id);
-            // return <Route path="/cart" />;
-            // window.location.href = '/item/' + data._id;
           }}
         >
           <h3>{itemDisplayName}</h3>

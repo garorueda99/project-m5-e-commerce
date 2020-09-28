@@ -9,16 +9,16 @@ import ItemCart from './ItemCart';
 import EmptyCart from './EmptyCart';
 import { CurrentUserContext } from '../CurrentUserContext';
 // Actions
-import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
+import { removeAllFromCart, purchaseCart } from '../../actions';
 
 export default function Item() {
   const dispatch = useDispatch();
-  const Cart = useSelector((state) => state.cart.indexes);
+  const cart = useSelector((state) => state.cart);
   const [total, setTotal] = useState(0);
   const { currentUser } = useContext(CurrentUserContext);
   const history = useHistory();
 
-  if (Object.keys(Cart).length === 0) {
+  if (Object.keys(cart.indexes).length === 0) {
     return <EmptyCart />;
   }
 
@@ -29,7 +29,7 @@ export default function Item() {
           Hello <strong>{currentUser.profile.firstName}</strong>!! <br />
           The following product(s) are in your cart:
         </p>
-        {Object.keys(Cart).length !== 0 && (
+        {Object.keys(cart.indexes).length !== 0 && (
           <Button
             onClick={() => {
               dispatch(removeAllFromCart());
@@ -40,11 +40,11 @@ export default function Item() {
           </Button>
         )}
         <CartItemInformationWrapper>
-          {Object.keys(Cart).map((element, index) => (
+          {Object.keys(cart.indexes).map((element, index) => (
             <ItemCart
               key={`item-order-${index}`}
               id={element}
-              qty={Cart[element]}
+              qty={cart.indexes[element]}
               setTotal={setTotal}
               total={total}
             />
@@ -120,7 +120,7 @@ const PurchaseButton = styled.button`
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 5%;
-  cursor: pointer;
+  border-radius: 5px;
 `;
 
 const Button = styled.button`

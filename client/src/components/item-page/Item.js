@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 // Actions
 import { updateItemQuantity } from '../../actions';
-import { postCart } from '../helpers/fetch-functions';
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -32,8 +32,12 @@ export default function Item() {
       .then((json) => {
         setItem(json);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(function (error) {
+        if (error.status === 404) {
+          history.push('/404');
+        } else {
+          history.push('/technical-issue');
+        }
       });
   }, [itemId]);
 
@@ -46,8 +50,12 @@ export default function Item() {
       .then((json) => {
         setCompany(json);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(function (error) {
+        if (error.status === 404) {
+          history.push('/404');
+        } else {
+          history.push('/technical-issue');
+        }
       });
   }, []);
 
@@ -60,7 +68,7 @@ export default function Item() {
     for (let index = 1; index < item.numInStock + 1; index++) {
       if (index === itemState[itemId]) {
         itemsSelectionQuantity.push(
-          <option key={`qty-${index}`} value={index} selected>
+          <option key={`qty-${index}`} value={index}>
             Quantity: {index}
           </option>
         );
@@ -88,6 +96,7 @@ export default function Item() {
 
   // event update number of item in dropdown
   const handleDropdownChange = (e) => {
+    dispatch(updateItemQuantity(item, parseInt(e.target.value)));
     setItemQuantity(e.target.value);
   };
   return (
@@ -104,7 +113,7 @@ export default function Item() {
           {/* update available item selection quantity */}
           {item.numInStock > 0 && (
             <ItemQuantitySelect
-              // value={itemQuantity}
+              value={itemQuantity}
               onChange={handleDropdownChange}
             >
               {itemsSelectionQuantity}
@@ -125,14 +134,14 @@ export default function Item() {
               Add to cart
             </AddToCartButton>
           ) : (
-            <AddToCartButton
-              disabled
-              style={{ backgroundColor: 'grey' }}
+              <AddToCartButton
+                className="disabled-button"
+                disabled
               // unvailable because is out of stock
-            >
-              Unavailable
-            </AddToCartButton>
-          )}
+              >
+                Unavailable
+              </AddToCartButton>
+            )}
         </ItemInformationWrapper>
       </ItemWrapper>
     </Wrapper>
@@ -143,7 +152,6 @@ export default function Item() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
 `;
@@ -151,7 +159,6 @@ const Wrapper = styled.div`
 const ItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
   width: 500px;
   margin-top: 5%;
@@ -166,15 +173,6 @@ const ItemInformationWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 2%;
-`;
-
-const ItemReviewWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 10%;
 `;
 
 // stylling item in card
@@ -228,5 +226,5 @@ const AddToCartButton = styled.button`
   font-size: 16px;
   margin: 5%;
   margin-top: 50%;
-  cursor: pointer;
+  border-radius: 5px;
 `;

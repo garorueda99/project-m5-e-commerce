@@ -47,6 +47,23 @@ export default createGlobalStyle`
     overflow-x: hidden;
   }
 
+  input, button, label {
+    cursor: pointer
+  }
+
+  .disabled-button {
+    background-color: lightgrey;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+
+  .horizontale-rule {
+    border: 0;
+    border-bottom: 1px solid #dadada;
+  }
+
   /* Loader */
   @keyframes spin {
     0% {

@@ -11,7 +11,10 @@ import { changePageItems, changePageSize } from '../../actions';
 export default function PageIndex({ page, setPage }) {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);
-  const lastPage = Math.round(items.totalFound / items.pageSize);
+  const lastPage =
+    Math.round(items.totalFound / items.pageSize) === 0
+      ? 1
+      : Math.round(items.totalFound / items.pageSize);
   return (
     <Wrapper>
       <div>
@@ -70,6 +73,7 @@ export default function PageIndex({ page, setPage }) {
             value={items.pageSize}
             onChange={(e) => {
               dispatch(changePageSize(e.target.value));
+              setPage(1);
             }}
           >
             <option value="9">9</option>
@@ -100,5 +104,4 @@ const Button = styled.button`
   border: none;
   background: none;
   outline: none;
-  cursor: pointer;
 `;
