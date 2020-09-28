@@ -61,7 +61,7 @@ const OrderConfirmation = () => {
         </LinkContainer>
         <h1 style={{ fontWeight: '400' }}>Thank you for your order!</h1>
         <InvoiceWrapper>
-          <HorizontalRule />
+          <hr className="horizontale-rule" />
           <Row className="sm-invoice-section-row">
             <Column id="order-number" className="md-invoice-section-column">
               <InvoiceTitle>Order Number</InvoiceTitle>
@@ -105,7 +105,7 @@ const OrderConfirmation = () => {
               ${currentUser.profile.country}`}</p>
             </Column>
           </Row>
-          <HorizontalRule />
+          <hr className="horizontale-rule" />
         </InvoiceWrapper>
         <ProductTitle>Product(s)</ProductTitle>
         <LineItemWrapper>
@@ -139,11 +139,6 @@ const Wrapper = styled.div`
 const InvoiceWrapper = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
-`;
-
-const HorizontalRule = styled.hr`
-  border: 0;
-  border-bottom: 1px solid #dadada;
 `;
 
 const Row = styled.div`
