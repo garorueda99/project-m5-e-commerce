@@ -68,7 +68,13 @@ const CategoryList = ({
           Available Only
         </label>
       </div>
-      <MinMaxTest min={min} setMin={setMin} max={max} setMax={setMax} />
+      <MinMaxTest
+        min={min}
+        setMin={setMin}
+        max={max}
+        setMax={setMax}
+        setPage={setPage}
+      />
       <h4>Categories</h4>
       <ListWrapper>
         {categoryItems &&
