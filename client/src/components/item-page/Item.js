@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 // Actions
 import { updateItemQuantity } from '../../actions';
 
@@ -31,8 +32,12 @@ export default function Item() {
       .then((json) => {
         setItem(json);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(function (error) {
+        if (error.status == 404) {
+          history.push('/404');
+        } else {
+          history.push('/technical-issue');
+        }
       });
   }, [itemId]);
 
@@ -45,8 +50,12 @@ export default function Item() {
       .then((json) => {
         setCompany(json);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(function (error) {
+        if (error.status == 404) {
+          history.push('/404');
+        } else {
+          history.push('/technical-issue');
+        }
       });
   }, []);
 
