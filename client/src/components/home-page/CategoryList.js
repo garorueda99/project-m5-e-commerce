@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 // Components
 import MinMaxTest from './MinMaxTest';
+
 const CategoryList = ({
   available,
   setFilterAvailable,

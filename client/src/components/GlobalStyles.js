@@ -32,15 +32,6 @@ export default createGlobalStyle`
     display: block;
   }
 
-input{
-  cursor:pointer
-}
-
-button{
-  cursor:pointer
-}
-
-label{cursor: pointer}
   /* GLOBAL STYLES */
   *,
   *:before,
@@ -54,6 +45,18 @@ label{cursor: pointer}
     height: 100vh;
     width: 100vw;
     overflow-x: hidden;
+  }
+
+  input, button, label {
+    cursor: pointer
+  }
+
+  .disabled-button {
+    background-color: lightgrey;
+
+    &:hover {
+      cursor: not-allowed;
+    }
   }
 
   /* Loader */

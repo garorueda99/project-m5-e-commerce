@@ -104,5 +104,4 @@ const Button = styled.button`
   border: none;
   background: none;
   outline: none;
-  cursor: pointer;
 `;
