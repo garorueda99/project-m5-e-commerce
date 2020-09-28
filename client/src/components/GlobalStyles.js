@@ -32,6 +32,15 @@ export default createGlobalStyle`
     display: block;
   }
 
+input{
+  cursor:pointer
+}
+
+button{
+  cursor:pointer
+}
+
+label{cursor: pointer}
   /* GLOBAL STYLES */
   *,
   *:before,

@@ -128,6 +128,7 @@ const AddToCartButton = styled.button`
 
 const GreyedButton = styled(AddToCartButton)`
   background-color: lightgrey;
+  cursor: default;
 `;
 
 const QuantityButton = styled.button`
@@ -143,4 +144,5 @@ const QuantityWrapper = styled.div`
 
 const GreyPlusItem = styled(BsPlus)`
   color: lightgrey;
+  cursor: default;
 `;
