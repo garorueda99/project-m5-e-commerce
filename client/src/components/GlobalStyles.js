@@ -59,6 +59,11 @@ export default createGlobalStyle`
     }
   }
 
+  .horizontale-rule {
+    border: 0;
+    border-bottom: 1px solid #dadada;
+  }
+
   /* Loader */
   @keyframes spin {
     0% {
