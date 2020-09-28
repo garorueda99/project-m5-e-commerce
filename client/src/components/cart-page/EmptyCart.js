@@ -10,7 +10,9 @@ const EmptyCart = () => {
         <TextWrapper>
           <HorizontalRule />
           <Paragraph>
-            <Link to="/">Continue shopping</Link>
+            <ContinueShoppingLink to="/">
+              Continue shopping
+            </ContinueShoppingLink>
           </Paragraph>
         </TextWrapper>
       </Wrapper>
@@ -44,6 +46,15 @@ const HorizontalRule = styled.hr`
 
 const Paragraph = styled.p`
   padding-top: 20px;
+`;
+
+const ContinueShoppingLink = styled(Link)`
+  text-decoration: none;
+  border-bottom: dashed 1px;
+  color: black;
+  &&:hover {
+    border-bottom: solid 1px;
+  }
 `;
 
 export default EmptyCart;

@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { clearCart } from '../../actions';
+import { IoIosArrowDroprightCircle } from 'react-icons/io';
 // Components
 import LineItem from './LineItem';
 import { CurrentUserContext } from '../CurrentUserContext';
@@ -42,6 +44,14 @@ const OrderConfirmation = () => {
   return (
     <>
       <Wrapper>
+        <LinkContainer>
+          <IoIosArrowDroprightCircle
+            style={{ height: '22px', width: '22px' }}
+          />
+          <ContinueShoppingLink to="/">
+            &nbsp;Continue shopping
+          </ContinueShoppingLink>
+        </LinkContainer>
         <h1 style={{ fontWeight: '400' }}>Thank you for your order!</h1>
         <InvoiceWrapper>
           <HorizontalRule />
@@ -157,6 +167,18 @@ const ProductTitle = styled.h2`
 const PaymentMethod = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const ContinueShoppingLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
+const LinkContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #0080ff;
 `;
 
 export default OrderConfirmation;

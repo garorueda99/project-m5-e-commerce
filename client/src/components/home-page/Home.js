@@ -33,7 +33,6 @@ const Homepage = () => {
   let body_query = bodyL.length !== 0 ? `&body_location=${bodyL.join()}` : ``;
   let keyword_query = keyword.length >= 3 ? `&keyword=${keyword}` : '';
   // pull list of items
-
   React.useEffect(() => {
     dispatch(requestItems());
     const query =
@@ -45,7 +44,6 @@ const Homepage = () => {
       categories_query +
       body_query +
       keyword_query;
-    console.log();
     fetchItems(query).then((res) => dispatch(receiveItemsInfo(res)));
   }, [
     page,
@@ -60,7 +58,6 @@ const Homepage = () => {
 
   // map through list of items and return individual items
   // pass through individual array item from itemList
-
   return (
     <Wrapper>
       <PageIndex page={page} setPage={setPage} />
@@ -73,10 +70,9 @@ const Homepage = () => {
             setMin={setMin}
             max={max}
             setMax={setMax}
-            categories={categories}
             setCategories={setCategories}
-            bodyL={bodyL}
             setBodyL={setBodyL}
+            setPage={setPage}
             keyword={keyword}
             setKeyword={setKeyword}
           />

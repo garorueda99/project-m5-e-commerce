@@ -11,10 +11,9 @@ const CategoryList = ({
   setMin,
   max,
   setMax,
-  categories,
   setCategories,
-  bodyL,
   setBodyL,
+  setPage,
   keyword,
   setKeyword,
 }) => {
@@ -61,12 +60,21 @@ const CategoryList = ({
           <input
             type="checkbox"
             checked={available}
-            onChange={() => setFilterAvailable(!available)}
+            onChange={() => {
+              setFilterAvailable(!available);
+              setPage(1);
+            }}
           />
           Available Only
         </label>
       </div>
-      <MinMaxTest min={min} setMin={setMin} max={max} setMax={setMax} />
+      <MinMaxTest
+        min={min}
+        setMin={setMin}
+        max={max}
+        setMax={setMax}
+        setPage={setPage}
+      />
       <h4>Categories</h4>
       <ListWrapper>
         {categoryItems &&
@@ -83,6 +91,7 @@ const CategoryList = ({
                           n.filter((element) => element !== category)
                         );
                       }
+                      setPage(1);
                     }}
                     type="checkbox"
                   />
@@ -107,6 +116,7 @@ const CategoryList = ({
                         n.filter((element) => element !== location)
                       );
                     }
+                    setPage(1);
                   }}
                   type="checkbox"
                 />

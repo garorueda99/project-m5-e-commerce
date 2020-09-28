@@ -11,7 +11,7 @@ const sliderStyle = {
 const domain = [0, 2500];
 const defaultValues = [0, 2500];
 
-export default function MinMaxTest({ min, setMin, max, setMax }) {
+export default function MinMaxTest({ min, setMin, max, setMax, setPage }) {
   return (
     <Wrapper>
       <div>
@@ -25,6 +25,7 @@ export default function MinMaxTest({ min, setMin, max, setMax }) {
         onChange={(e) => {
           setMin(e[0]);
           setMax(e[1]);
+          setPage(1);
         }}
         values={defaultValues}
       >

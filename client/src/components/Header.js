@@ -1,16 +1,17 @@
 // Libraries
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { BiUser } from 'react-icons/bi';
 import { CgShoppingCart } from 'react-icons/cg';
 import { GiPegasus } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { CurrentUserContext } from './CurrentUserContext';
 
 const Header = () => {
   const Cart = useSelector((state) => state.cart.indexes);
   const cartCount = Object.values(Cart).reduce((a, b) => a + b, 0);
-
+  const { currentUser } = useContext(CurrentUserContext);
   return (
     <Wrapper>
       <Logo to="/">
@@ -30,14 +31,20 @@ const Header = () => {
               </span>
             </NavigationLink>
           </li>
-          <li>
-            <NavigationLink to="/signin">
-              <span className="md-top-nav-text">Sign In</span>
-              <span className="sm-top-nav-icon">
-                <BiUser style={{ height: '22px', width: '22px' }} />
-              </span>
-            </NavigationLink>
-          </li>
+          {!currentUser ? (
+            <li>
+              <NavigationLink to="/signin">
+                <span className="md-top-nav-text">Sign In</span>
+                <span className="sm-top-nav-icon">
+                  <BiUser style={{ height: '22px', width: '22px' }} />
+                </span>
+              </NavigationLink>
+            </li>
+          ) : (
+            <li>
+              <User src={currentUser.profile.imageSrc} alt="user image" />
+            </li>
+          )}
         </NavigationList>
       </nav>
     </Wrapper>
@@ -67,6 +74,12 @@ const Logo = styled(NavLink)`
   &:hover {
     opacity: 0.5;
   }
+`;
+
+const User = styled.img`
+  width: 45px;
+  border-radius: 50%;
+  margin-left: 15px;
 `;
 
 const Title = styled.span`
