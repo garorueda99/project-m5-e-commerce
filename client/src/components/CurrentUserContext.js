@@ -1,7 +1,7 @@
 // Libraries
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // Actions
 import { loadCart } from '../actions';
 // Helpers
@@ -12,7 +12,6 @@ export const CurrentUserContext = React.createContext(null);
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [status, setStatus] = React.useState('idle');
-  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const history = useHistory();
   React.useEffect(() => {

@@ -33,7 +33,7 @@ export default function Item() {
         setItem(json);
       })
       .catch(function (error) {
-        if (error.status == 404) {
+        if (error.status === 404) {
           history.push('/404');
         } else {
           history.push('/technical-issue');
@@ -51,7 +51,7 @@ export default function Item() {
         setCompany(json);
       })
       .catch(function (error) {
-        if (error.status == 404) {
+        if (error.status === 404) {
           history.push('/404');
         } else {
           history.push('/technical-issue');
@@ -134,14 +134,14 @@ export default function Item() {
               Add to cart
             </AddToCartButton>
           ) : (
-            <AddToCartButton
-              className="disabled-button"
-              disabled
+              <AddToCartButton
+                className="disabled-button"
+                disabled
               // unvailable because is out of stock
-            >
-              Unavailable
-            </AddToCartButton>
-          )}
+              >
+                Unavailable
+              </AddToCartButton>
+            )}
         </ItemInformationWrapper>
       </ItemWrapper>
     </Wrapper>

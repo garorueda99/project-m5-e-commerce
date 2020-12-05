@@ -12,7 +12,7 @@ import { fetchItem } from '../helpers/fetch-functions';
 
 export default function ItemCart({ id, qty, setTotal, total }) {
   const dispatch = useDispatch();
-  const [loading, setLoadging] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [itemQty, setItemQty] = useState(qty);
   const itemData = useSelector((state) =>
     state.cart.articles.find((element) => element._id === parseInt(id))

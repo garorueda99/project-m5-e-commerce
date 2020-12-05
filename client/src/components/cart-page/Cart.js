@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
@@ -9,8 +9,7 @@ import ItemCart from './ItemCart';
 import EmptyCart from './EmptyCart';
 import { CurrentUserContext } from '../CurrentUserContext';
 // Actions
-import { removeFromCart, removeAllFromCart, purchaseCart } from '../../actions';
-import { fetchItem } from '../helpers/fetch-functions';
+import { removeAllFromCart, purchaseCart } from '../../actions';
 
 export default function Item() {
   const dispatch = useDispatch();
